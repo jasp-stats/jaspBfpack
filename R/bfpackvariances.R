@@ -57,5 +57,5 @@ bfpackVariances <- function(jaspResults, dataset, options, ...) {
   .bfpackStandardBfTable(options, bfpackContainer, type, position = 1.5)
 
   # Create the prior and posterior probability plots
-  .bfpackPriorPosteriorPlot(options, bfpackContainer, type)
+  .bfpackPriorPosteriorProbabilityPlot(options, bfpackContainer, type)
 }

@@ -252,7 +252,9 @@
     }
 
     if (options[["groupingVariable"]] == "") {
-      result <- try(BFpack::cor_test(dataset, formula = form))
+      result <- try(BFpack::cor_test(dataset,
+                                     formula = form,
+                                     iter = options[["iterations"]]))
 
     } else {
       groupName <- decodeColNames(options[["groupingVariable"]])
@@ -356,11 +358,22 @@
     g2 <- levels[2]
     group1 <- dataset[dataset[[grouping]] == g1, variable]
     group2 <- dataset[dataset[[grouping]] == g2, variable]
-    result <- try(bain::t_test(x = group1, y = group2,
-                               paired = FALSE,
-                               var.equal = options[["variances"]] == "equal",
-                               conf.level = options[["ciLevel"]],
-                               mu = options[["muValue"]]))
+
+    # since the bain package does not allow anything to be pased but a boolean for var.equal, we need to do this:
+    if (options[["variances"]] == "equal") {
+      result <- try(bain::t_test(x = group1, y = group2,
+                                 paired = FALSE,
+                                 var.equal = TRUE,
+                                 conf.level = options[["ciLevel"]],
+                                 mu = options[["muValue"]]))
+    } else {
+      result <- try(bain::t_test(x = group1, y = group2,
+                                 paired = FALSE,
+                                 var.equal = FALSE,
+                                 conf.level = options[["ciLevel"]],
+                                 mu = options[["muValue"]]))
+    }
+
 
   } else if (type == "tTestOneSample") {
 
@@ -905,14 +918,14 @@
 
 ####### PLOTS ########
 
-.bfpackPriorPosteriorPlot <- function(options, bfpackContainer, type, position = 1) {
-  if (!is.null(bfpackContainer[["plotContainer"]][["priorPlot"]]) || !options[["manualPlots"]]) {
+.bfpackPriorPosteriorProbabilityPlot <- function(options, bfpackContainer, type) {
+  if (!is.null(bfpackContainer[["probabilitiesPlotContainer"]]) || !options[["manualPlots"]]) {
     return()
   }
 
-  plotContainer <- createJaspContainer(gettext("Prior and Posterior Probabilities"))
-  plotContainer$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]])
-  bfpackContainer[["plotContainer"]] <- plotContainer
+  probabilitiesPlotContainer <- createJaspContainer(gettext("Prior and Posterior Probabilities"))
+  probabilitiesPlotContainer$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]], options = "manualPlots")
+  bfpackContainer[["probabilitiesPlotContainer"]] <- probabilitiesPlotContainer
 
   result <- bfpackContainer[["resultsContainer"]][["resultsState"]]$object
 
@@ -921,10 +934,10 @@
     prior <- result$prior.hyp.conf
 
     priorPlot <- .plotHelper(prior, gettext("Prior Probabilities"))
-    plotContainer[["priorPlot"]] <- priorPlot
+    probabilitiesPlotContainer[["priorPlot"]] <- priorPlot
 
     postPlot <- .plotHelper(post, gettext("Posterior Probabilities"))
-    plotContainer[["postPlot"]] <- postPlot
+    probabilitiesPlotContainer[["postPlot"]] <- postPlot
 
   }
 
@@ -954,29 +967,66 @@
 # create the posterior distribution plots for correlation
 .bfpackPosteriorDistributionPlot <- function(options, bfpackContainer, type) {
 
-  if (!is.null(bfpackContainer[["posteriorPlotContainer"]]) || !options[["posteriorPlot"]]) {
+  if (!is.null(bfpackContainer[["posteriorPlotContainer"]]) || !options[["priorPosteriorPlot"]]) {
     return()
   }
 
   posteriorPlotContainer <- createJaspContainer(gettext("Posterior Distribution"))
-  posteriorPlotContainer$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]], options = "posteriorPlot")
+  posteriorPlotContainer$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]],
+                                  options = c("priorPosteriorPlot", "priorPosteriorPlotAdditionalEstimationInfo",
+                                              "priorPosteriorPlotAdditionalTestingInfo"))
   bfpackContainer[["posteriorPlotContainer"]] <- posteriorPlotContainer
 
   result <- bfpackContainer[["resultsContainer"]][["resultsState"]]$object
 
   if (!bfpackContainer$getError() && !is.null(result)) {
     allDraws <- result$model$corrdraws
-    ll <- length(allDraws)
-    numVars <- dim(allDraws[[1]])[2]
+    dd <- dim(allDraws[[1]])
+    numVars <- dd[2]
+    iter <- dd[1]
+    # prior
+    seq1 <- seq(-1, 1, length = 2^10)
+    P <- numVars # say
+    xPri <- seq1
+    yPri <- dbeta(seq1 / 2 + .5, P / 2, P / 2) / 2
+    yPri0 <- dbeta(0 / 2 + .5, P / 2, P / 2) / 2
+
+
     corNames <- rownames(result$estimates)
     z <- 1
     for (l in 1:length(allDraws)) { # for multiple groups the list is longer than 1
-      for (j in 1:(numVars-1)) {
-        for (i in (j+1):numVars) {
-          post <- allDraws[[l]][, i, j]
-          cint <- result$estimates[z, 3:4]
-          postPlot <- .makeSinglePosteriorDistributionPlot(post, int = cint)
-          postPlot$title <- corNames[z]
+      for (j in 1:(numVars - 1)) {
+        for (i in (j + 1):numVars) {
+          postSamp <- allDraws[[l]][, i, j]
+          postDens <- density(postSamp, n = 2^10, bw = "SJ")
+          postY0 <- approx(postDens$x, postDens$y, xout = 0)$y
+
+          dfLines <- data.frame(x = c(xPri, postDens$x), y = c(yPri, postDens$y), g = c(rep(gettext("Prior"), length(xPri)), rep(gettext("Posterior"), length(postDens$x))))
+          dfPoints <- data.frame(x = c(0, 0), y = c(yPri0, postY0), g = c("Prior", "Posterior"))
+          BF0u <- result$BFtu_exploratory[z, "BF0u"]
+          cri <- result$estimates[z, 3:4]
+          criTxt <- gettextf("%s%% CI ", format(100 * options[["ciLevel"]]))
+          med <- result$estimates[z, "median"]
+
+          dfPointsVal <- if (options[["priorPosteriorPlotAdditionalTestingInfo"]]) dfPoints else NULL
+          BFVal <- if (options[["priorPosteriorPlotAdditionalTestingInfo"]]) BF0u else NULL
+          CRIVal <- if (options[["priorPosteriorPlotAdditionalEstimationInfo"]]) cri else NULL
+          medianVal <- if (options[["priorPosteriorPlotAdditionalEstimationInfo"]]) med else NULL
+
+          plt <- jaspGraphs::PlotPriorAndPosterior(
+            dfLines = dfLines,
+            dfPoints = dfPointsVal,
+            BF = BFVal,
+            CRI = CRIVal,
+            CRItxt = criTxt,
+            median = medianVal,
+            xName = gettext("ρ"),
+            hypothesis = "equal",
+            bfType = "BF01"
+          )
+
+          height <- if (!options[["priorPosteriorPlotAdditionalTestingInfo"]] && !options[["priorPosteriorPlotAdditionalEstimationInfo"]]) 400 else 460
+          postPlot <- createJaspPlot(plt, title = corNames[z], width = 560, height = height)
           posteriorPlotContainer[[paste0("cor", z)]] <- postPlot
           z <- z + 1
         }
@@ -987,39 +1037,45 @@
   return()
 }
 
-.makeSinglePosteriorDistributionPlot <- function(samples, int) {
-
-  d <- stats::density(samples, n = 2^10)
-  datDens <- data.frame(x = d$x, y = d$y)
-  xBreaks <- jaspGraphs::getPrettyAxisBreaks(datDens$x)
-
-  # max height posterior is at 90% of plot area; remainder is for credible interval
-  ymax <- max(d$y) / .9
-  yBreaks <- jaspGraphs::getPrettyAxisBreaks(c(0, ymax))
-  ymax <- max(yBreaks)
-  scaleCriRound <- round(int, 3)
-  datCri <- data.frame(xmin = scaleCriRound[1L], xmax = scaleCriRound[2L], y = .925 * ymax)
-  height <- (ymax - .925 * ymax) / 2
-
-  datTxt <- data.frame(x = c(datCri$xmin, datCri$xmax),
-                       y = 0.985 * ymax,
-                       label = sapply(c(datCri$xmin, datCri$xmax), format, digits = 3, scientific = -1),
-                       stringsAsFactors = FALSE)
-
-  g <- ggplot2::ggplot(data = datDens, mapping = ggplot2::aes(x = x, y = y)) +
-    ggplot2::geom_line(linewidth = .85) +
-    ggplot2::geom_errorbarh(data = datCri, mapping = ggplot2::aes(xmin = xmin, xmax = xmax, y = y),
-                            height = height, inherit.aes = FALSE) +
-    ggplot2::geom_text(data = datTxt, mapping = ggplot2::aes(x = x, y = y, label = label), inherit.aes = FALSE,
-                       size = 6) +
-    ggplot2::scale_y_continuous(name = gettext("Density"), breaks = yBreaks, limits = range(yBreaks)) +
-    ggplot2::scale_x_continuous(name = gettext("x"), breaks = xBreaks, limits = range(xBreaks))
-
-  g <- g + jaspGraphs::themeJaspRaw() + jaspGraphs::geom_rangeframe()
-  g <- createJaspPlot(g)
-  return(g)
-
-}
+# .makeSinglePosteriorDistributionPlot <- function(postSamples, priorSamples, int) {
+#
+#   d <- stats::density(postSamples, n = 2^10)
+#   datDens <- data.frame(x = d$x, y = d$y)
+#   xBreaks <- jaspGraphs::getPrettyAxisBreaks(datDens$x)
+#
+#   dprior <- stats::density(priorSamples, n = 2^10)
+#   datDensPrior <- data.frame(x = dprior$x, y = dprior$y)
+#
+#   datDens <- rbind(datDens, datDensPrior)
+#
+#   # max height posterior is at 90% of plot area; remainder is for credible interval
+#   ymax <- max(d$y) / .9
+#   yBreaks <- jaspGraphs::getPrettyAxisBreaks(c(0, ymax))
+#   ymax <- max(yBreaks)
+#   scaleCriRound <- round(int, 3)
+#   datCri <- data.frame(xmin = scaleCriRound[1L], xmax = scaleCriRound[2L], y = .925 * ymax)
+#   height <- (ymax - .925 * ymax) / 2
+#
+#   datTxt <- data.frame(x = c(datCri$xmin, datCri$xmax),
+#                        y = 0.985 * ymax,
+#                        label = sapply(c(datCri$xmin, datCri$xmax), format, digits = 3, scientific = -1),
+#                        stringsAsFactors = FALSE)
+#
+#   g <- ggplot2::ggplot(data = datDens, mapping = ggplot2::aes(x = x, y = y)) +
+#     ggplot2::geom_line(linewidth = .85) +
+#     ggplot2::scale_y_continuous(name = gettext("Density"), breaks = yBreaks, limits = range(yBreaks)) +
+#     ggplot2::scale_x_continuous(name = gettext("ρ"), breaks = xBreaks, limits = range(xBreaks))
+#
+#   g <- g + ggplot2::geom_errorbarh(data = datCri, mapping = ggplot2::aes(xmin = xmin, xmax = xmax, y = y),
+#                                        height = height, inherit.aes = FALSE) +
+#     ggplot2::geom_text(data = datTxt, mapping = ggplot2::aes(x = x, y = y, label = label), inherit.aes = FALSE,
+#                        size = 6)
+#
+#   g <- g + jaspGraphs::themeJaspRaw() + jaspGraphs::geom_rangeframe()
+#   g <- createJaspPlot(g)
+#   return(g)
+#
+# }
 
 # create the traceplot for correlation
 .bfpackTraceplot <- function(options, bfpackContainer, type) {
@@ -1034,17 +1090,21 @@
   result <- bfpackContainer[["resultsContainer"]][["resultsState"]]$object
 
   if (!bfpackContainer$getError() && !is.null(result)) {
-    draws <- result$model$corrdraws[[1]]
-    numVars <- dim(draws)[2]
-    corNames <- rownames(result$model$correstimates)
+    allDraws <- result$model$corrdraws
+    dd <- dim(allDraws[[1]])
+    numVars <- dd[2]
+    iter <- dd[1]
+    corNames <- rownames(result$estimates)
     z <- 1
-    for (j in 1:(numVars-1)) {
-      for (i in (j+1):numVars) {
-        post <- draws[, i, j]
-        postPlot <- .makeSingleTraceplot(post)
-        postPlot$title <- corNames[z]
-        traceplotContainer[[paste0("cor", z)]] <- postPlot
-        z <- z + 1
+    for (l in 1:length(allDraws)) { # for multiple groups the list is longer than 1
+      for (j in 1:(numVars - 1)) {
+        for (i in (j + 1):numVars) {
+          post <- allDraws[[l]][, i, j]
+          postPlot <- .makeSingleTraceplot(post)
+          postPlot$title <- corNames[z]
+          traceplotContainer[[paste0("cor", z)]] <- postPlot
+          z <- z + 1
+        }
       }
     }
   }
@@ -1064,7 +1124,7 @@
     ggplot2::scale_x_continuous(name = gettext("Iterations"),
                                 expand = ggplot2::expansion(mult = c(0.05, 0.1)))
   g <- g + jaspGraphs::themeJaspRaw() + jaspGraphs::geom_rangeframe()
-  g <- createJaspPlot(g, width = 400)
+  g <- createJaspPlot(g, width = 580)
   return(g)
 }
 

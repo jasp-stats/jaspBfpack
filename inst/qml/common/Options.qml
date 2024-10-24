@@ -91,8 +91,10 @@ Section
 		CheckBox
 		{
 			visible: 					iterations
-			name: 						"posteriorPlot"
-			text: 						qsTr("Posterior plot")
+			name: 						"priorPosteriorPlot"
+			text: 						qsTr("Prior and posterior plot")
+			CheckBox {	name: "priorPosteriorPlotAdditionalEstimationInfo";	label: qsTr("Estimation info");		checked: true }
+			CheckBox {	name: "priorPosteriorPlotAdditionalTestingInfo";		label: qsTr("Testing info");		checked: true }
 		}
 		CheckBox
 		{

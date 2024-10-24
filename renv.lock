@@ -15,10 +15,9 @@
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteUsername": "jomulder",
       "RemoteRepo": "BFpack",
-      "RemoteRef": "master",
-      "RemoteSha": "5de7a6f8137a3c621210814d8edf96999912dd61",
+      "RemoteUsername": "jomulder",
+      "RemoteSha": "19e438808ad3ebff2008d0b0fbaf988c0f184ead",
       "Requirements": [
         "Bergm",
         "MASS",
@@ -37,7 +36,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "20c6f177b5b4f1f50550346f1d841d29"
+      "Hash": "b0b9a7ff582752b46bf3e944c0490c66"
     },
     "BH": {
       "Package": "BH",
@@ -193,7 +192,7 @@
     },
     "Matrix": {
       "Package": "Matrix",
-      "Version": "1.7-0",
+      "Version": "1.7-1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -206,7 +205,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "1920b2f11133b12350024297d8a4ff4a"
+      "Hash": "5122bb14d8736372411f955e1b16bc8a"
     },
     "MatrixModels": {
       "Package": "MatrixModels",
@@ -629,12 +628,10 @@
     },
     "ergm": {
       "Package": "ergm",
-      "Version": "4.6.0",
+      "Version": "4.7.1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
-        "MASS",
-        "Matrix",
         "R",
         "Rdpack",
         "coda",
@@ -654,7 +651,7 @@
         "tibble",
         "trust"
       ],
-      "Hash": "aee1ba632c48b2e4004302a800c301dc"
+      "Hash": "63da39449a40a9634ffd87529acb8d57"
     },
     "evaluate": {
       "Package": "evaluate",
@@ -1025,10 +1022,11 @@
       "Version": "0.19.2",
       "Source": "GitHub",
       "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "jaspBase",
       "RemoteUsername": "jasp-stats",
+      "RemoteRepo": "jaspBase",
+      "RemoteRef": "master",
       "RemoteSha": "490c3729f1c34406fc662bb20aa872c99a88eeac",
+      "RemoteHost": "api.github.com",
       "Requirements": [
         "R6",
         "Rcpp",
@@ -1057,17 +1055,18 @@
         "systemfonts",
         "withr"
       ],
-      "Hash": "d09c1e2a31b1b69fb95b72f9d96058d9"
+      "Hash": "240b27a199461a7365b77a3aa0917fef"
     },
     "jaspGraphs": {
       "Package": "jaspGraphs",
       "Version": "0.19.2",
       "Source": "GitHub",
       "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "jaspGraphs",
       "RemoteUsername": "jasp-stats",
+      "RemoteRepo": "jaspGraphs",
+      "RemoteRef": "master",
       "RemoteSha": "550191feb1f662ba400e9b96617050aad4927048",
+      "RemoteHost": "api.github.com",
       "Requirements": [
         "R6",
         "RColorBrewer",
@@ -1080,7 +1079,7 @@
         "scales",
         "viridisLite"
       ],
-      "Hash": "b559398ef2ee660d159e81a439cf1970"
+      "Hash": "4459270f4582584f4426db85d0f55fa4"
     },
     "jpeg": {
       "Package": "jpeg",
@@ -1706,7 +1705,7 @@
     },
     "quantreg": {
       "Package": "quantreg",
-      "Version": "5.98",
+      "Version": "5.99",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1720,7 +1719,7 @@
         "stats",
         "survival"
       ],
-      "Hash": "017561f17632c065388b7062da030952"
+      "Hash": "c6e207b874494a7ac4d52f02dcd7d3af"
     },
     "ragg": {
       "Package": "ragg",
@@ -1745,7 +1744,7 @@
     },
     "rbibutils": {
       "Package": "rbibutils",
-      "Version": "2.2.16",
+      "Version": "2.3",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1753,7 +1752,7 @@
         "tools",
         "utils"
       ],
-      "Hash": "8c06968e0a5b0209c5f34239b1302336"
+      "Hash": "dfc034a172fd88fc66b1a703894c4185"
     },
     "remotes": {
       "Package": "remotes",
@@ -1771,13 +1770,13 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "1.0.10",
+      "Version": "1.0.11",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "utils"
       ],
-      "Hash": "d0387d5687ec933dd7587efd4cfa2d85"
+      "Hash": "47623f66b4e80b3b0587bc5d7b309888"
     },
     "reshape2": {
       "Package": "reshape2",
@@ -1914,10 +1913,10 @@
     },
     "rstudioapi": {
       "Package": "rstudioapi",
-      "Version": "0.17.0",
+      "Version": "0.17.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "fb9f5fce8f609e9b66f0bea5c783f88a"
+      "Hash": "5f90cd73946d706cfe26024294236113"
     },
     "rvg": {
       "Package": "rvg",
@@ -1984,21 +1983,22 @@
     },
     "slam": {
       "Package": "slam",
-      "Version": "0.1-53",
+      "Version": "0.1-54",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
         "stats"
       ],
-      "Hash": "530404612c10533ff2deb1622c458b36"
+      "Hash": "ac3e35b2fb2c202ff6b222e4c39f7b43"
     },
     "statnet.common": {
       "Package": "statnet.common",
-      "Version": "4.9.0",
+      "Version": "4.10.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
+        "Matrix",
         "R",
         "coda",
         "methods",
@@ -2006,7 +2006,7 @@
         "tools",
         "utils"
       ],
-      "Hash": "be35aebf512f7b31de12200d5c3d1d67"
+      "Hash": "8996902b1e7c4dbeaad70d1809bb4f74"
     },
     "stringi": {
       "Package": "stringi",
