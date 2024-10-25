@@ -24,11 +24,14 @@ import JASP.Controls
 Section
 {
 	property bool bfTy: true
-	property bool iterations: false
+	property bool iterationsEst: false
+	property bool iterationsBf: false
+	property var iterationsBfDefaultNumber: 10000
 	property bool interactions: false
 	property bool anova: false
 	property bool variances: false
 	property var interactionValues: []
+	property bool nugget: false
 
 	id: options
 	title: 	qsTr("Options")
@@ -90,7 +93,7 @@ Section
 		}
 		CheckBox
 		{
-			visible: 					iterations
+			visible: 					iterationsEst
 			name: 						"priorPosteriorPlot"
 			text: 						qsTr("Prior and posterior plot")
 			CheckBox {	name: "priorPosteriorPlotAdditionalEstimationInfo";	label: qsTr("Estimation info");		checked: true }
@@ -98,7 +101,7 @@ Section
 		}
 		CheckBox
 		{
-			visible: 					iterations
+			visible: 					iterationsEst
 			name: 						"traceplot"
 			text: 						qsTr("Traceplot")
 		}
@@ -112,24 +115,51 @@ Section
 			label: qsTr("Uncertainty interval level")
 			name: 					"ciLevel"
 		}
+		CheckBox
+		{
+			name: "standardize"
+			text: qsTr("Standardize continuous variables")
+		}
 		RadioButtonGroup
 		{
 			visible: variances
+			id: variancesId
 			title: qsTr("Variances")
 			name: "variances"
 			radioButtonsOnSameRow: true
 			RadioButton { value: "equal"; 	label: qsTr("Equal"); checked: true }
 			RadioButton { value: "unequal"; 	label: qsTr("Unequal") }
 		}
+
 		IntegerField
 		{
-			visible: iterations
-			name: "iterations"
+			visible: iterationsEst
+			name: "iterationsEstimation"
 			text: qsTr("No. iterations for parameter estimation")
 			defaultValue: 5000
 			min: 2000
 			fieldWidth: 60 * preferencesModel.uiScale
+		}
 
+		IntegerField
+		{
+			visible: iterationsBfDefaultNumber === 1000000 ?  (iterationsBf && variancesId.value === "unequal") : iterationsBf // if the default value is 1000000, then the iterationsBf is visible only if variances are unequal meaning we have a t-test
+			name: "iterationsBayesFactor"
+			text: qsTr("No. iterations for BF computation")
+			defaultValue: iterationsBfDefaultNumber
+			min: 2000
+			fieldWidth: 60 * preferencesModel.uiScale
+		}
+
+		DoubleField
+		{
+			visible: nugget
+			name: "nugget"
+			text: qsTr("Nugget")
+			defaultValue: 0.999
+			min: 0
+			max: 1
+			fieldWidth: 60 * preferencesModel.uiScale
 		}
 
 		SetSeed{}

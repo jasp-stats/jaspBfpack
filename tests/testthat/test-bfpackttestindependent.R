@@ -10,7 +10,8 @@ options <-
     groupingVariable.types = "nominal",
     interactionTerms = list(),
     variances = "unequal",
-    iterations = 5000,
+    iterationsBayesFactor = 1000000,
+    iterationsEstimation = 5000,
     muValue = 0,
     logScale = TRUE,
     manualHypotheses = list(
@@ -28,6 +29,7 @@ options <-
     priorProbStandard3 = "1",
     variables = "contNormal",
     variables.types = "scale",
+    standardize = FALSE,
     standardHypothesisBfTable = FALSE
   )
 

@@ -24,7 +24,7 @@ bfpackRegressionLinear <- function(jaspResults, dataset, options, ...) {
   ready <- .bfpackOptionsReady(options, type)
 
   # handle the data set
-  dataset <- .bfpackHandleMissings(dataset)
+  dataset <- .bfpackHandleData(dataset, options)
 
   # Check if current data allow for analysis
   .bfpackDataReady(dataset, options, type, ready)
@@ -32,7 +32,8 @@ bfpackRegressionLinear <- function(jaspResults, dataset, options, ...) {
   # Create a container for the results
   bfpackContainer <- .bfpackCreateContainer(jaspResults,
                                             deps = c("dependent", "covariates",
-                                                     "seed", "manualHypotheses", "bfType"))
+                                                     "seed", "manualHypotheses", "bfType",
+                                                     "standardize"))
 
   .bfpackGetParameterEstimates(dataset, options, bfpackContainer, ready, type, jaspResults)
 

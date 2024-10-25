@@ -14,7 +14,7 @@ options <-
         value = "contNormal:contcor1"
       )
     ),
-    iterations = 5000,
+    iterationsEstimation = 5000,
     logScale = FALSE,
     manualHypotheses = list(
       list(
@@ -31,7 +31,8 @@ options <-
     priorProbStandard = "1",
     priorProbStandard2 = "1",
     priorProbStandard3 = "1",
-    standardHypothesisBfTable = FALSE
+    standardHypothesisBfTable = FALSE,
+    standardize = FALSE
   )
 
 debug <- read.csv("https://raw.githubusercontent.com/jasp-stats/jasp-desktop/development/Resources/Data%20Sets/debug.csv")
@@ -97,7 +98,7 @@ options <-
         value = "contNormal:contcor1"
       )
     ),
-    iterations = 5000,
+    iterationsEstimation = 5000,
     logScale = FALSE,
     manualHypotheses = list(
       list(
@@ -114,7 +115,8 @@ options <-
     priorProbStandard = "1",
     priorProbStandard2 = "1",
     priorProbStandard3 = "1",
-    standardHypothesisBfTable = FALSE
+    standardHypothesisBfTable = FALSE,
+    standardize = FALSE
   )
 
 debug <- read.csv("https://raw.githubusercontent.com/jasp-stats/jasp-desktop/development/Resources/Data%20Sets/debug.csv")

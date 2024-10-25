@@ -25,11 +25,18 @@
 
 
 # handle listwise deletion
-.bfpackHandleMissings <- function(dataset) {
+.bfpackHandleData <- function(dataset, options) {
 
   dataset <- excludeNaListwise(dataset)
+
+  if (options[["standardize"]]) {
+    cindex <- which(sapply(dataset, is.numeric))
+    dataset[, cindex] <- scale(dataset[, cindex])
+  }
+
   return(dataset)
 }
+
 
 .bfpackUnwrapInteractions <- function(options) {
 
@@ -224,6 +231,7 @@
     }
   }
 
+
   # special dependency ciLevel, because for some cor, reg, aov when the ciLevel is changed
   # we can just use the fitted object and change the interval, but for t-test we need to change it
   # in the t-test call (or at least it is easiest)
@@ -254,7 +262,8 @@
     if (options[["groupingVariable"]] == "") {
       result <- try(BFpack::cor_test(dataset,
                                      formula = form,
-                                     iter = options[["iterations"]]))
+                                     iter = options[["iterationsEstimation"]],
+                                     nugget.scale = options[["nugget"]]))
 
     } else {
       groupName <- decodeColNames(options[["groupingVariable"]])
@@ -444,7 +453,8 @@
             "priorProbStandard", "priorProbStandard2", "priorProbStandard3",
             "priorProbComplement", "seed", "bfType", "includeHypothesis", "ciLevel",
             "interactionTerms", "includeInteractionEffect", "priorProbMainZero",
-            "priorProbMainNonZero", "priorProbInteractionZero", "priorProbInteractionNonZero")
+            "priorProbMainNonZero", "priorProbInteractionZero", "priorProbInteractionNonZero",
+            "iterationsBayesFactor")
 
   resultsContainer <- createJaspContainer()
   resultsContainer$dependOn(optionsFromObject = bfpackContainer[["estimatesState"]], options = deps)
@@ -511,13 +521,19 @@
       }
     }
 
+    if (type %in% c("tTestIndependentSamples", "anova", "tTestMultiSample"))
+      iterations <- options[["iterationsBayesFactor"]]
+    else
+      iterations <- NULL
+
     results <- try(BFpack::BF(estimates, hypothesis = manualHyp,
                              complement = options[["complement"]],
                              prior.hyp.conf = manualPrior,
                              prior.hyp.explo = standPrior,
                              log = options[["logScale"]],
                              BF.type = bftype,
-                             cov.prob = options[["ciLevel"]]))
+                             cov.prob = options[["ciLevel"]],
+                             iter = iterations))
 
     if (isTryError(results)) {
 

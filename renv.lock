@@ -15,8 +15,9 @@
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteRepo": "BFpack",
       "RemoteUsername": "jomulder",
+      "RemoteRepo": "BFpack",
+      "RemoteRef": "master",
       "RemoteSha": "19e438808ad3ebff2008d0b0fbaf988c0f184ead",
       "Requirements": [
         "Bergm",
@@ -36,7 +37,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "b0b9a7ff582752b46bf3e944c0490c66"
+      "Hash": "43b215f2ed1072f33799bdbf475e389f"
     },
     "BH": {
       "Package": "BH",
@@ -1022,11 +1023,11 @@
       "Version": "0.19.2",
       "Source": "GitHub",
       "RemoteType": "github",
+      "RemoteHost": "api.github.com",
       "RemoteUsername": "jasp-stats",
       "RemoteRepo": "jaspBase",
       "RemoteRef": "master",
-      "RemoteSha": "490c3729f1c34406fc662bb20aa872c99a88eeac",
-      "RemoteHost": "api.github.com",
+      "RemoteSha": "f8bfb18768b3a62e8dafca47e523c3c621edd68a",
       "Requirements": [
         "R6",
         "Rcpp",
@@ -1055,7 +1056,7 @@
         "systemfonts",
         "withr"
       ],
-      "Hash": "240b27a199461a7365b77a3aa0917fef"
+      "Hash": "65e5aa49f2c1c0b8ec42e055199ed9f7"
     },
     "jaspGraphs": {
       "Package": "jaspGraphs",

@@ -7,7 +7,7 @@ options <-
     estimatesTable = TRUE,
     complement = TRUE,
     interactionTerms = list(),
-    iterations = 5000,
+    iterationsEstimation = 5000,
     muValue = 0,
     logScale = TRUE,
     manualHypotheses = list(list(hypothesisText = "mu<.5", priorProbManual = "1/2", includeHypothesis = TRUE, value = "#")),
@@ -19,6 +19,7 @@ options <-
     priorProbStandard2 = "1",
     priorProbStandard3 = "1",
     variables = "contNormal",
+    standardize = FALSE,
     standardHypothesisBfTable = FALSE
   )
 

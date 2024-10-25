@@ -7,7 +7,8 @@ options <-
       estimatesTable = FALSE,
       complement = TRUE,
       interactionTerms = list(),
-      iterations = 5000,
+      iterationsEstimation = 5000,
+      iterationsBayesFactor = 10000,
       logScale = FALSE,
       manualHypotheses = list(
         list(
@@ -29,7 +30,8 @@ options <-
         list(testValue = 0, value = "contGamma")
       ),
       variables = c("contNormal", "contGamma"),
-      standardHypothesisBfTable = FALSE
+      standardHypothesisBfTable = FALSE,
+      standardize = FALSE
 )
 
 

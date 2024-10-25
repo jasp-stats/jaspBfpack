@@ -32,7 +32,8 @@ bfpackTTestOneSample <- function(jaspResults, dataset, options, ...) {
   # Create a container for the results
   bfpackContainer <- .bfpackCreateContainer(jaspResults,
                                             deps = c("variables", "seed",
-                                                     "muValue", "manualHypotheses", "bfType"))
+                                                     "muValue", "manualHypotheses", "bfType",
+                                                     "standardize"))
 
   .bfpackGetParameterEstimates(dataset, options, bfpackContainer, ready, type, jaspResults)
 

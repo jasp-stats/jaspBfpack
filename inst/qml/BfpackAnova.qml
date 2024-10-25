@@ -69,6 +69,8 @@ Form
 		bfTy: true
 		interactions: true
 		anova: true
-		interactionValues: fixedFactors.columnsNames.concat(covariates.columnsNames)	
+		interactionValues: fixedFactors.columnsNames.concat(covariates.columnsNames)
+		iterationsBf: true
+		iterationsBfDefaultNumber: 10000
 	}
 }

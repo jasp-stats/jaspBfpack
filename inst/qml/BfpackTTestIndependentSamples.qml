@@ -65,6 +65,8 @@ Form
 	Common.Options{
 		bfTy: true
 		variances: true
+		iterationsBf: true
+		iterationsBfDefaultNumber: 1000000
 	}
 	
 }

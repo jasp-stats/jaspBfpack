@@ -19,7 +19,8 @@ options <- list(
   priorProbStandard = "1",
   priorProbStandard2 = "0",
   priorProbStandard3 = "1",
-  standardHypothesisBfTable = FALSE
+  standardHypothesisBfTable = FALSE,
+  standardize = FALSE
 )
 
 set.seed(1)
@@ -102,7 +103,7 @@ options <- list(
     dependent = c("contNormal", "contGamma"),
     estimatesTable = TRUE,
     interactionTerms = list(),
-    iterations = 5000,
+    iterationsEstimation = 5000,
     logScale = FALSE,
     manualPlots = FALSE,
     manualHypotheses = list(
@@ -120,7 +121,8 @@ options <- list(
     priorProbStandard3 = "1",
     seed = 100,
     manualHypothesisBfTable = FALSE,
-    standardHypothesisBfTable = FALSE
+    standardHypothesisBfTable = FALSE,
+    standardize = FALSE
   )
 
 set.seed(1)
@@ -166,4 +168,53 @@ test_that("Posterior model probability table results match", {
   table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_resultsContainer"]][["collection"]][["bfpackContainer_resultsContainer_postTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
                                  list("H1", 0.978331351389896, "H2", 0.0216686486101037))
+})
+
+
+
+# standardization
+options <- list(
+  bfType = "adjusted",
+  ciLevel = 0.95,
+  estimatesTable = TRUE,
+  complement = TRUE,
+  covariates = c("adverts", "airplay", "attract"),
+  dependent = "sales",
+  logScale = FALSE,
+  manualHypotheses = list(
+    list(hypothesisText = "", priorProbManual = "2", includeHypothesis = FALSE, value = "#"),
+    list(hypothesisText = "", priorProbManual = "1", includeHypothesis = FALSE, value = "#2")
+  ),
+  manualPlots = FALSE,
+  priorProbComplement = "1",
+  seed = 100,
+  manualHypothesisBfTable = TRUE,
+  priorProbStandard = "1",
+  priorProbStandard2 = "0",
+  priorProbStandard3 = "1",
+  standardHypothesisBfTable = FALSE,
+  standardize = TRUE
+)
+
+set.seed(1)
+results <- jaspTools::runAnalysis("bfpackRegressionLinear", testthat::test_path("sales.csv"), options, makeTests = F)
+
+test_that("Posterior Probabilities Testing Standard Hypotheses table results match", {
+  table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_parameterTable"]][["data"]]
+  jaspTools::expect_equal_tables(table,
+                                 list("Intercept", 0.946016071585667, 0.0539839284143328, 0, "adverts",
+                                      3.88184781918411e-24, 1, 0, "airplay", 1.01707718602817e-23,
+                                      1, 0, "attract", 0.000448094169606967, 0.999551905830393, 0
+                                 ))
+})
+
+test_that("Estimates Table results match", {
+  table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_resultsContainer"]][["collection"]][["bfpackContainer_resultsContainer_estimatesTable"]][["data"]]
+  jaspTools::expect_equal_tables(table,
+                                 list("Intercept", -0.0813690447991389, 3.43282394644487e-16, 3.43282394644487e-16,
+                                      0.0813690447991396, "adverts", 0.42867996320993, 0.510846225434074,
+                                      0.510846225434074, 0.593012487658217, "airplay", 0.428699344536524,
+                                      0.511988143597587, 0.511988143597587, 0.595276942658651, "attract",
+                                      0.108556558827862, 0.191683427305029, 0.191683427305029, 0.274810295782197
+                                 ))
 })

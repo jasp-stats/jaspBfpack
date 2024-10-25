@@ -30,7 +30,9 @@ options <- list(
   priorProbInteractionZero = "1",
   priorProbMainNonZero = "1",
   priorProbMainZero = "1",
+  iterationsBayesFactor = 10000,
   ciLevel = .95,
+  standardize = FALSE,
   standardHypothesisBfTable = FALSE
 )
 
@@ -106,7 +108,8 @@ options <- list(
   dependent = c("contNormal", "contGamma"),
   fixedFactors = "facExperim",
   interactionTerms = list(),
-  iterations = 5000,
+  iterationsEstimation = 5000,
+  iterationsBayesFactor = 10000,
   logScale = FALSE,
   manualHypotheses = list(
     list(hypothesisText = "", priorProbManual = "1", includeHypothesis = FALSE, value = "#")
@@ -124,7 +127,8 @@ options <- list(
   priorProbInteractionZero = "1",
   priorProbMainNonZero = "1",
   priorProbMainZero = "1",
-  standardHypothesisBfTable = FALSE
+  standardHypothesisBfTable = FALSE,
+  standardize = FALSE
 )
 
 set.seed(1)
@@ -166,7 +170,7 @@ options <-
         value = "contBinom:contcor1"
       )
     ),
-    iterations = 5000,
+    iterationsEstimation = 5000,
     logScale = FALSE,
     manualHypotheses = list(
       list(
@@ -190,7 +194,8 @@ options <-
     priorProbStandard3 = "1",
     seed = 100,
     manualHypothesisBfTable = FALSE,
-    standardHypothesisBfTable = FALSE
+    standardHypothesisBfTable = FALSE,
+    standardize = FALSE
   )
 
 dt <- debug[, c("contNormal", "contcor1", "contBinom")]

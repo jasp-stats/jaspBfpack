@@ -78,5 +78,7 @@ Form
 
 	Common.Options{
 		bfTy: true
+		iterationsBf: true
+		iterationsBfDefaultNumber: 10000
 	}
 }

@@ -8,7 +8,9 @@ options <- list(
   estimatesTable = TRUE,
   groupingVariable = "",
   interactionTerms = list(),
-  iterations = 2000,
+  iterationsEstimation = 2000,
+  nugget = .995,
+  standardize = FALSE,
   logScale = TRUE,
   manualHypotheses = list(
     list(
@@ -148,6 +150,7 @@ test_that("BFs: Standard Hypotheses table results match", {
 options <- list(
   bfType = "fractional",
   ciLevel = 0.95,
+  standardize = FALSE,
   complement = TRUE,
   covariates = list(
     types = list(),
@@ -156,7 +159,7 @@ options <- list(
   estimatesTable = FALSE,
   groupingVariable = "facGender",
   interactionTerms = list(),
-  iterations = 2000,
+  iterationsEstimation = 2000,
   logScale = FALSE,
   manualHypotheses = list(
     list(
@@ -168,6 +171,7 @@ options <- list(
   ),
   manualPlots = FALSE,
   muValue = 0,
+  nugget = .995,
   plotHeight = 320,
   plotWidth = 480,
   priorPosteriorPlot = TRUE,
