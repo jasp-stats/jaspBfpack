@@ -55,7 +55,7 @@ Description
 	{
 		menu:   	"(M)AN(C)OVA"
 		title:		"BFpack (M)AN(C)OVA"
-		func:			"bfpackMancova"
+		func:			"bfpackAnova"
 	}
 
 	GroupTitle

@@ -38,6 +38,7 @@ Form
 			title: 						qsTr("Dependent Variable")
 			singleVariable: 			true
 			allowedColumns: 			["ordinal", "nominal"]
+			allowTypeChange: true
 		}
 
 		AssignedVariablesList
@@ -45,6 +46,7 @@ Form
 			name: 						"covariates"
 			title: 						qsTr("Covariates")
 			id: 							covariates
+			allowTypeChange: 	true
 		}
 	}
 

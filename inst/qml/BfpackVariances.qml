@@ -40,6 +40,7 @@ Form
 			name: 								"variables"
 			singleVariable: 			true
 			allowedColumns: 			["scale", "ordinal"]
+			allowTypeChange: true
 		}
 
 		AssignedVariablesList

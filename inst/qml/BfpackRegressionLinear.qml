@@ -46,6 +46,7 @@ Form
 			name: 						"covariates"
 			title: 						qsTr("Covariates")
 			id: 							covariates
+			allowTypeChange: true
 		}
 	}
 

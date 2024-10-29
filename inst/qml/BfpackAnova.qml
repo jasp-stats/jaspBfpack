@@ -45,6 +45,7 @@ Form
 			title: 						qsTr("Fixed Factors")
 			allowedColumns: 			["ordinal", "nominal"]
 			id: fixedFactors
+			allowTypeChange: true
 		} 
 
 		AssignedVariablesList

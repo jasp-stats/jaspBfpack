@@ -40,6 +40,7 @@ Form
 			title: 						qsTr("Variables")
 			name: 								"variables"
 			singleVariable: 			false
+			allowTypeChange: true
 		}
 
 		AssignedVariablesList
@@ -56,6 +57,7 @@ Form
 			title: 								qsTr("Covariates")
 			singleVariable: 			false
 			allowedColumns: 			["scale", "ordinal"]
+			allowTypeChange: true
 		}
 
 	}
