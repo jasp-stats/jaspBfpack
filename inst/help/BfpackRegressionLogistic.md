@@ -1,4 +1,4 @@
-BFpack Logistic Regression
+BFpack (Ordered) Logistic Regression
 ==========================
 
 The analysis allows to test exploratory hypotheses (e.g., equal vs negative vs positive) and confirmatory hypotheses (with equality and/or order constraints) using Bayes factors and posterior probabilities under commonly used statistical models. For the logistic regression that means one can test hypotheses relating to the regression coefficients within a logistic regression. At this point, the family for link functions is only the binomial family. For details, see Mulder et al. (2021).

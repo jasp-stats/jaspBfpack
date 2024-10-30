@@ -71,8 +71,8 @@ Description
 	}
 	Analysis
 	{
-		menu:   	"Logistic Regression"
-		title:		"BFpack Logistic Regression"
+		menu:   	"(Ordered) Logistic Regression"
+		title:		"BFpack (Ordered) Logistic Regression"
 		func:			"bfpackRegressionLogistic"
 	}
 
