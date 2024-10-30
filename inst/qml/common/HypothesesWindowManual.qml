@@ -84,7 +84,7 @@ Group
 		}
 		Item {
 			id: spacer
-			width: 30 // Adjust the width as needed for the desired space
+			width: 30 * jaspTheme.uiScale // Adjust the width as needed for the desired space
 			anchors.right: complement.left
 		}
 		CheckBox {
