@@ -1,34 +1,34 @@
 BFpack Correlation
 ==========================
 
-The analysis allows to test exploratory hypotheses (e.g., equal vs negative vs postive) and confirmatory hypotheses (with equality and/or order constraints) using Bayes factors and posterior probabilities under commonly used statistical models. For the correlation that means one can test hypotheses relating to correlation coefficients. The correlations include biserial, polyserial, tetrachoric, polychoric, and product-moment coefficients. Overlapping correlations are also supported. For details, see Mulder et al. (2021).
+The analysis allows to test exploratory hypotheses (e.g., equal vs negative vs postive) and confirmatory hypotheses (with equality and/or order constraints) using Bayes factors and posterior probabilities under commonly used statistical models. For the correlation that means one can test hypotheses relating to correlation coefficients. The correlations include biserial, polyserial, tetrachoric, polychoric, and product-moment coefficients. Moreover, the correlations can be overlapping, nonoverlapping, and independent (across groups). For details, see Mulder et al. (2021).
 
 ## Input
 ### Main Window
-- Variables: Input at least two variables that are nominal, ordinal, or continuous
-- Grouping variable: Input variable that is nominal.
-- Covariates: Input continuous or ordinal variables. Partial these out.
+- Variables: Input at least two variables that are nominal (with 2 levels), ordinal, or continuous
+- Grouping variable: Input variable that is nominal. This allows testing independent correlations across across.
+- Covariates: Input continuous, ordinal, or dummy variables. This allows testing correlations while correcting for certain variables.
 
 #### Standard hypothesis test
-- Hypotheses: Test hypothesis that the parameter is equal to smaller or larger than a specific value; for correlation the parameters are all called rho and they are tested to be zero or smaller or larger
-- Prior weights: Specify how to weigh each hypothesis; defaults to the nullhypothesis being weighted twice as much as the alternatives 
+- Hypotheses: Test the hypotheses that each correslation (rho) is equal to, smaller than, or larger than 0.
+- Prior weights: Specify how to weigh each hypothesis. The default corresponds to a standard setting when testing a two-sided hypothesis test where the null hypothesis has an equal prior weight as the two-sided alternative hypothesis. Because the two-sided alternative is split to the left side and right side, the default prior weight of the null (H0) is 2, and each prior weight for the left-sided and right-sided hypotheses (H1 and H2, respectively) is 1.
 
 #### Parameters
-Once the variables are filled in, the parameters that can be used in the specification of the manual hypotheses show up here
+This box contains the names (labels) of the parameters on which equality/one-sided constraints can be formulated in the ‘manual hypothesis test’ box. When testing correlations, the names of the correlations depend on the names of the variables, and (in the case a grouping variable is present) to which group the correlation belongs.
 
 #### Manual hypothesis test
-- Hypotheses: Specify a manual hypothesis, see the tooltip for more info; Specify the prior weight and do not forget to check the include box to test the hypothesis. For the correlation this could be something like "var1Name_with_var2Name_in_g1 > var1Name_with_var2Name_in_g2" or "var1Name_with_var2Name > var1Name_with_var3Name"
+- Hypotheses: Specify a manual hypothesis with equality and/or one-sided constraints on the parameters; see the tooltip for more info. Specify the prior weights and do not forget to include each hypothesis via the check box . For the correlation this could be something like "var1_with_var2 > var1_with_var3 > var1_with_var4 > 0” in case it is expected that the correlation between ‘var1’ and ‘var2’ is larger than the correlation between ‘var1’ and ‘var3’, which is larger than the correlation between ‘var1’ and ‘var4’, which are all positive. 
 - Use the "+" to add more hypotheses
-- Complement: The complement hypothesis; prior weight and include
+- Complement: The complement hypothesis (which covers the range of the parameters that are not covered by the above specified hypotheses); prior weight and include.
 
 ### Options
 #### Bayes Factor: 
-- Log scale: reports the log BF
+- Log scale: reports the natural logarithm of the Bayes factors.
 
 #### Tables
-- BFs: Standard hypotheses: Print table that compares each standard hypothesis with its complement
-- BFs: Manual hypotheses: Print the specification table
-- Estimates with uncertainty interval: Print a table with the point estimates and uncertainty intervals (credible interval for correlation) for the parameter(s) of interest. Estimates are based on the posterior distribution of the correlation coefficient.
+- BFs for standard hypothesis test: Print a table that compares each standard hypothesis with its complement
+- Specification: Print the specification table with different parts of the (Savage-Dickey) Bayes factors.
+- Estimates with uncertainty interval: Print a table with the point estimates and uncertainty intervals (credible intervals for correlations) for the parameter(s) of interest. Estimates are based on the posterior distribution of the correlation coefficient under the full model.
 
 #### Plots
 - Manual hypothesis plots: Produces plots depicting the prior and posterior probabilities of the manual hypotheses
@@ -36,16 +36,19 @@ Once the variables are filled in, the parameters that can be used in the specifi
 - Traceplot: Produces the traceplot(s) of the sampled correlation(s)
 
 #### Additional options: 
+- Uncertainty interval level
+- Standardize continous variables
 - No. iterations for parameter estimation: default is 5000 samples from the posterior distribution 
-- Seed
+- Nugget: A scaling number to avoid computational issues due to posterior draws for the correlations too close to 1 in absolute value. Posterior draws for the correlations are multiplied with this nugget value. So nugget should be close to 1 (the default is .999). If the traceplots show that draws are stuck at 1 or -1 too long try a slightly smaller nugget.
+- Repeatability: Seed
 
 ## Output
 
 ### Tables
-#### Posterior probabilites when testing standard hypotheses
-- Posterior probs for the standard hypotheses
+#### Posterior probabilities when testing standard hypotheses
+- Posterior probabilities for the standard hypotheses.
 
-#### BFs: Standard Hypotheses Table
+#### BFs for standard hypothesis tests
 - BF(0u): Bayes factor of the standard H0 vs the unconstrained hypothesis
 - BF(-u): Bayes factor of the standard H- vs the unconstrained hypothesis
 - BF(+u): Bayes factor of the standard H+ vs the unconstrained hypothesis
@@ -59,8 +62,8 @@ Once the variables are filled in, the parameters that can be used in the specifi
 #### Evidence matrix (BFs)
 - BF matrix with the hypotheses: If the BF for H1vH2 is smaller than 1, evidence is in favor of H2, if it is larger than 1 evidence is in favor of H1
 
-#### Posterior model probability
-- provides the posterior probability for each hypothesis
+#### Posterior probabilities for the manual hypothesis test
+- Prints the posterior probability for each hypothesis for the manual hypothesis test.
 
 #### BFs: Manual hypotheses table
 - Equal-complex: Quantifies the relative complexity of the equality constraints of a hypothesis (the prior density at the equality constraints in the extended Savage Dickey density ratio)
@@ -73,7 +76,7 @@ Once the variables are filled in, the parameters that can be used in the specifi
 - Posterior prob.: contains the posterior probabilities of the hypotheses
 
 #### Estimates table:
-- Mean, median, and CI bounds. For the t-test they are confidence intervals.
+- Posterior means, medians, and CI bounds.
 
 ### Plots
 #### Prior and posterior probability 
@@ -83,7 +86,7 @@ Once the variables are filled in, the parameters that can be used in the specifi
 - Plot the prior posterior distribution of each correlation with estimation and testing info
 
 #### Traceplots
-- Plot the trace of the posterior samples of each correlation. Should resemble a "hairy caterpillar"
+- Plot the trace of the posterior samples of each correlation. Should resemble a "hairy caterpillar".
 
 ### References
 

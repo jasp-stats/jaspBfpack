@@ -1063,11 +1063,11 @@
       "Version": "0.19.2",
       "Source": "GitHub",
       "RemoteType": "github",
+      "RemoteHost": "api.github.com",
       "RemoteUsername": "jasp-stats",
       "RemoteRepo": "jaspGraphs",
       "RemoteRef": "master",
-      "RemoteSha": "550191feb1f662ba400e9b96617050aad4927048",
-      "RemoteHost": "api.github.com",
+      "RemoteSha": "5c2914842658f33a6e88d10ba90f1ee9a8a2efda",
       "Requirements": [
         "R6",
         "RColorBrewer",
@@ -1080,7 +1080,7 @@
         "scales",
         "viridisLite"
       ],
-      "Hash": "4459270f4582584f4426db85d0f55fa4"
+      "Hash": "1c2cee4f3fb7e8f80ef26b0b2a75cbec"
     },
     "jpeg": {
       "Package": "jpeg",
