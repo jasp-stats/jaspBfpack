@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Affero General Public
 // License along with this program.  If not, see
 // <http://www.gnu.org/licenses/>.
-//
+
 
 import QtQuick
 import QtQuick.Layouts
@@ -35,40 +35,31 @@ Form
 		AssignedVariablesList
 		{
 			name: 						"dependent"
-			title: 						qsTr("Dependent Variable")
-			singleVariable: 			true
+			title: 						qsTr("Dependent Variables")
+			singleVariable: 			false
 			allowedColumns: 			["scale"]
+			height : 100*jaspTheme.uiScale
 		}
 
 		AssignedVariablesList
 		{
 			name: 						"covariates"
 			title: 						qsTr("Covariates")
-			suggestedColumns: 			["scale"]
-		}
-	}
-
-	CheckBox
-	{
-		Layout.columnSpan: 2
-		id: 						runAnalysisBox
-		name: 					"runAnalysisBox"
-		label: 					qsTr("<b>Run Analysis</b>")
-		checked: 				false
-		Component.onCompleted:
-		{
-			background.color = "#ff8600"
+			id: 							covariates
+			allowTypeChange: true
 		}
 	}
 
 	Common.HypothesesWindowStandard{
-		parName: qsTr("beta")
+		parName: qsTr("β")
 	}
+	Common.ParametersWindow{}
 
 	Common.HypothesesWindowManual{}
 
 	Common.Options{
 		bfTy: true
 		interactions: true
+		interactionValues: covariates.columnsNames
 	}
 }

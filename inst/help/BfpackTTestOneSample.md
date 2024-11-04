@@ -1,38 +1,83 @@
-BFpack One Sample t-test
+BFpack One Sample T-Test
 ==========================
 
-The bfpack (Bayesian informative hypotheses evaluation) One Sample t-test allows you test the null-hypothesis that the mean of a variable is equal to a reference value versus one-sided and two-sided alternative hypotheses. Read Hoijtink, Mulder, van Lissa, and Gu (2019) for an introduction to bfpack. BFpack has been thoroughly debugged, if nevertheless problems are detected they will be posted at https://informative-hypotheses.sites.uu.nl/software/bfpack/.
+The analysis allows to test exploratory hypotheses (e.g., equal vs negative vs positive) and confirmatory hypotheses (with equality and/or order constraints) using Bayes factors and posterior probabilities under commonly used statistical models. For the one sample t-test that means one can test hypotheses relating to mean of a group on a single continuous variable. For details, see Mulder et al. (2021).
 
-### Specification of the bfpack One Sample t-test
+## Input
+### Main Window
+- Variable: Input a variable that is continuous (if they are not, they will be treated as such).
 
-- Choose variables from the variable list and move them to the box on the right.
-- Set the seed equal to an integer number to create a repeatable random number sequence. It is recommended to run analyses with two different seeds to ensure stability of the results.
-- The default value for fraction is equal to 1. It renders a Bayes factor that somewhat favors the null-hypothesis. If, additionally, values of 2 and 3 are used, you execute a so-called sensitivity analysis (see the tutorial by Hoijtink, Mulder, van Lissa, and Gu, 2019).
-- When you execute the bfpack One Sample t-test for the first time tick the additional statistics and both plots. When you return to the bfpack One Sample t-test you will know what each of these three options renders and you can tick only the options you need.
-- By default 95% credible intervals will be presented in the results. If desired the degree of belief (by default 95%) can be changed.
-- You can choose from five testing situations (note that the reference value "ref"" can be entered in the "Test value" box):
+#### Standard Hypothesis Test
+- Hypotheses: Test the hypothesis that the parameter is equal to, smaller than, or larger than a specific value; for t-test the parameter is called ‘mu’ and denotes mean of the variable.
+- Test Value: Test value for the mean parameter. The default test value is 0.
+- Prior Weights: Specify how to weigh each hypothesis. The default corresponds to a standard setting when testing a two-sided hypothesis test where the null hypothesis has an equal prior weight as the two-sided alternative hypothesis. Because the two-sided alternative is split to the left side and right side, the default prior weight of the null (H0) is 2, and each prior weight for the left-sided and right-sided hypotheses (H1 and H2, respectively) is 1.
 
-1. H0: m = ref versus H1: m (no constraint on the mean)
-2. H0: m = ref versus H1: m > ref
-3. H0: m = ref versus H1: m < ref
-4. H1: m > ref versus H2: m < ref
-5. H0: m = ref versus H1: m > ref versus H2: m < ref
+#### Parameters
+This box contains the names (labels) of the parameters on which equality/one-sided constraints can be formulated in the ‘manual hypothesis test’ box. For an independent samples t-test, the only parameter on which constraints can be formulated is the ‘mu’.
 
-- If under the Bayes Factors label you choose BF01, values of the Bayes factor larger than 1 express support in favor of H0. If you choose BF10, values of the Bayes factor larger than 1 express support in favor of H1 (or H2).
+#### Manual Hypothesis Test
+- Hypotheses: Specify a manual hypothesis with equality and/or one-sided constraints on the parameters; see the tooltip for more info. Specify the prior weights and do not forget to check the include box to test the hypothesis. For the independent samples t-test this could be something like "1>mu>-1", which would correspond to an interval hypotheses where the mean deviates maximally 1 from 0 in absolute sense.
+- Use the "+" to add more hypotheses.
+- Complement: The complement hypothesis (which covers the range of the parameters that are not covered by the above specified hypotheses); prior weight and include.
 
-### Results obtained after running the bfpack One Sample t-test
+### Options
+#### Bayes Factor
+- Log Scale: Reports the natural logarithm of the Bayes factors.
+- Bayes Factor Type: The default is the fractional BF; alternatively choose the adjusted fractional BF. Under the first option, the (minimally informative) fractional prior is centered around the maximum likelihood estimate of the data. Under the second option, the fractional prior is centered around a null value. The remaining (maximal) fraction of the data is used for hypothesis testing.
 
-- To be able to properly interpret the results of the bfpack One Sample t-test, you are required to read the tutorial by Hoijtink, Mulder, van Lissa, and Gu (2019) that can be retrieved from the Psychological Methods website or from the bfpack website at https://informative-hypotheses.sites.uu.nl/software/bfpack/.
-- If you want to understand the technical background of bfpack you should read Gu, Mulder, and Hoijtink (2018) and Hoijtink, Gu, and Mulder (2019) that can be retrieved from the British Journal of Mathematical and Statistical Psychology website or from the bfpack website at https://informative-hypotheses.sites.uu.nl/software/bfpack/.
-- Four pieces of results for each pair of variables are obtained after running a bfpack One Sample t-test:
+#### Tables
+- BFs for standard hypothesis test: Print table that compares each standard hypothesis with its complement.
+- Specification: Print the specification table with different parts of the (Savage-Dickey) Bayes factors.
+- Estimates With Uncertainty Interval: Print a table with the point estimates and uncertainty intervals (default credibility intervals for the t-test) for the parameter(s) of interest.
 
-1. The table in which the Bayes facor of H0 versus the alternative hypotheses is presented. This table also contains the posterior model probability of each hypothesis.
-2. A descriptives table containing for each variable the sample size, sample mean, sample standard deviation (sd), standard error (se) and 95% credible interval.
-3. A plot of the pmp's visually highlighting the support in the data for each hypothesis entertained.
-4. A plot of the mean difference between pairs of measurements and their credible interval.
+#### Plots
+- Manual Hypothesis Plots: Produces plots depicting the prior and posterior probabilities of the manual hypotheses
+
+#### Additional Options
+- Seed
+
+## Output
+
+### Tables
+#### Posterior probabilities when testing the standard hypotheses
+- Posterior probabilities for the standard hypotheses
+
+#### BFs: Standard Hypotheses Table
+- BF(0u): Bayes factor of the standard H0 vs the unconstrained hypothesis
+- BF(-u): Bayes factor of the standard H- vs the unconstrained hypothesis
+- BF(+u): Bayes factor of the standard H+ vs the unconstrained hypothesis
+- BF(u0): Bayes factor of the unconstrained hypothesis vs the standard H0
+- BF(u-): Bayes factor of the unconstrained hypothesis vs the standard H-
+- BF(u+): Bayes factor of the unconstrained hypothesis vs the standard H+
+
+#### Manual Hypotheses Legend
+- Denotes the manual hypotheses
+
+#### Evidence Matrix (BFs)
+- BF matrix with the hypotheses: If the BF for H1 vs H2 is smaller than 1, evidence is in favor of H2, if it is larger than 1 evidence is in favor of H1. If “Log scale” is checked, the printed BFs are on a natural logarithm scale.
+
+#### Posterior probabilities for manual hypothesis test
+- Prints the posterior probabilities for the manually specified hypotheses.
+
+#### BFs: Manual Hypotheses Table
+- Equal-Complex: Quantifies the relative complexity of the equality constraints of a hypothesis (the prior density at the equality constraints in the extended Savage Dickey density ratio)
+- Order-Complex: Quantifies the relative complexity of the order constraints of a hypothesis (the prior probability of the order constraints in the extended Savage Dickey density ratio)
+- Equal-Fit: Quantifies the relative fit of the equality constraints of a hypothesis (the posterior density at the equality constraints in the extended Savage Dickey density ratio)
+- Order-Fit: Quantifies the relative fit of the order constraints of a hypothesis (the posterior probability of the order constraints in the extended Savage Dickey density ratio)
+- Equal-BF: Contains the Bayes factor of the equality constraints against the unconstrained hypothesis
+- Order-BF: Contains the Bayes factor of the order constraints against the unconstrained hypothesis
+- BF: Contains the Bayes factor of the constrained hypothesis against the unconstrained hypothesis
+- Posterior Prob.: Contains the posterior probabilities of the hypotheses
+
+#### Estimates Table
+- Posterior mean, median, and CrI bounds using noninformative (Jeffreys) priors. For the t-test, they are identical to the classical estimates and confidence intervals.
+
+### Plots
+#### Prior And Posterior Probability 
+- Pizza plots for the manual hypotheses
 
 ### References
 
-- Gu, X., Mulder, J., and Hoijtink, H. (2018). Approximate adjusted fractional Bayes factors: A general method for testing informative hypotheses. British Journal of Mathematical and Statistical Psychology, 71, 229-261. DOI: 10.1111/bmsp.12110
-- Hoijtink, H., Mulder, J., van Lissa, C., and Gu, X. (2019). A tutorial on testing hypotheses using the Bayes factor. Psychological Methods, 24, 539-556. DOI: 10.1037/met0000201 
-- Hoijtink, H., Gu, X., and Mulder, J. (2019). Bayesian evaluation of informative hypotheses for multiple populations. British Journal of Mathematical and Statistical Psychology, 72, 219-243. DOI: 10.1111/bmsp.12145
+- Mulder, J. (2014). Prior adjusted default Bayes factors for testing (in) equality constrained hypotheses. *Computational Statistics & Data Analysis*, 71, 448-463. https://doi.org/10.1016/j.csda.2013.07.017
+- Mulder, J., Williams, D. R., Gu, X., Tomarken, A., Böing-Messing, F., Olsson-Collentine, A., Meijerink, M., Menke, J., Fox, J.-P., Hoijtink, H., Rosseel, Y., Wagenmakers, E.J., and van Lissa, C. (2021). BFpack: Flexible Bayes Factor Testing of Scientific Theories in R. *Journal of Statistical Software, 100*(18), 1-63. https://doi.org/10.18637/jss.v100.i18
+- O’Hagan, A. (1995). Fractional Bayes factors for model comparison (with discussion). *Journal of the Royal Statistical Society Series B, 57*, 99–138. https://doi.org/10.1111/j.2517-6161.1995.tb02017.x

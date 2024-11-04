@@ -34,46 +34,44 @@ Form
 		AssignedVariablesList
 		{
 			name: 						"dependent"
-			title: 						qsTr("Dependent Variable")
+			title: 						qsTr("Dependent Variables")
 			allowedColumns: 			["scale"]
+			id: dependent
 		}
 
 		AssignedVariablesList
 		{
 			name: 						"fixedFactors"
 			title: 						qsTr("Fixed Factors")
-			allowedColumns: 			["ordinal", "nominal", "nominalText"]
-		}
+			allowedColumns: 			["ordinal", "nominal"]
+			id: fixedFactors
+			allowTypeChange: true
+		} 
 
 		AssignedVariablesList
 		{
 			name: 						"covariates"
 			title: 						qsTr("Covariates")
-			allowedColumns: 			["ordinal", "nominal", "scale"]
-		}
-	}
-
-	CheckBox
-	{
-		Layout.columnSpan: 2
-		id: 						runAnalysisBox
-		name: 					"runAnalysisBox"
-		label: 					qsTr("<b>Run Analysis</b>")
-		checked: 				false
-		Component.onCompleted:
-		{
-			background.color = "#ff8600"
-		}
+			allowedColumns: 			["scale"]
+			id: covariates
+ 		}
 	}
 
 	Common.HypothesesWindowStandard{
-		parName: qsTr("mu")
+		parName: qsTr("μ")
 	}
+	
+	Common.ParametersWindow{}
+
 
 	Common.HypothesesWindowManual{}
 
 	Common.Options{
 		bfTy: true
 		interactions: true
+		anova: true
+		interactionValues: fixedFactors.columnsNames.concat(covariates.columnsNames)
+		iterationsBf: true
+		iterationsBfDefaultNumber: 10000
 	}
 }

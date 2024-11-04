@@ -17,35 +17,30 @@
 
 bfpackAnova <- function(jaspResults, dataset, options, ...) {
 
-  # sink("~/Downloads/log.txt")
-  # on.exit(sink(NULL))
 
   # What type of BFpack analysis is being conducted?
   type <- "anova"
 
-  # feed back the interactions to qml
-  .bfpackFeedbackInteractions(jaspResults, options, type)
-
   # Check if current options allow for analysis
   ready <- .bfpackOptionsReady(options, type)
 
-  # Read the data set
-  dataList <- .bfpackReadDataset(options, type, dataset)
+  # handle the data set
+  dataset <- .bfpackHandleData(dataset, options)
 
   # Check if current data allow for analysis
-  .bfpackDataReady(dataList[["dataset"]], options, type)
+  .bfpackDataReady(dataset, options, type, ready)
 
   # Create a container for the results
   bfpackContainer <- .bfpackCreateContainer(jaspResults,
-                                            deps = c("dependent", "fixedFactors", "covariates", "runAnalysisBox",
-                                                     "seed", "manualHypotheses"))
+                                            deps = c("dependent", "fixedFactors", "covariates",
+                                                     "seed", "manualHypotheses", "bfType", "standardize"))
 
-  .bfpackGetParameterEstimates(dataList, options, bfpackContainer, ready, type, jaspResults)
+  .bfpackGetParameterEstimates(dataset, options, bfpackContainer, ready, type, jaspResults)
 
   # compute the results, aka BFs
-  .bfpackComputeResults(dataList, options, bfpackContainer, ready, type)
+  .bfpackComputeResults(dataset, options, bfpackContainer, ready, type)
 
-  .bfpackParameterTable(options, bfpackContainer, type, dataList[["dataset"]], position = 1)
+  .bfpackParameterTable(options, bfpackContainer, type, dataset, position = 1)
 
   .bfpackMainEffectsTable(options, bfpackContainer, type, position = 1.5)
   .bfpackInteractionEffectsTable(options, bfpackContainer, type, position = 1.6)
@@ -60,9 +55,12 @@ bfpackAnova <- function(jaspResults, dataset, options, ...) {
   .bfpackSpecificationTable(options, bfpackContainer, type, position = 5)
 
   # coefficients table
-  .bfpackEstimatesTable(options, bfpackContainer, type)
+  .bfpackEstimatesTable(options, bfpackContainer, type, position = 6)
+
+  # standard hypotheses BF
+  .bfpackStandardBfTable(options, bfpackContainer, type, position = 1.4)
 
   # Create the prior and posterior probability plots
-  .bfpackPriorPosteriorPlot(options, bfpackContainer, type)
+  .bfpackPriorPosteriorProbabilityPlot(options, bfpackContainer, type)
 
 }

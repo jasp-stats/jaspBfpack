@@ -37,38 +37,31 @@ Form
 			name: 						"dependent"
 			title: 						qsTr("Dependent Variable")
 			singleVariable: 			true
-			allowedColumns: 			["ordinal", "nominal", "nominalText"]
+			allowedColumns: 			["ordinal", "nominal"]
+			allowTypeChange: true
 		}
 
 		AssignedVariablesList
 		{
 			name: 						"covariates"
 			title: 						qsTr("Covariates")
-			suggestedColumns: 			["scale"]
+			id: 							covariates
+			allowTypeChange: 	true
 		}
 	}
 
-	CheckBox
-	{
-		Layout.columnSpan: 2
-		id: 						runAnalysisBox
-		name: 					"runAnalysisBox"
-		label: 					qsTr("<b>Run Analysis</b>")
-		checked: 				false
-		Component.onCompleted:
-		{
-			background.color = "#ff8600"
-		}
-	}
 
 	Common.HypothesesWindowStandard{
-		parName: qsTr("beta")
+		parName: qsTr("β")
 	}
+	Common.ParametersWindow{}
 
 	Common.HypothesesWindowManual{}
 
 	Common.Options{
 		bfTy: false
 		interactions: true
+		interactionValues: covariates.columnsNames
+
 	}
 }

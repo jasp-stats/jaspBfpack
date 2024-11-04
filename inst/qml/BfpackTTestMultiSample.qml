@@ -42,25 +42,11 @@ Form
 		}
 	}
 
-	CheckBox
-	{
-		Layout.columnSpan: 2
-		id: 						runAnalysisBox
-		name: 					"runAnalysisBox"
-		label: 					qsTr("<b>Run Analysis</b>")
-		checked: 				false
-		Component.onCompleted:
-		{
-			background.color = "#ff8600"
-		}
-	}
-
-
 
 	ColumnLayout 
 	{
 		Common.HypothesesWindowStandard{
-			parName: qsTr("mu")
+			parName: qsTr("μ")
 			multiTest: true
 			onlyUnequal: true
 		}
@@ -80,15 +66,19 @@ Form
 					name: "testValue"
 					fieldWidth: 50
 					defaultValue: 0
+					negativeValues: true
 				}
 			}
 		}
 	}
 	
+	Common.ParametersWindow{}
 
 	Common.HypothesesWindowManual{}
 
 	Common.Options{
 		bfTy: true
+		iterationsBf: true
+		iterationsBfDefaultNumber: 10000
 	}
 }

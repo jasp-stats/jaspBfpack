@@ -24,10 +24,16 @@ import JASP.Controls
 Section
 {
 	property bool bfTy: true
-	property bool iterations: false
+	property bool iterationsEst: false
+	property bool iterationsBf: false
+	property var iterationsBfDefaultNumber: 10000
 	property bool interactions: false
-	property bool multigroup: false
+	property bool anova: false
+	property bool variances: false
+	property var interactionValues: []
+	property bool nugget: false
 
+	id: options
 	title: 	qsTr("Options")
 
 	Group
@@ -47,31 +53,32 @@ Section
 			name: "bfType"
 			title: qsTr("Bayes factor type")
 			radioButtonsOnSameRow: false
-			RadioButton { value: "adjusted"; label: qsTr("Adjusted fractional Bayes factor"); checked: true}
-			RadioButton { value: "fractional"; label: qsTr("Fractional Bayes factor")}
+			RadioButton { value: "fractional"; 	label: qsTr("Fractional Bayes factor"); checked: true }
+			RadioButton { value: "adjusted"; 		label: qsTr("Adjusted fractional Bayes factor"); 			}
 
 		}
 	}
+
 	Group
 	{
-		title: 							qsTr("Tables")
+		title: 	qsTr("Tables")
 
 		CheckBox 
 		{
-			name: "specificationTable"
-			text: qsTr("Specification")
+			name: "standardHypothesisBfTable"
+			text: qsTr("BFs: Standard hypotheses")
+		}	
+
+		CheckBox 
+		{
+			name: "manualHypothesisBfTable"
+			text: qsTr("BFs: Manual hypotheses")
 		}
 
 		CheckBox
 		{
 			name: 						"estimatesTable"
-			text: 						qsTr("Estimates with uncertainty interval")
-			childrenOnSameRow: true
-
-			CIField
-			{
-				name: 					"ciLevel"
-			}
+			text: 						qsTr("Estimates")
 		}
 	}
 
@@ -81,86 +88,133 @@ Section
 		title: qsTr("Plots")
 		CheckBox
 		{
-			name: 						"plots"
+			name: 						"manualPlots"
 			text: 						qsTr("Manual hypotheses plots")
 		}
+		CheckBox
+		{
+			visible: 					iterationsEst
+			name: 						"priorPosteriorPlot"
+			text: 						qsTr("Prior and posterior plot")
+			CheckBox {	name: "priorPosteriorPlotAdditionalEstimationInfo";	label: qsTr("Estimation info");		checked: true }
+			CheckBox {	name: "priorPosteriorPlotAdditionalTestingInfo";		label: qsTr("Testing info");		checked: true }
+		}
+		CheckBox
+		{
+			visible: 					iterationsEst
+			name: 						"traceplot"
+			text: 						qsTr("Traceplot")
+		}
 	}
-
 
 	Group
 	{
 		title: 							qsTr("Additional Options")
+		CIField
+		{
+			label: qsTr("Uncertainty interval level")
+			name: 					"ciLevel"
+		}
+		CheckBox
+		{
+			name: "standardize"
+			text: qsTr("Standardize continuous variables")
+		}
+		RadioButtonGroup
+		{
+			visible: variances
+			id: variancesId
+			title: qsTr("Variances")
+			name: "variances"
+			radioButtonsOnSameRow: true
+			RadioButton { value: "equal"; 	label: qsTr("Equal"); checked: true }
+			RadioButton { value: "unequal"; 	label: qsTr("Unequal") }
+		}
 
 		IntegerField
 		{
-			visible: iterations
-			name: "iterations"
+			visible: iterationsEst
+			name: "iterationsEstimation"
 			text: qsTr("No. iterations for parameter estimation")
 			defaultValue: 5000
 			min: 2000
 			fieldWidth: 60 * preferencesModel.uiScale
+		}
 
+		IntegerField
+		{
+			visible: iterationsBfDefaultNumber === 1000000 ?  (iterationsBf && variancesId.value === "unequal") : iterationsBf // if the default value is 1000000, then the iterationsBf is visible only if variances are unequal meaning we have a t-test
+			name: "iterationsBayesFactor"
+			text: qsTr("No. iterations for BF computation")
+			defaultValue: iterationsBfDefaultNumber
+			min: 2000
+			fieldWidth: 60 * preferencesModel.uiScale
 		}
 
 		DoubleField
 		{
-			name: 						"seed"
-			text: 						qsTr("Seed")
-			defaultValue: 				100
-			min: 						-999999
-			max: 						999999
-			fieldWidth: 				60 * preferencesModel.uiScale
+			visible: nugget
+			name: "nugget"
+			text: qsTr("Nugget")
+			defaultValue: 0.999
+			min: 0
+			max: 1
+			fieldWidth: 60 * preferencesModel.uiScale
+		}
+
+		SetSeed{}
+	}
+
+
+// there is still the issue how to get the covariates names and other variables names into this qml element
+	function combinePairs(values) {
+			var pairs = [];
+			for (var i = 0; i < values.length; i++) {
+					for (var j = i + 1; j < values.length; j++) {
+							pairs.push(values[i] + ":" + values[j]);
+					}
+			}
+			return pairs;
+	}
+
+	// Example usage
+	property var interactionPairs: combinePairs(interactionValues);
+
+	Group 
+	{
+		Layout.columnSpan: 2
+		title: qsTr("Interaction terms")
+		preferredWidth: 400 * jaspTheme.uiScale
+		visible: interactions
+		ComponentsList 
+		{
+			height: 120 * preferencesModel.uiScale
+			headerLabels: [qsTr("Include")]
+			name: "interactionTerms"
+			values: interactionPairs
+			addItemManually: false
+			rowComponent: RowLayout { 
+				Text { Layout.preferredWidth: 210*jaspTheme.uiScale; text: rowValue }
+				CheckBox { Layout.preferredWidth: 50*jaspTheme.uiScale; name: "includeInteractionEffect"; checked: true }
+			}
 		}
 	}
 
 	Group 
 	{
-		title: qsTr("Interaction terms")
-		visible: interactions
-
-		// VariablesForm {
-		// 	preferredHeight: 300 * preferencesModel.uiScale
-
-		// 	AvailableVariablesList
-		// 	{
-		// 		name: "new"
-		// 		visible:false
-		// 		source: "covariates"
-		// 		implicitWidth: 0
-		// 	}
-		// 	AssignedVariablesList
-		// 	{ 
-		// 		name: "interactionTerms"
-		// 		source: "new"
-		// 		listViewType: JASP.Interaction
-		// 	}
-		// }
-
-		ComponentsList 
-		{
-			implicitHeight: 120 * preferencesModel.uiScale
-			headerLabels: [qsTr("Include")]
-			// titles: [qsTr("Include")]
-			name: "interactionTerms"
-			rSource: "interactionSource"
-			// source: "covariates"
-			rowComponent: RowLayout { 
-				Text {Layout.preferredWidth: 200; text: rowValue; visible: true}
-				CheckBox {Layout.preferredWidth: 100; name: "includeInteractionEffect"; checked:true}
-			}
-		}
-	}
-
-	Group {
-		visible: multigroup
-		title: qsTr("Multigroup")
-		DropDown
-		{
-			label: qsTr("Grouping variable");
-			name: "group";
-			showVariableTypeIcon: true;
-			addEmptyValue: true;
-		} // No model: it takes all variables per default
+		title: qsTr("Effects")
+		visible: anova
+		columns: 2
+		Text { text: "" }
+		Text { text: qsTr("Prior weight") }
+		Text { text: qsTr("Main zero effect") }
+		FormulaField { name: "priorProbMainZero"; defaultValue: "1"; fieldWidth: 50 }
+		Text { text: qsTr("Main non-zero effect") }
+		FormulaField { name: "priorProbMainNonZero"; defaultValue: "1"; fieldWidth: 50 }
+		Text { text: qsTr("Interaction zero effect") }
+		FormulaField { name: "priorProbInteractionZero"; defaultValue: "1"; fieldWidth: 50 }
+		Text { text: qsTr("Interaction non-zero effect") }
+		FormulaField { name: "priorProbInteractionNonZero"; defaultValue: "1"; fieldWidth: 50 }
 	}
 
 }

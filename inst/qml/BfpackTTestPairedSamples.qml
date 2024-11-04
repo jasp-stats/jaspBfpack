@@ -36,28 +36,16 @@ Form
 		{
 			name: 						"pairs"
 			title: 						qsTr("Pairs")
-			suggestedColumns: 			["scale"]
+			allowedColumns: 			["scale"]
 			singleVariable: true
 		}
 	}
 
-	CheckBox
-	{
-		Layout.columnSpan: 2
-		id: 						runAnalysisBox
-		name: 					"runAnalysisBox"
-		label: 					qsTr("<b>Run Analysis</b>")
-		checked: 				false
-		Component.onCompleted:
-		{
-			background.color = "#ff8600"
-		}
-	}
-
 	Common.HypothesesWindowStandard{
-		parName: qsTr("delta")
+		parName: qsTr("difference")
 		specificMu: true
 	}
+	Common.ParametersWindow{}
 
 	Common.HypothesesWindowManual{}
 

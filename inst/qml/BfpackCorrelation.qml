@@ -25,9 +25,10 @@ import "./common" as Common
 Form
 {
 
+
 	VariablesForm
 	{
-		implicitHeight: 200 * preferencesModel.uiScale
+		preferredHeight: 250 * preferencesModel.uiScale
 
 		AvailableVariablesList
 		{
@@ -36,57 +37,65 @@ Form
 		
 		AssignedVariablesList
 		{
+			title: 						qsTr("Variables")
 			name: 								"variables"
 			singleVariable: 			false
-			allowedColumns: 			["scale", "ordinal"]
+			allowTypeChange: true
 		}
-	}
 
-	CheckBox
-	{
-		Layout.columnSpan: 2
-		id: 						runAnalysisBox
-		name: 					"runAnalysisBox"
-		label: 					qsTr("<b>Run Analysis</b>")
-		checked: 				false
-		Component.onCompleted:
+		AssignedVariablesList
 		{
-			background.color = "#ff8600"
+			name: 						"groupingVariable"
+			title: 						qsTr("Grouping Variable")
+			singleVariable: 	true
+			allowedColumns: 	["nominal"]
 		}
+
+		AssignedVariablesList
+		{
+			name: 								"covariates"
+			title: 								qsTr("Covariates")
+			singleVariable: 			false
+			allowedColumns: 			["scale", "ordinal"]
+			allowTypeChange: true
+		}
+
 	}
 
 	Common.HypothesesWindowStandard{
-		parName: qsTr("rho")
+		parName: qsTr("ρ")
 	}
 
+	Common.ParametersWindow{}
+	
 	Common.HypothesesWindowManual{}
 
 	Common.Options{
 		bfTy: false
-		iterations: true
-		multigroup: true
+		iterationsEst: true
+		nugget: true
 	}
 
-	Section 
-	{
-		title: qsTr("Covariates")
-		VariablesForm
-		{
-			implicitHeight: 150 * preferencesModel.uiScale
+	// Section
+	// {
+	// 	title: qsTr("Covariates")
+	// 	VariablesForm
+	// 	{
+	// 		preferredHeight: 150 * preferencesModel.uiScale
 
-			AvailableVariablesList
-			{
-				name: 						"covariatesList"
-				source: 					"variablesList"
-			}
+	// 		AvailableVariablesList
+	// 		{
+	// 			name: 						"covariatesList"
+	// 			source: 					"variablesList"
+	// 		}
 			
-			AssignedVariablesList
-			{
-				name: 								"covariates"
-				singleVariable: 			false
-				allowedColumns: 			["scale", "ordinal"]
-			}
-		}
+	// 		AssignedVariablesList
+	// 		{
+	// 			name: 								"covariates"
+	// 			singleVariable: 			false
+	// 			allowedColumns: 			["scale", "ordinal"]
+	// 		}
+	// 	}
 	
-	}
+	// }
 }

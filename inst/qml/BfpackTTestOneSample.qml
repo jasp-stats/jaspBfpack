@@ -36,22 +36,9 @@ Form
 		AssignedVariablesList
 		{
 			name: 						"variables"
-			title: 						qsTr("Variables")
+			title: 						qsTr("Variable")
 			singleVariable: 			true
 			allowedColumns: 			["scale"]
-		}
-	}
-
-	CheckBox
-	{
-		Layout.columnSpan: 2
-		id: 						runAnalysisBox
-		name: 					"runAnalysisBox"
-		label: 					qsTr("<b>Run Analysis</b>")
-		checked: 				false
-		Component.onCompleted:
-		{
-			background.color = "#ff8600"
 		}
 	}
 
@@ -60,6 +47,7 @@ Form
 		specificMu: true
 
 	}
+	Common.ParametersWindow{}
 
 	Common.HypothesesWindowManual{}
 

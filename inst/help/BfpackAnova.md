@@ -1,56 +1,106 @@
-BFpack ANOVA
+BFpack (M)AN(C)OVA
 ==========================
 
-BFpack (Bayesian informative hypotheses evaluation) ANOVA allows you to evaluate (informative) hypotheses using the Bayes factor. A simple example would be the Bayesian evaluation of H0: m1 = m2 = m3 versus H1: m1 > m2 > m3 versus Hu: no restrictions on the three means. Read Hoijtink, Mulder, van Lissa, and Gu (2019) for an introduction to bfpack. BFpack has been thoroughly debugged, if nevertheless problems are detected they will be posted at https://informative-hypotheses.sites.uu.nl/software/bfpack/.
+The analysis allows to test exploratory hypotheses (e.g., equal vs negative vs postive) and confirmatory hypotheses (with equality and/or order constraints) using Bayes factors and posterior probabilities under commonly used statistical models. For the (M)AN(C)OVA that means one can test hypotheses relating to differences between groups measured on one or multiple variables and with or without covariates. For details, see Mulder et al. (2021).
 
-### Specification of the bfpack ANOVA
+## Input
+### Main Window
+- Dependent Variables: Input one or more variables that are continuous (if they are not, they will be treated as such)
+- Fixed Factors: Input one or more variable that is nominal
+- Covariates: Input one or more variables that are continuous (if they are not, they will be treated as such).
+- In the case of one dependent variable: AN(C)OVA. In the case of multiple dependent variables: MAN(C)OVA.
+- In the case of one or more covariate(s): (M)ANCOVA. In the case of no covariate(s): (M)ANOVA.
 
-- Choose the dependent variable from the variable list and move it to the Dependent Variable box. Note that, the name of the dependent variable has to start with a letter and may further consist of letters, numbers and _.
-- Choose the factor from the variable list and move it to the Fixed Factors box. Note that, the factor name has to start with a letter and may further consist of letters, numbers and _. Note furthermore that, all groups have to be collected in ONE factor. If you have, for example, a factor with the levels young-old and a factor with the levels female-male, you have to create ONE new factor with the levels youngfemale, oldfemale, youngmale, oldmale. The levels are indicated by numbers or have names that start with a letter and may further consist of letters, numbers and _.
-- Set the seed equal to an integer number to create a repeatable random number sequence. It is recommended to run analyses with two different seeds to ensure stability of the results.
-- The default value for fraction is equal to 1. It renders a Bayes factor that somewhat favors the null-hypothesis. If, additionally, values of 2 and 3 are used, you execute a so-called sensitivity analysis (see the tutorial by Hoijtink, Mulder, van Lissa, and Gu, 2019).
-- When you execute bfpack ANOVA for the first time tick both additional statistics and both plots. When you return to bfpack ANOVA you will know what each of these four options renders and you can tick only the options you need.
-- By default 95% credible intervals will be presented in the results. If desired the degree of belief (by default 95%) can be changed.
-- When you tick model constraints a box opens in which you can specify the hypotheses you want to evaluate. You need to adhere to the following specification rules:
+#### Standard Hypothesis Test
+- Hypotheses: Test the hypotheses that each separate parameter is equal to, smaller than, or larger than 0. For a (M)AN(C)OVA, additional omnibus tests are performed of whether each main effect and each interaction effect to be absent or not.
+- Prior Weights: Specify how to weigh each hypothesis. For the tests of the separate parameters, the default corresponds to a standard setting when testing a two-sided hypothesis test where the null hypothesis has an equal prior weight as the two-sided alternative hypothesis. Because the two-sided alternative is split to the left side and right side, the default prior weight of the null (H0) is 2, and each prior weight for the left-sided and right-sided hypotheses (H1 and H2, respectively) is 1. For the omnibus tests of the main and interaction effects, the default sets equal prior weights of 1 to the two hypotheses. The prior weights for the omnibus tests can be changed under the ‘options’.
 
-1. Place each hypothesis on a separate line.
-2. The levels of the ONE factor are referred to as follows: `factorlevelname`. If, for example, there is a factor age with levels y, m, o. They are reffered to using `agey`, `agem`, and `ageo`, respectively.
-3. Linear combinations of parameters must be specified adhering to the following rules:
-  - Each parameter name is used at most once.
-  - Each parameter name may or may not be pre-multiplied with a number.
-  - A constant may be added or subtracted from each parameter name.
-  - A linear combination can also be a single number.
-  - Examples are: `3 * agey + 5`; `agey + 2 * agem + 3 * ageo - 2`; `agey - ageo`; and `5`.
-4. (Linear combinations of) parameters can be constrained using <, >, and =. For example, `agey > 0` or `agey > agem = 0` or `2 * agey < agem + ageo > 5`.
-5. The ampersand & can be used to combine different parts of a hypothesis. For example, `agey > agem & agem > ageo` which is equivalent to `agey > agem > ageo` or `agey > 0 & agem > 0 & ageo > 0`.
-6. Sets of (linear combinations of) parameters subjected to the same constraints can be specified using (). For example,`agey > (agem,ageo)` which is equivalent to `agey > agem & agey > ageo`.
+#### Parameters
+This box contains the names (labels) of the parameters on which equality/one-sided constraints can be formulated in the ‘manual hypothesis test’ box. For a (M)AN(C)OVA, the parameter are the (adjusted) means and effect of the covariates. The names depend on the names of the variables.
 
-Hypotheses have to be compatible, non-redundant and possible. What these terms mean will be elaborated below.
+#### Manual Hypothesis Test
+- Specify a manual hypothesis with equality and/or one-sided constraints on the parameters; see the tooltip for more info; Specify the prior weights and do not forget to include each hypothesis via the check box. For the (M)AN(C)OVA this could be something like "var1NameGroup1 > var1NameGroup2 > var2NameGroup1 > var2NameGroup2", which assumes a specific order of the effects of certain variables across groups.
+- Use The "+" To Add More Hypotheses.
+- Complement: The complement hypothesis (which covers the range of the parameters that are not covered by the above specified hypotheses); prior weight and include.
 
-*The set of hypotheses has to be compatible*. For the statistical background of this requirement see Gu, Mulder, Hoijtink (2018). Usually the sets of hypotheses specified by researchers are compatible, and if not, bfpack will return an error message. The following steps can be used to determine if a set of hypotheses is compatible:
+### Options
+#### Bayes Factor
+- Log Scale: Reports the natural logarithm of the Bayes factors.
+- Bayes Factor Type: The default is the fractional BF; alternatively choose the adjusted fractional BF. Under the first option, the (minimally informative) fractional prior is centered around the maximum likelihood estimate of the data. Under the second option, the fractional prior is centered around a null value. The remaining (maximal) fraction of the data is used for hypothesis testing.
 
-- Replace a range constraint, e.g., `1 < agey < 3`, by an equality constraint in which the parameter involved is equated to the midpoint of the range, that is, `agey = 2`.
-- Replace in each hypothesis the < and > by =. For example, `agey = agem > ageo` becomes `agey = agem = ageo`.
-- The hypotheses are compatible if there is at least one solution to the resulting set of equations. For the two hypotheses considered above, the solution is `agey = agem = ageo = 2`. An example of two non-compatible hypotheses is `agey = 0` and `agey > 2` because there is no solution to the equations `agey=0` and `agey=2`.
+#### Tables
+- BFs for standard hypothesis test: Print a table that compares each standard hypothesis with its complement.
+- Specification: Print the specification table with different parts of the (Savage-Dickey) Bayes factors.
+- Estimates with uncertainty interval: Print a table with the point estimates and uncertainty intervals (default credibility intervals for a (M)AN(C)OVA) for the parameter(s) of interest.
 
-*Each hypothesis in a set of hypotheses has to be non-redundant.* A hypothesis is redundant if it can also be specified with fewer constraints. For example, `agey = agem & agey > 0 & agem > 0` is redundant because it can also be specified as `agey = agem & agey > 0`. bfpack will work correctly if hypotheses specified using only < and > are redundant. bfpack  will return an error message if hypotheses specified using at least one = are redundant.
+#### Plots
+- Manual hypothesis plots: Produces plots depicting the prior and posterior probabilities of the manual hypotheses
 
-*Each hypothesis in a set of hypotheses has to be possible.* An hypothesis is impossible if estimates in agreement with the hypothesis do not exist. For example: values for `agey` in agreement with `agey = 0 & agey > 2` do not exist. It is the responsibility of the user to ensure that the hypotheses specified are possible. If not, bfpack will either return an error message or render an output table containing `Inf`'s.
+#### Additional Options
+- Uncertainty interval level
+- Standardize continous variables
+- No. iterations for BF computation: BF computation is done using iterative sampling and the number of iterations can be specified
+- Repeatability: Seed
 
-### Results obtained after running bfpack ANOVA
+#### Interaction terms
+- Box that displays possible two-way interaction terms (if there are more than one dependent variable/covariate); they are by default included in the analysis
 
-- To be able to properly interpret the results of a bfpack ANOVA, you are required to read the tutorial by Hoijtink, Mulder, van Lissa, and Gu (2019) that can be retrieved from the Psychological Methods website or from the bfpack website at https://informative-hypotheses.sites.uu.nl/software/bfpack/
-- If you want to understand the technical background of bfpack you should read Gu, Mulder, and Hoijtink (2018) and Hoijtink, Gu, and Mulder (2019) that can be retrieved from the British Journal of Mathematical and Statistical Psychology website or from the bfpack website at https://informative-hypotheses.sites.uu.nl/software/bfpack/
-- Five pieces of results are obtained after running a Bayesian ANOVA:
+#### Effects
+- Specify the prior weights for the main and interaction effects being zero or not
 
-1. The table in which the Bayes factor of each hypothesis specified versus the unconstrained hypothesis and its complement (that is, not the hypothesis), respectively, is presented. This table contains three sets of posterior model probabilities (each) based on equal prior model probabilities: PMPa, the posterior model probabilities of the hypotheses specified; PMPb, hypotheses specified plus Hu, the unconstrained hypothesis; and, PMPc, hypothesis specified plus Hc, that is, the joint complement of all hypotheses specified, that is, "not the hypotheses specified".
-2. The Bayes factor matrix in which the mutual Bayes factors of the hypotheses specified in the Model Constraints box are presented.
-3. A descriptives table containing for each group in the ANOVA the sample size, sample mean, sample standard deviation (sd), standard error (se) and 95% credible interval.
-4. A plot of the pmp's (excluding and including the unconstrained hypothesis) visually highlighting the support in the data for each hypothesis entertained.
-5. A plot of the sample means and their credible intervals.
+#### Prior weights for additional standard hypothesis tests for a (M)AN(C)OVA
+- Specify the prior weights for the main and interaction effects being absent or not
+
+
+## Output
+
+### Tables
+#### Posterior Probabilities When Testing Standard Hypotheses
+- Posterior probabilities for the standard hypotheses.
+
+#### BFs: Standard Hypotheses Table
+- BF(0u): Bayes factor of the standard H0 vs the unconstrained hypothesis
+- BF(-u): Bayes factor of the standard H- vs the unconstrained hypothesis
+- BF(+u): Bayes factor of the standard H+ vs the unconstrained hypothesis
+- BF(u0): Bayes factor of the unconstrained hypothesis vs the standard H0
+- BF(u-): Bayes factor of the unconstrained hypothesis vs the standard H-
+- BF(u+): Bayes factor of the unconstrained hypothesis vs the standard H+
+
+
+#### Posterior Probabilities For Main Effects
+- Omnibus test for each main effect to be absent or not.
+
+#### Posterior Probabilities For Interaction Effects
+- Omnibus test for each interaction effect to be absent or not.
+
+#### Manual Hypotheses Legend
+- Denotes the manual hypotheses
+
+#### Evidence Matrix (BFs)
+- BF matrix with the hypotheses: If the BF for H1 vs H2 is smaller than 1, evidence is in favor of H2, if it is larger than 1 evidence is in favor of H1. If “Log scale” is checked, the printed BFs are on a natural logarithm scale.
+
+#### Posterior probabilities for the manual hypothesis test
+- Prints the posterior probabilities for each hypothesis in the manual hypothesis test.
+
+#### BFs: Manual Hypotheses Table
+- Equal-Complex: Quantifies the relative complexity of the equality constraints of a hypothesis (the prior density at the equality constraints in the extended Savage Dickey density ratio)
+- Order-Complex: Quantifies the relative complexity of the order constraints of a hypothesis (the prior probability of the order constraints in the extended Savage Dickey density ratio)
+- Equal-Fit: Quantifies the relative fit of the equality constraints of a hypothesis (the posterior density at the equality constraints in the extended Savage Dickey density ratio)
+- Order-Fit: Quantifies the relative fit of the order constraints of a hypothesis (the posterior probability of the order constraints in the extended Savage Dickey density ratio)
+- Equal-BF: Contains the Bayes factor of the equality constraints against the unconstrained hypothesis
+- Order-BF: Contains the Bayes factor of the order constraints against the unconstrained hypothesis
+- BF: Contains the Bayes factor of the constrained hypothesis against the unconstrained hypothesis
+- Posterior Prob.: Contains the posterior probabilities of the hypotheses
+
+#### Estimates Table:
+- Posterior means, medians, and CrI bounds of the separate parameters using noninformative (Jeffreys) priors.
+
+### Plots
+#### Prior and posterior probability 
+- Pizza plots for the manual hypotheses
 
 ### References
 
-- Gu, X., Mulder, J., and Hoijtink, H. (2018). Approximate adjusted fractional Bayes factors: A general method for testing informative hypotheses. British Journal of Mathematical and Statistical Psychology, 71, 229-261. DOI: 10.1111/bmsp.12110
-- Hoijtink, H., Mulder, J., van Lissa, C., and Gu, X. (2019). A tutorial on testing hypotheses using the Bayes factor. Psychological Methods, 24, 539-556. DOI: 10.1037/met0000201
-- Hoijtink, H., Gu, X., and Mulder, J. (2019). Bayesian evaluation of informative hypotheses for multiple populations. British Journal of Mathematical and Statistical Psychology, 72, 219-243. DOI: 10.1111/bmsp.12145
+- Mulder, J., & Gu, X. (2022). Bayesian testing of scientific expectations under multivariate normal linear models. *Multivariate Behavioral Research, 57(5)*, 767-783. https://doi.org/10.1080/00273171.2021.1904809
+- Mulder, J., Williams, D. R., Gu, X., Tomarken, A., Böing-Messing, F., Olsson-Collentine, A., Meijerink, M., Menke, J., Fox, J.-P., Hoijtink, H., Rosseel, Y., Wagenmakers, E.J., and van Lissa, C. (2021). BFpack: Flexible Bayes Factor Testing of Scientific Theories in R. *Journal of Statistical Software, 100*(18), 1-63. https://doi.org/10.18637/jss.v100.i18
+- O’Hagan, A. (1995). Fractional Bayes factors for model comparison (with discussion). *Journal of the Royal Statistical Society Series B, 57*, 99–138.

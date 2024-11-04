@@ -13,24 +13,35 @@ options <- list(
   ),
   manualHypotheses = list(
     list(
-      name = "facFive = facGenderf = facGenderm:facFive",
-      priorProbManual = "1/2"
+      hypothesisText = "facFive = facGenderf = facGenderm:facFive",
+      priorProbManual = "1/2",
+      includeHypothesis = TRUE,
+      value = "#"
     )
   ),
-  plots = TRUE,
+  manualPlots = TRUE,
   priorProbComplement = "1/2",
-  runAnalysisBox = TRUE,
   seed = 100,
-  specificationTable = FALSE,
-  standardHypotheses = list(
-    list(priorProb = "1/3", value = "H0: mu = 0 "),
-    list(priorProb = "1/3", value = "H1: mu < 0 "),
-    list(priorProb = "1/3", value = "H2: mu > 0 ")
-  )
+  manualHypothesisBfTable = FALSE,
+  priorProbStandard = "1",
+  priorProbStandard2 = "1",
+  priorProbStandard3 = "1",
+  priorProbInteractionNonZero = "1",
+  priorProbInteractionZero = "1",
+  priorProbMainNonZero = "1",
+  priorProbMainZero = "1",
+  iterationsBayesFactor = 10000,
+  ciLevel = .95,
+  standardize = FALSE,
+  standardHypothesisBfTable = FALSE
 )
 
+debug <- read.csv("https://raw.githubusercontent.com/jasp-stats/jasp-desktop/development/Resources/Data%20Sets/debug.csv")
+dt <- debug[, c("contNormal", "facFive", "facGender")]
+dt$facGender <- as.factor(dt$facGender)
+
 set.seed(1)
-results <- jaspTools::runAnalysis("bfpackAnova", "debug.csv", options)
+results <- jaspTools::runAnalysis("bfpackAnova", dt, options)
 
 
 test_that("Posterior probabilities for interaction effects table results match", {
@@ -40,7 +51,7 @@ test_that("Posterior probabilities for interaction effects table results match",
 })
 
 test_that("Manual hypotheses legend table results match", {
-  table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_legendTable"]][["data"]]
+  table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_resultsContainer"]][["collection"]][["bfpackContainer_resultsContainer_legendTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
                                  list("facFive=facGenderf=facGenderm___X___facFive", "H1", "complement",
                                       "H2"))
@@ -63,13 +74,13 @@ test_that("Posterior probabilities when testing individual parameters table resu
 })
 
 test_that("Posterior probabilities plot matches", {
-  plotName <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_plotContainer"]][["collection"]][["bfpackContainer_plotContainer_postPlot"]][["data"]]
+  plotName <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_probabilitiesPlotContainer"]][["collection"]][["bfpackContainer_probabilitiesPlotContainer_postPlot"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
   jaspTools::expect_equal_plots(testPlot, "posterior-probabilities")
 })
 
 test_that("Prior probabilities plot matches", {
-  plotName <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_plotContainer"]][["collection"]][["bfpackContainer_plotContainer_priorPlot"]][["data"]]
+  plotName <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_probabilitiesPlotContainer"]][["collection"]][["bfpackContainer_probabilitiesPlotContainer_priorPlot"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
   jaspTools::expect_equal_plots(testPlot, "prior-probabilities")
 })
@@ -97,23 +108,27 @@ options <- list(
   dependent = c("contNormal", "contGamma"),
   fixedFactors = "facExperim",
   interactionTerms = list(),
-  iterations = 5000,
+  iterationsEstimation = 5000,
+  iterationsBayesFactor = 10000,
   logScale = FALSE,
   manualHypotheses = list(
-    list(name = "...", priorProbManual = "1/2")
+    list(hypothesisText = "", priorProbManual = "1", includeHypothesis = FALSE, value = "#")
   ),
   plotHeight = 320,
   plotWidth = 480,
-  plots = TRUE,
+  manualPlots = TRUE,
   priorProbComplement = "1/2",
-  runAnalysisBox = TRUE,
   seed = 100,
-  specificationTable = FALSE,
-  standardHypotheses = list(
-    list(priorProb = "1/3", value = "H0: mu = 0 "),
-    list(priorProb = "1/3", value = "H1: mu < 0 "),
-    list(priorProb = "1/3", value = "H2: mu > 0 ")
-  )
+  manualHypothesisBfTable = FALSE,
+  priorProbStandard = "1",
+  priorProbStandard2 = "1",
+  priorProbStandard3 = "1",
+  priorProbInteractionNonZero = "1",
+  priorProbInteractionZero = "1",
+  priorProbMainNonZero = "1",
+  priorProbMainZero = "1",
+  standardHypothesisBfTable = FALSE,
+  standardize = FALSE
 )
 
 set.seed(1)
@@ -134,4 +149,69 @@ test_that("Posterior probabilities when testing individual parameters table resu
                                       5.60001167204669e-12, 0.999999999994324, 7.5881868854101e-14,
                                       "facExperimexperimental_on_contGamma", 3.47872566274389e-14,
                                       0.999999999999965, 4.5233346175913e-16))
+})
+
+
+# check the main and interaction effect prior weight input
+
+options <-
+  list(
+    bfType = "fractional",
+    ciLevel = 0.95,
+    complement = TRUE,
+    covariates = "contcor1",
+    dependent = "contNormal",
+    estimatesTable = FALSE,
+    fixedFactors = "contBinom",
+    groupingVariable = "",
+    interactionTerms = list(
+      list(
+        includeInteractionEffect = TRUE,
+        value = "contBinom:contcor1"
+      )
+    ),
+    iterationsEstimation = 5000,
+    logScale = FALSE,
+    manualHypotheses = list(
+      list(
+        hypothesisText = "",
+        includeHypothesis = FALSE,
+        priorProbManual = "1",
+        value = "#"
+      )
+    ),
+    muValue = 0,
+    plotHeight = 320,
+    plotWidth = 480,
+    manualPlots = FALSE,
+    priorProbComplement = "1",
+    priorProbInteractionNonZero = "100",
+    priorProbInteractionZero = "1",
+    priorProbMainNonZero = "100",
+    priorProbMainZero = "1",
+    priorProbStandard = "2",
+    priorProbStandard2 = "1",
+    priorProbStandard3 = "1",
+    seed = 100,
+    manualHypothesisBfTable = FALSE,
+    standardHypothesisBfTable = FALSE,
+    standardize = FALSE
+  )
+
+dt <- debug[, c("contNormal", "contcor1", "contBinom")]
+dt$contBinom <- as.factor(dt$contBinom)
+
+set.seed(1)
+results <- jaspTools::runAnalysis("bfpackAnova", dt, options, makeTests = F)
+
+test_that("Posterior probabilities for interaction effects table results match", {
+  table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_iaEffectsTable"]][["data"]]
+  jaspTools::expect_equal_tables(table,
+                                 list("contBinom:contcor1", 0.942375220591295, 0.0576247794087045))
+})
+
+test_that("Posterior probabilities for main effects table results match", {
+  table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_mainEffectsTable"]][["data"]]
+  jaspTools::expect_equal_tables(table,
+                                 list("contBinom", 0.750241326516055, 0.249758673483945))
 })

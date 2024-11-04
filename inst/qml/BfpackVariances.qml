@@ -40,33 +40,22 @@ Form
 			name: 								"variables"
 			singleVariable: 			true
 			allowedColumns: 			["scale", "ordinal"]
+			allowTypeChange: true
 		}
+
 		AssignedVariablesList
 		{
 			name: 						"groupingVariable"
 			title: 						qsTr("Grouping Variable")
 			singleVariable: 			true
-			allowedColumns: 			["nominal", "nominalText"]
-		}
-	}
-
-	CheckBox
-	{
-		Layout.columnSpan: 2
-		id: 						runAnalysisBox
-		name: 					"runAnalysisBox"
-		label: 					qsTr("<b>Run Analysis</b>")
-		checked: 				false
-		Component.onCompleted:
-		{
-			background.color = "#ff8600"
+			allowedColumns: 			["nominal"]
 		}
 	}
 
 	Common.HypothesesWindowStandard{
-		parName: qsTr("delta")
 		onlyUnequal: true
 	}
+	Common.ParametersWindow{}
 
 	Common.HypothesesWindowManual{}
 

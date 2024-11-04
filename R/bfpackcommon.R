@@ -1,4 +1,4 @@
-############ HELPERS ##########
+############ BASICS ##########
 
 # Clean the input for the order constraints
 .bfpackCleanModelInput <- function(input) {
@@ -8,9 +8,7 @@
 # Add the BFpack citations
 .bfpackGetCitations <- function() {
   citations <- c(
-    "Mulder, J., Williams, D. R., Gu, X., Tomarken, A., Böing-Messing, F., Olsson-Collentine, A., Meijerink, M., Menke, J., Fox, J.-P., Hoijtink, H., Rosseel, Y., Wagenmakers, E.J., and van Lissa, C. (2021). BFpack: Flexible Bayes Factor Testing of Scientific Theories in R. Journal of Statistical Software.",
-    "Mulder, J., van Lissa, C., Williams, D.R., Gu, X., Olsson-Collentine, A., Böing-Messing, F., Fox, J.-P., Menke, J., van Aert, R., et al. (2021). BFpack: Flexible Bayes Factor Testing of Scientific Expectations. (Version 1.0.0)",
-    "Mulder, J., van Lissa, C., Williams, D.R., Gu, X., Olsson-Collentine, A., Böing-Messing, F., Fox, J.-P., Menke, J., van Aert, R., et al. (2021). BFpack: Flexible Bayes Factor Testing of Scientific Expectations. (Developmental version)"
+    "Mulder, J., Williams, D. R., Gu, X., Tomarken, A., Böing-Messing, F., Olsson-Collentine, A., Meijerink, M., Menke, J., Fox, J.-P., Hoijtink, H., Rosseel, Y., Wagenmakers, E.J., and van Lissa, C. (2021). BFpack: Flexible Bayes Factor Testing of Scientific Theories in R. Journal of Statistical Software, 100(18), 1-63. https://doi.org/10.18637/jss.v100.i18",
   )
   return(citations)
 }
@@ -25,96 +23,20 @@
   return(jaspResults[["bfpackContainer"]])
 }
 
-# also needs adjustment if there is a new analysis that includes interactions
-# give back the interactions to the qml interface
-.bfpackFeedbackInteractions <- function(jaspResults, options, type) {
 
-  # if (!is.null(jaspResults[["interactionTerms"]])) return()
+# handle listwise deletion
+.bfpackHandleData <- function(dataset, options) {
 
-  deps <- switch(type,
-                 "regression" = "covariates",
-                 "anova" = c("fixedFactors", "covariates"),
-                 "regressionLogistic" = "covariates")
+  dataset <- excludeNaListwise(dataset)
 
-  if (type %in% c("regression", "regressionLogistic")) {
-    nams <- decodeColNames(unlist(options[["covariates"]]))
-    if (length(nams) < 2) return()
-  } else if (type == "anova") {
-    nams <- decodeColNames(c(unlist(options[["fixedFactors"]]), unlist(options[["covariates"]])))
-    if (length(nams) < 2) return()
+  if (options[["standardize"]]) {
+    cindex <- which(sapply(dataset, is.numeric))
+    dataset[, cindex] <- scale(dataset[, cindex])
   }
 
-  # allow more than two-way interactions
-  inters <- list()
-  for (i in 2:length(nams)) {
-    interTmp <- combn(nams, m = i)
-    interTmp <- as.data.frame(interTmp)
-    tmp <- lapply(interTmp, function(x) paste0(x, collapse = ":"))
-    # somehow this wont work wihtout this:
-    names(tmp) <- NULL
-    inters <- append(inters, tmp)
-  }
-
-  outSource <- createJaspQmlSource("interactionSource", inters)
-  outSource$dependOn(c(deps, "interactionTerms"))
-  jaspResults[["interactionTerms"]] <- outSource
-
-  return()
+  return(dataset)
 }
 
-# this function needs updating when there is a new analysis added
-# Read the data set
-.bfpackReadDataset <- function(options, type, dataset) {
-
-  numerics <- switch(type,
-    "onesampleTTest" = options[["variables"]],
-    "pairedTTest" = unlist(options[["pairs"]]),
-    "independentTTest" = unlist(options[["variables"]]),
-    "anova" = c(unlist(options[["dependent"]]), unlist(options[["covariates"]])),
-    "regression" = c(options[["dependent"]], unlist(options[["covariates"]])),
-    "correlation" = c(unlist(options[["variables"]]), unlist(options[["covariates"]])),
-    "variances" = options[["variables"]],
-    "regressionLogistic" = unlist(options[["covariates"]]),
-    "multiSampleTTest" = unlist(options[["variables"]])
-    )
-  numerics <- numerics[numerics != ""]
-  factors <- switch(type,
-    "onesampleTTest" = NULL,
-    "pairedTTest" = NULL,
-    "independentTTest" = options[["groupingVariable"]],
-    "anova" = unlist(options[["fixedFactors"]]),
-    "regression" = NULL,
-    "variances" = options[["groupingVariable"]],
-    "regressionLogistic" = options[["dependent"]],
-    "correlation" = options[["group"]]
-    )
-  factors <- factors[factors != ""]
-  vars <- c(numerics, factors)
-
-  if (is.null(dataset)) {
-    trydata <- .readDataSetToEnd(columns.as.numeric = numerics, columns.as.factor = factors)
-    missing <- names(which(apply(trydata, 2, function(x) {
-      any(is.na(x))
-    })))
-    if (type == "onesampleTTest") { # For the one sample t test we do not remove the NA's listwise
-      dataset <- .readDataSetToEnd(columns.as.numeric = numerics, columns.as.factor = factors)
-    } else {
-      dataset <- .readDataSetToEnd(columns.as.numeric = numerics, columns.as.factor = factors, exclude.na.listwise = vars)
-    }
-    if ((type == "anova") && length(options[["fixedFactors"]]) > 0) {
-      if (any(grepl(pattern = " ", x = levels(dataset[, options[["fixedFactors"]]])))) {
-        jaspBase:::.quitAnalysis(gettext("BFpack does not accept factor levels that contain spaces. Please remove the spaces from your factor levels to continue."))
-      }
-    }
-  } else {
-    dataset <- .vdf(dataset, columns.as.numeric = numerics, columns.as.factor = factors)
-  }
-
-  readList <- list()
-  readList[["dataset"]] <- dataset
-  readList[["missing"]] <- missing
-  return(readList)
-}
 
 .bfpackUnwrapInteractions <- function(options) {
 
@@ -217,16 +139,17 @@
 # this function needs updating when there is a new analysis added
 # Check if current options allow for analysis
 .bfpackOptionsReady <- function(options, type) {
+
   ready <- switch(type,
-    "independentTTest" = options[["variables"]] != "" && options[["groupingVariable"]] != "",
-    "pairedTTest" = sum(unlist(options[["pairs"]]) != "") > 1,
-    "onesampleTTest" = options[["variables"]] != "",
+    "tTestIndependentSamples" = options[["variables"]] != "" && options[["groupingVariable"]] != "",
+    "tTestPairedSamples" = sum(unlist(options[["pairs"]]) != "") > 1,
+    "tTestOneSample" = options[["variables"]] != "",
     "anova" = length(unlist(options[["dependent"]])) > 0 && length(unlist(options[["fixedFactors"]])) > 0,
-    "regression" = options[["dependent"]] != "" && length(unlist(options[["covariates"]])) > 0,
+    "regression" = sum(unlist(options[["dependent"]]) != "") > 0 && length(unlist(options[["covariates"]])) > 0,
     "correlation" = length(unlist(options[["variables"]])) > 1,
     "variances" = options[["variables"]] != "" && options[["groupingVariable"]] != "",
     "regressionLogistic" = options[["dependent"]] != "" && length(unlist(options[["covariates"]])) > 0,
-    "multiSampleTTest" = length(unlist(options[["variables"]])) > 1
+    "tTestMultiSamples" = length(unlist(options[["variables"]])) > 1
     )
 
   return(ready)
@@ -234,54 +157,42 @@
 
 # this function needs updating when there is a new analysis added
 # Check if current data allow for analysis
-.bfpackDataReady <- function(dataset, options, type) {
+.bfpackDataReady <- function(dataset, options, type, ready) {
 
-  if (type == "independentTTest" || type == "regressionLogistic") {
+  if (!ready) return()
 
-    if (type == "independentTTest") {
-      factors <- options[["groupingVariable"]]
-    } else if (type == "regressionLogistic") {
-      factors <- options[["dependent"]]
-    } else if (type == "correlation") {
-      factors <- options[["group"]]
-    }
+  findex <- which(sapply(dataset, is.factor))
+  oindex <- which(sapply(dataset, is.ordered))
+  findex <- findex[findex != oindex]
+  if (length(findex > 0)) {
+    factors <- colnames(dataset)[findex]
+    .hasErrors(dataset,
+               type = "factorLevels",
+               factorLevels.target = factors, factorLevels.amount = '!= 2',
+               exitAnalysisIfErrors = TRUE
+    )
 
-    factors <- factors[factors != ""]
-    if (length(factors) > 0) {
-      .hasErrors(dataset,
-        type = "factorLevels",
-        factorLevels.target = factors, factorLevels.amount = '< 2',
-        exitAnalysisIfErrors = TRUE
-      )
+    if (any(grepl(pattern = " ", x = levels(dataset[, findex])))) {
+      jaspBase:::.quitAnalysis(gettext("BFpack does not accept factor levels that contain spaces. Please remove the spaces from your factor levels to continue."))
     }
   }
 
-  numerics <- switch(type,
-    "onesampleTTest" = options[["variables"]],
-    "pairedTTest" = unlist(options[["pairs"]]),
-    "independentTTest" = options[["variables"]],
-    "anova" = options[["dependent"]],
-    "regression" = c(options[["dependent"]], unlist(options[["covariates"]])),
-    "correlation" = c(unlist(options[["variables"]]), unlist(options[["covariates"]])),
-    "variances" = unlist(options[["variables"]]),
-    "regressionLogisitic" = unlist(options[["covariates"]]),
-    "multiSampleTTest" = unlist(options[["variables"]]))
-
-  numerics <- numerics[numerics != ""]
-
-  if (length(numerics) > 0) {
+  nonfactors <- colnames(dataset)[-findex]
+  if (length(nonfactors) > 0) {
     .hasErrors(dataset,
       type = c("infinity", "variance", "observations"),
-      all.target = numerics, observations.amount = "< 3",
+      all.target = nonfactors, observations.amount = "< 3",
       exitAnalysisIfErrors = TRUE
     )
   }
+
+  return()
 }
 
 ###### COMPUTE RESULTS ######
 # this function needs updating when there is a new analysis added
 # perform the parameter estimation and also return the estimates to the JASP GUI
-.bfpackGetParameterEstimates <- function(dataList, options, bfpackContainer, ready, type, jaspResults) {
+.bfpackGetParameterEstimates <- function(dataset, options, bfpackContainer, ready, type, jaspResults) {
 
   if (!is.null(bfpackContainer[["estimatesState"]])) {
     return()
@@ -289,8 +200,7 @@
 
   if (!ready) return()
 
-  dataset <- dataList[["dataset"]]
-  missing <- dataList[["missing"]]
+  dataset <- dataset
   # decode the colnames otherwise bfpack fails when trying to match hypotheses and estimate names
   colnames(dataset) <- decodeColNames(colnames(dataset))
 
@@ -299,30 +209,43 @@
   }
 
   callString <- switch(type,
-                       "independentTTest" = "BFpack:::get_estimates.t_test",
-                       "pairedTTest" = "BFpack:::get_estimates.t_test",
-                       "onesampleTTest" = "BFpack:::get_estimates.t_test",
+                       "tTestIndependentSamples" = "BFpack:::get_estimates.t_test",
+                       "tTestPairedSamples" = "BFpack:::get_estimates.t_test",
+                       "tTestOneSample" = "BFpack:::get_estimates.t_test",
                        "anova" = "bain::get_estimates",
                        "regression" = "BFpack:::get_estimates.lm",
                        "correlation" = "BFpack:::get_estimates.cor_test",
                        "variances" = "BFpack:::get_estimates.bartlett_htest",
-                       "regressionLogistic" = "BFpack:::get_estimates.glm",
-                       "multiSampleTTest" = "BFpack:::get_estimates.mvt_test"
+                       "tTestMultiSamples" = "BFpack:::get_estimates.mvt_test",
+                       NULL
                        )
+
+  # special case logistic regression
+  if (type == "regressionLogistic") {
+    if (is.ordered(dataset[, decodeColNames(options[["dependent"]])])) {
+      callString <- "BFpack:::get_estimates.polr"
+      polr <- TRUE
+    } else {
+      callString <- "BFpack:::get_estimates.glm"
+      polr <- FALSE
+    }
+  }
+
 
   # special dependency ciLevel, because for some cor, reg, aov when the ciLevel is changed
   # we can just use the fitted object and change the interval, but for t-test we need to change it
   # in the t-test call (or at least it is easiest)
   deps <- switch(type,
-                 "independentTTest" = c("ciLevel", "muValue"),
-                 "pairedTTest" = c("ciLevel", "muValue"),
-                 "onesampleTTest" = c("ciLevel", "muValue"),
-                 "anova" = "interactionTerms",
-                 "regression" = "interactionTerms",
-                 "regressionLogistic"= "interactionTerms",
-                 "multiSampleTTest" = "testValues",
+                 "tTestIndependentSamples" = c("ciLevel", "muValue", "variances"),
+                 "tTestPairedSamples" = c("ciLevel", "muValue"),
+                 "tTestOneSample" = c("ciLevel", "muValue"),
+                 "anova" = c("interactionTerms", "includeInteractionEffect"),
+                 "regression" = c("interactionTerms", "includeInteractionEffect"),
+                 "regressionLogistic"= c("interactionTerms", "includeInteractionEffect"),
+                 "tTestMultiSamples" = "testValues",
                  NULL)
 
+  .setSeedJASP(options)
   # estimate the correlation
   if (type == "correlation") {
 
@@ -331,23 +254,30 @@
 
     if (length(covariates) > 0) {
       form <- eval(parse(text = paste0("~", paste0(covariates, collapse = "+"))))
+      # weirdly BFpack always requires the covariate(s) to be in the last columns
+      cIndex <- which(colnames(dataset) == covariates)
+      notcIndex <- which(colnames(dataset) != covariates)
+      dataset <- dataset[, c(notcIndex, cIndex)]
     } else {
       form <- NULL
     }
 
-    if (options[["group"]] == "") {
-      result <- try(BFpack::cor_test(dataset, formula = form))
+    if (options[["groupingVariable"]] == "") {
+      result <- try(BFpack::cor_test(dataset,
+                                     formula = form,
+                                     iter = options[["iterationsEstimation"]],
+                                     nugget.scale = options[["nugget"]]))
 
     } else {
-      groupName <- decodeColNames(options[["group"]])
+      groupName <- decodeColNames(options[["groupingVariable"]])
       levs <- levels(dataset[[groupName]])
       dataNames <- vector("character", 0L)
+      if (length(covariates) > 0) {
+        select <- c(decodeColNames(options[["variables"]]), covariates)
+      } else {
+        select <- c(decodeColNames(options[["variables"]]))
+      }
       for (i in 1:length(levs)) {
-        if (length(covariates) > 0) {
-          select <- c(decodeColNames(options[["variables"]]), covariates)
-        } else {
-          select <- c(decodeColNames(options[["variables"]]))
-        }
         dtmp <- subset(dataset,
                        subset = eval(parse(text = groupName)) == levs[i],
                        select = select)
@@ -366,7 +296,7 @@
   # regression
   } else if (type %in%  c("regression", "regressionLogistic")) {
 
-    dependent <- decodeColNames(options[["dependent"]])
+    dependent <- decodeColNames(unlist(options[["dependent"]]))
     covariates <- decodeColNames(unlist(options[["covariates"]]))
     ncov <- length(covariates)
     covariateString <- paste0(covariates, collapse = "+")
@@ -376,13 +306,22 @@
       covariateString <- paste0(covariateString, "+", iastring)
     }
 
-    formula <- as.formula(paste0(dependent, "~", covariateString))
+    if (length(dependent) > 1) { # means  multivariate linear regression
+      depString <- paste0("cbind(", paste0(dependent, collapse = ","), ")")
+    } else {
+      depString <- dependent
+    }
+
+    formula <- as.formula(paste0(depString, "~", covariateString))
 
     if (type == "regression") {
       result <- try(lm(formula, data = dataset))
     } else if (type == "regressionLogistic") {
-      # TODO: more families?
-      result <- try(glm(formula, data = dataset, family = "binomial"))
+      if (polr) {
+        result <- try(MASS::polr(formula, data = dataset, Hess = TRUE))
+      } else {
+        result <- try(glm(formula, data = dataset, family = "binomial"))
+      }
     }
 
   } else if (type == "anova") {
@@ -421,7 +360,7 @@
 
     result <- try(BFpack::bartlett_test(dataset[, variable], dataset[, grouping]))
 
-  } else if (type == "independentTTest") {
+  } else if (type == "tTestIndependentSamples") {
 
     variable <- decodeColNames(options[["variables"]])
     grouping <- decodeColNames(options[["groupingVariable"]])
@@ -431,24 +370,38 @@
     g2 <- levels[2]
     group1 <- dataset[dataset[[grouping]] == g1, variable]
     group2 <- dataset[dataset[[grouping]] == g2, variable]
-    result <- try(bain::t_test(x = group1, y = group2, paired = FALSE, var.equal = FALSE,
-                               conf.level = options[["ciLevel"]], mu = options[["muValue"]]))
 
-  } else if (type == "onesampleTTest") {
+    # since the bain package does not allow anything to be pased but a boolean for var.equal, we need to do this:
+    if (options[["variances"]] == "equal") {
+      result <- try(bain::t_test(x = group1, y = group2,
+                                 paired = FALSE,
+                                 var.equal = TRUE,
+                                 conf.level = options[["ciLevel"]],
+                                 mu = options[["muValue"]]))
+    } else {
+      result <- try(bain::t_test(x = group1, y = group2,
+                                 paired = FALSE,
+                                 var.equal = FALSE,
+                                 conf.level = options[["ciLevel"]],
+                                 mu = options[["muValue"]]))
+    }
+
+
+  } else if (type == "tTestOneSample") {
 
     variable <- decodeColNames(options[["variables"]])
     result <- try(bain::t_test(x = dataset[, variable], paired = FALSE, var.equal = FALSE,
                                conf.level = options[["ciLevel"]],
                                mu = options[["muValue"]]))
 
-  } else if (type == "pairedTTest") {
+  } else if (type == "tTestPairedSamples") {
     variables <- decodeColNames(unlist(unlist(options[["pairs"]])))
     result <- try(bain::t_test(x = dataset[, variables[1]], y = dataset[, variables[2]],
                                paired = TRUE, var.equal = FALSE,
                                conf.level = options[["ciLevel"]],
                                mu = options[["muValue"]]))
 
-  } else if (type == "multiSampleTTest") {
+  } else if (type == "tTestMultiSamples") {
 
     testValues <- sapply(options[["testValues"]], function(x) x[["testValue"]])
     variables <- decodeColNames(options[["variables"]])
@@ -473,18 +426,15 @@
 
   estimateNames <- as.list(names(estimateNames$estimate))
 
-  # remove intercept name for regression
-  if (type %in% c("regression", "regressionLogistic")) estimateNames[[1]] <- NULL
-
   # new dependencies for the qml source since it is not part of bfpackContainer but jaspResults
   deps2 <- switch(type,
-                 "independentTTest" = c("variables", "grouping"),
-                 "pairedTTest" = "pairs",
-                 "onesampleTTest" = "variables",
+                 "tTestIndependentSamples" = c("variables", "groupingVariable"),
+                 "tTestPairedSamples" = "pairs",
+                 "tTestOneSample" = "variables",
                  "anova" = c("dependent", "fixedFactors", "covariates"),
                  "regression" = c("dependent", "covariates"),
-                 "correlation" = "variables",
-                 "variances" = c("variables", "grouping"),
+                 "correlation" = c("variables", "groupingVariable"),
+                 "variances" = c("variables", "groupingVariable"),
                  "regressionLogistic" = c("dependent", "covariates"))
 
   namesForQml <- createJaspQmlSource("estimateNamesForQml", estimateNames)
@@ -496,80 +446,97 @@
 }
 
 # compute the posteriors and BFs
-# TODO: manual and standard prior
-.bfpackComputeResults <- function(dataList, options, bfpackContainer, ready, type) {
+.bfpackComputeResults <- function(dataset, options, bfpackContainer, ready, type) {
 
   if (!is.null(bfpackContainer[["resultsContainer"]][["resultsState"]])) return()
   if (!ready) return()
 
   # create a container because both the results and the tables depending on them have the same dependencies
-  # start with common deps, and then do the switch
-  deps <- c("complement", "logScale", "manualHypotheses", "priorProbManual", "priorProb", "priorProbComplement", "seed",
-            "estimatesTable", "bfType")
+  deps <- c("complement", "logScale", "manualHypotheses", "priorProbManual",
+            "priorProbStandard", "priorProbStandard2", "priorProbStandard3",
+            "priorProbComplement", "seed", "bfType", "includeHypothesis", "ciLevel",
+            "interactionTerms", "includeInteractionEffect", "priorProbMainZero",
+            "priorProbMainNonZero", "priorProbInteractionZero", "priorProbInteractionNonZero",
+            "iterationsBayesFactor")
 
   resultsContainer <- createJaspContainer()
-  resultsContainer$dependOn(deps)
+  resultsContainer$dependOn(optionsFromObject = bfpackContainer[["estimatesState"]], options = deps)
 
-  if (!options[["runAnalysisBox"]]) {
-    syncText <- createJaspHtml(text = gettext("<b>Check the 'Run Analysis' box to run the analysis</b>"))
-    bfpackContainer[["syncText"]] <- syncText
-    syncText$dependOn("runAnalysisBox")
-    syncText$position <- 0.01
-    return()
-  }
+  bfpackContainer[["resultsContainer"]] <- resultsContainer
 
   if (!is.null(bfpackContainer[["estimatesState"]])) {
     estimates <- bfpackContainer[["estimatesState"]]$object
 
     # standard hypotheses priors
-    if (type %in% c("variances", "multiSampleTTest")) {
+    if (type %in% c("variances", "tTestMultiSamples")) {
       standPrior <- sapply(parse(text = c(options[["priorProbStandard"]], options[["priorProbStandard2"]])), eval)
+    } else if (type == "anova") {
+      standPrior <- list(sapply(parse(text = c(options[["priorProbStandard"]], options[["priorProbStandard2"]],
+                                          options[["priorProbStandard3"]])), eval),
+                         sapply(parse(text = c(options[["priorProbMainZero"]],
+                                               options[["priorProbMainNonZero"]])), eval),
+                         sapply(parse(text = c(options[["priorProbInteractionZero"]],
+                                               options[["priorProbInteractionNonZero"]])), eval)
+                         )
     } else {
       standPrior <- sapply(parse(text = c(options[["priorProbStandard"]], options[["priorProbStandard2"]],
                                           options[["priorProbStandard3"]])), eval)
     }
 
     # check if there are manual hypotheses
-    manualHyp <- sapply(options[["manualHypotheses"]], function(x) x[["name"]])
+    manualHypInclude <- sapply(options[["manualHypotheses"]], function(x) x[["includeHypothesis"]])
+    manualHyp <- sapply(options[["manualHypotheses"]], function(x) trimws(x[["hypothesisText"]]))
     manualPrior <- sapply(options[["manualHypotheses"]], function(x) x[["priorProbManual"]])
 
-    # strip down the hypos
-    # replace with numbers because that is also what qml does if a hypothesis string is deleted...
-    # might be the following is analysis-specific
-    manualHyp <- gsub("...", "1", manualHyp, fixed = TRUE)
-
-    # keep the hypotheses that are specified
-    strs <- which(is.na(as.numeric(manualHyp)))
-    manualHyp <- manualHyp[strs]
-    manualPrior <- manualPrior[strs]
-    # at least one manual hypo specified?
-    if (length(manualHyp) > 0) {
+    # keep the hypotheses that are included
+    manualHyp <- manualHyp[manualHypInclude]
+    if (length(manualHyp) == 0 || all(manualHyp == "")) {
+      manualHyp <- NULL
+      manualPrior <- NULL
+    } else {
+      manualPrior <- manualPrior[manualHypInclude]
       manualHyp <- paste(manualHyp, collapse = ";")
       if (options[["complement"]]) manualPrior <- c(manualPrior, options[["priorProbComplement"]])
       # convert the prior character values to numeric:
       manualPrior <- sapply(manualPrior, function(x) eval(parse(text=x)))
-    } else {
-      manualHyp <- NULL
-      manualPrior <- NULL
+
+      # special treatment for variances, see if levels of the grouping variable start with a numeric character, which would crash BFpack
+      findex <- which(sapply(dataset, is.factor))
+      if (length(findex > 0)) {
+        if (type == "variances") {
+          # there is only one factor for variances
+          levs <- levels(dataset[, findex])
+          if (any(grepl("^[0-9]", levs))) {
+            jaspBase:::.quitAnalysis(gettext("BFpack does not accept factor levels that start with a number. Please remove the numbers from your factor levels to continue."))
+          }
+        }
+      }
+
     }
 
     # BF.type depends in the analysis as well
     # seems that except for the correlation and variance, all other models have the adjusted bftype option
     if (!is.null(options[["bfType"]])) {
-      if (options[["bfType"]] == "adjusted") {
-        bftype <- 2
+      if (options[["bfType"]] == "fractional") {
+        bftype <- "FBF"
       } else {
-        bftype <- 1
+        bftype <- "AFBF"
       }
     }
 
+    if (type %in% c("tTestIndependentSamples", "anova", "tTestMultiSample"))
+      iterations <- options[["iterationsBayesFactor"]]
+    else
+      iterations <- NULL
 
     results <- try(BFpack::BF(estimates, hypothesis = manualHyp,
                              complement = options[["complement"]],
                              prior.hyp.conf = manualPrior,
                              prior.hyp.explo = standPrior,
                              log = options[["logScale"]],
-                             BF.type = bftype))
+                             BF.type = bftype,
+                             cov.prob = options[["ciLevel"]],
+                             iter = iterations))
 
     if (isTryError(results)) {
 
@@ -587,8 +554,6 @@
     resultsContainer[["resultsState"]] <- resultsState
   }
 
-  bfpackContainer[["resultsContainer"]] <- resultsContainer
-
   return()
 }
 
@@ -601,42 +566,36 @@
   # inner container
   if (!is.null(bfpackContainer[["parameterTable"]])) return()
 
-  parameterTable <- createJaspTable(gettext("Posterior probabilities when testing individual parameters"))
-  parameterTable$dependOn("priorProb")
+  parameterTable <- createJaspTable(gettext("Posterior Probabilities Testing Standard Hypotheses"))
+  parameterTable$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]], options = "priorProb")
   parameterTable$position <- position
 
-  if (type %in% c("variances", "multiSampleTTest")) {
+  if (type %in% c("variances", "tTestMultiSamples")) {
 
     if (type == "variances") {
-      title1 <- gettext("Homogeneity of variances")
-      title2 <- gettext("No homogeneity of variances")
-    } else if (type == "multiSampleTTest") {
+      title1 <- gettext("Equal Variances")
+      title2 <- gettext("Unequal Variances")
+    } else if (type == "tTestMultiSamples") {
       # testValues <- sapply(options[["testValues"]] function(x) x[["testValue"]]))
-      title1 <- gettext("Pr(=test values)")
-      title2 <- gettext("Pr(≠test values)")
+      title1 <- gettext("Pr(H0)")
+      title2 <- gettext("Pr(H±)")
     }
     parameterTable$addColumnInfo(name = "equal", type = "number", title = title1)
     parameterTable$addColumnInfo(name = "unequal", type = "number", title = title2)
 
   } else {
-    if (type %in% c("onesampleTTest", "pairedTTest", "independentTTest")) {
-      title1 <- gettextf("Pr(=%1$s)", options[["muValue"]])
-      title2 <- gettextf("Pr(<%1$s)", options[["muValue"]])
-      title3 <- gettextf("Pr(>%1$s)", options[["muValue"]])
-    } else {
-      title1 <- gettext("Pr(=0)")
-      title2 <- gettext("Pr(<0)")
-      title3 <- gettext("Pr(>0)")
+    title1 <- gettext("Pr(H0)")
+    title2 <- gettext("Pr(H-)")
+    title3 <- gettext("Pr(H+)")
 
-      if (type == "correlation" && options[["group"]] != "") {
-        groupName <- options[["group"]]
-        levs <- levels(dataset[[groupName]])
-        footnote <- ""
-        for (i in 1:length(levs)) {
-          footnote <- gettextf("%1$sGroup %2$s corresponds to level %3$s. ", footnote, paste0("g", i), levs[i])
-        }
-        parameterTable$addFootnote(footnote)
+    if (type == "correlation" && options[["groupingVariable"]] != "") {
+      groupName <- options[["groupingVariable"]]
+      levs <- levels(dataset[[groupName]])
+      footnote <- ""
+      for (i in 1:length(levs)) {
+        footnote <- gettextf("%1$sGroup %2$s corresponds to level %3$s in variable %4$s. ", footnote, paste0("g", i), levs[i], groupName)
       }
+      parameterTable$addFootnote(footnote)
     }
 
     parameterTable$addColumnInfo(name = "coefficient", type = "string", title = "")
@@ -653,7 +612,7 @@
   if (!bfpackContainer$getError()) {
     parPhp <- bfpackContainer[["resultsContainer"]][["resultsState"]]$object$PHP_exploratory
     if (!is.null(parPhp)) {
-      if (type %in% c("variances", "multiSampleTTest")) {
+      if (type %in% c("variances", "tTestMultiSamples")) {
         dtFill <- data.frame(equal = parPhp[1], unequal = parPhp[2])
       } else {
         dtFill <- data.frame(coefficient = rownames(parPhp))
@@ -664,7 +623,7 @@
 
   }
 
-  if (type == "independentTTest") {
+  if (type == "tTestIndependentSamples") {
     levels <- levels(dataset[[options[["groupingVariable"]]]])
     if (length(levels) > 2) {
       parameterTable$addFootnote(gettext("The number of factor levels in the grouping is greater than 2.
@@ -683,13 +642,13 @@
   # inner container
   if (!is.null(bfpackContainer[["mainEffectsTable"]])) return()
 
-  mainEffectsTable <- createJaspTable(gettext("Posterior probabilities for main effects"))
-  mainEffectsTable$dependOn("priorProb")
+  mainEffectsTable <- createJaspTable(gettext("Posterior Probabilities for Main Effects"))
+  mainEffectsTable$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]])
   mainEffectsTable$position <- position
 
   mainEffectsTable$addColumnInfo(name = "coefficient", type = "string", title = "")
-  mainEffectsTable$addColumnInfo(name = "noEffect", type = "number", title = gettext("Pr(no effect)"))
-  mainEffectsTable$addColumnInfo(name = "fullModel", type = "number", title = gettext("Pr(full model)"))
+  mainEffectsTable$addColumnInfo(name = "noEffect", type = "number", title = gettext("Pr(No effect)"))
+  mainEffectsTable$addColumnInfo(name = "fullModel", type = "number", title = gettext("Pr(Full Model)"))
 
   bfpackContainer[["mainEffectsTable"]] <- mainEffectsTable
 
@@ -713,18 +672,19 @@
   # inner container
   if (!is.null(bfpackContainer[["iaEffectsTable"]])) return()
 
-  iaEffectsTable <- createJaspTable(gettext("Posterior probabilities for interaction effects"))
-  iaEffectsTable$dependOn("priorProb")
+  iaEffectsTable <- createJaspTable(gettext("Posterior Probabilities for Interaction Effects"))
+  iaEffectsTable$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]])
   iaEffectsTable$position <- position
 
   iaEffectsTable$addColumnInfo(name = "coefficient", type = "string", title = "")
-  iaEffectsTable$addColumnInfo(name = "noEffect", type = "number", title = gettext("Pr(no effect)"))
-  iaEffectsTable$addColumnInfo(name = "fullModel", type = "number", title = gettext("Pr(full model)"))
+  iaEffectsTable$addColumnInfo(name = "noEffect", type = "number", title = gettext("Pr(No effect)"))
+  iaEffectsTable$addColumnInfo(name = "fullModel", type = "number", title = gettext("Pr(Full model)"))
+
+  bfpackContainer[["iaEffectsTable"]] <- iaEffectsTable
 
   if (!bfpackContainer$getError()) {
     php <- bfpackContainer[["resultsContainer"]][["resultsState"]]$object$PHP_interaction
     if (!is.null(php)) {
-      bfpackContainer[["iaEffectsTable"]] <- iaEffectsTable
 
       dtFill <- data.frame(coefficient = rownames(php))
       dtFill[, c("noEffect", "fullModel")] <- php
@@ -739,9 +699,9 @@
 # Create a legend containing the order constrained hypotheses
 .bfpackLegendTable <- function(options, type, bfpackContainer, position) {
 
-  if (!is.null(bfpackContainer[["legendTable"]])) return()
+  if (!is.null(bfpackContainer[["resultsContainer"]][["legendTable"]])) return()
 
-  legendTable <- createJaspTable(gettext("Manual hypotheses legend"))
+  legendTable <- createJaspTable(gettext("Manual Hypotheses Legend"))
 
   legendTable$dependOn("manualHypotheses")
   legendTable$position <- position
@@ -749,17 +709,27 @@
   legendTable$addColumnInfo(name = "hypothesis", type = "string", title = gettext("Hypothesis"))
 
   if (!bfpackContainer$getError()) {
+    # if there is a string in the hypotheses field but the suer forgot to check the include box we want an empty table
+    # with a footnote
+    manualHyp <- sapply(options[["manualHypotheses"]], function(x) x[["hypothesisText"]])
+    manualHypInclude <- sapply(options[["manualHypotheses"]], function(x) x[["includeHypothesis"]])
+    if (paste0(manualHyp, collapse = "") != "" && !any(manualHypInclude)) {
+      legendTable$addFootnote(gettext("Check the 'Include' box to test the hypothesis."))
+      # putting the assignment to the container here means the table is only displayed if it is filled with data
+      bfpackContainer[["resultsContainer"]][["legendTable"]] <- legendTable
+    }
+
     hypos <- bfpackContainer[["resultsContainer"]][["resultsState"]]$object$hypotheses
     if (!is.null(hypos)) {
       for (i in seq_len(length(hypos))) {
         row <- list(number = gettextf("H%i", i), hypothesis = hypos[i])
         legendTable$addRows(row)
       }
-      # putting the assignment to the container here means the table is only displayed if it is filled with data
-      bfpackContainer[["legendTable"]] <- legendTable
-    }
 
+      bfpackContainer[["resultsContainer"]][["legendTable"]] <- legendTable
+    }
   }
+
 
   return()
 }
@@ -770,9 +740,10 @@
 
   if (!is.null(bfpackContainer[["resultsContainer"]][["matrixTable"]])) return()
 
-  tbTitle <- ifelse(options[["logScale"]], gettext("Evidence matrix (log BFs)"), gettext("Evidence matrix (BFs)"))
+  tbTitle <- ifelse(options[["logScale"]], gettext("Evidence Matrix (log BFs)"), gettext("Evidence Matrix (BFs)"))
   matrixTable <- createJaspTable(tbTitle)
   matrixTable$position <- position
+  # matrixTable$dependOn()
 
   matrixTable$addColumnInfo(name = "hypothesis", title = "", type = "string")
   matrixTable$addColumnInfo(name = "H1", title = gettext("H1"), type = "number")
@@ -809,11 +780,11 @@
 
   if (!is.null(bfpackContainer[["resultsContainer"]][["postTable"]])) return()
 
-  postTable <- createJaspTable(gettext("Posterior model probability"))
+  postTable <- createJaspTable(gettext("Posterior Model Probability"))
   postTable$position <- position
 
   postTable$addColumnInfo(name = "hypothesis", title = "", type = "string")
-  postTable$addColumnInfo(name = "prob", title = gettext("P(H|D)"), type = "number")
+  postTable$addColumnInfo(name = "prob", title = gettext("P(H|Data)"), type = "number")
 
   if (!bfpackContainer$getError()) {
     php <- bfpackContainer[["resultsContainer"]][["resultsState"]]$object$PHP_confirmatory
@@ -837,20 +808,22 @@
 .bfpackSpecificationTable <- function(options, bfpackContainer, type, position) {
 
   if (!is.null(bfpackContainer[["resultsContainer"]][["specTable"]]) ||
-      !options[["specificationTable"]]) return()
+      !options[["manualHypothesisBfTable"]]) return()
 
-  specTable <- createJaspTable(gettext("Specification table"))
-  specTable$dependOn("specificationTable")
+  specTable <- createJaspTable(gettext("BFs: Manual Hypotheses"))
+  specTable$dependOn("manualHypothesisBfTable")
   specTable$position <- position
 
-  specTable$addColumnInfo(name = "hypothesis", title = "", type = "string")
-  specTable$addColumnInfo(name = "complex=", title = gettext("Equal-complex"), type = "number")
-  specTable$addColumnInfo(name = "complex>", title = gettext("Order-complex"), type = "number")
-  specTable$addColumnInfo(name = "fit=", title = gettext("Equal-fit"), type = "number")
-  specTable$addColumnInfo(name = "fit>", title = gettext("Order-fit"), type = "number")
-  specTable$addColumnInfo(name = "BF=", title = gettext("Equal-BF"), type = "number")
-  specTable$addColumnInfo(name = "BF>", title = gettext("Order-BF"), type = "number")
-  specTable$addColumnInfo(name = "BF", title = gettext("BF"), type = "number")
+  specTable$addColumnInfo(name = "hypothesis",  title = "",                               type = "string")
+  specTable$addColumnInfo(name = "complex=",    title = gettext("Equal-Complex"),         type = "number")
+  specTable$addColumnInfo(name = "complex>",    title = gettext("Order-Complex"),         type = "number")
+  specTable$addColumnInfo(name = "fit=",        title = gettext("Equal-Fit"),             type = "number")
+  specTable$addColumnInfo(name = "fit>",        title = gettext("Order-Fit"),             type = "number")
+  specTable$addColumnInfo(name = "BF=",         title = gettext("Equal-BF"),              type = "number")
+  specTable$addColumnInfo(name = "BF>",         title = gettext("Order-BF"),              type = "number")
+  specTable$addColumnInfo(name = "BF",          title = gettext("BF"),                    type = "number")
+  specTable$addColumnInfo(name = "PHP",         title = gettext("Posterior Probability"), type = "number")
+
 
   bfpackContainer[["resultsContainer"]][["specTable"]] <- specTable
 
@@ -858,7 +831,7 @@
     spec <- bfpackContainer[["resultsContainer"]][["resultsState"]]$object$BFtable_confirmatory
     if (!is.null(spec)) {
       dtFill <- data.frame(hypothesis = paste0(gettext("H"), seq(1:nrow(spec))))
-      dtFill[, c("complex=", "complex>", "fit=", "fit>", "BF=", "BF>", "BF")] <- spec[, 1:7]
+      dtFill[, c("complex=", "complex>", "fit=", "fit>", "BF=", "BF>", "BF", "PHP")] <- spec[, 1:8]
       specTable$setData(dtFill)
     }
 
@@ -870,20 +843,17 @@
 
 
 .bfpackEstimatesTable <- function(options, bfpackContainer, type, position = 1) {
-  if (!is.null(bfpackContainer[["coefContainer"]][["estimatesTable"]]) ||
+  if (!is.null(bfpackContainer[["resultsContainer"]][["estimatesTable"]]) ||
       !options[["estimatesTable"]]) return()
 
-  # create a container so the estimatesTable is added at the end of the output
-  coefContainer <- createJaspContainer()
-  coefContainer$dependOn(c("estimatesTable", "ciLevel"))
-  bfpackContainer[["coefContainer"]] <- coefContainer
-
-  estimatesTable <- createJaspTable(gettext("Estimates table"))
+  estimatesTable <- createJaspTable(gettext("Estimates Table"))
   estimatesTable$position <- position
+  estimatesTable$dependOn("estimatesTable")
+  bfpackContainer[["resultsContainer"]][["estimatesTable"]] <- estimatesTable
 
   interval <- gettextf("%s%% CI", format(100 * options[["ciLevel"]], digits = 3, drop0trailing = TRUE))
-  intervalLow <- gettextf("%s lower bound", interval)
-  intervalUp <- gettextf("%s upper bound", interval)
+  intervalLow <- gettextf("%s Lower Bound", interval)
+  intervalUp <- gettextf("%s Upper Bound", interval)
 
 
   estimatesTable$addColumnInfo(name = "coefficient", title = "", type = "string")
@@ -892,69 +862,71 @@
   estimatesTable$addColumnInfo(name = "lower", title = intervalLow, type = "number")
   estimatesTable$addColumnInfo(name = "upper", title = intervalUp, type = "number")
 
-
-  bfpackContainer[["coefContainer"]][["estimatesTable"]] <- estimatesTable
-
   if (!bfpackContainer$getError()) {
-
-    estimates <- bfpackContainer[["resultsContainer"]][["resultsState"]]$object$estimates
+    result <- bfpackContainer[["resultsContainer"]][["resultsState"]]$object
+    estimates <- result$estimates
     #### TODO: estimates is NULL for independent TTest
     if (!is.null(estimates)) {
       dtFill <- data.frame(coefficient = rownames(estimates))
-
       dtFill[, c("mean", "median", "lower", "upper")] <- estimates
 
-
-      if (options[["ciLevel"]] != .95) {
-
-        fitObj <- bfpackContainer[["estimatesState"]]$object
-        if (type %in% c("regression", "anova", "correlation", "regressionLogistic")) {
-
-          if (type == "correlation") {
-            draws <- fitObj$corrdraws[[1]]
-            bounds <- apply(draws, c(2, 3), function(x) {
-              coda::HPDinterval(coda::as.mcmc(x), prob = options[["ciLevel"]])
-            })
-            boundsLow <- bounds[1, , ]
-            boundsUp <- bounds[2, , ]
-            # kind of hope this structure never changes so the elements are always in the correct order
-            boundsLow <- boundsLow[lower.tri(boundsLow)]
-            boundsUp <- boundsUp[lower.tri(boundsUp)]
-
-          } else if (type %in% c("regression", "regressionLogistic", "anova")) {
-
-            int <- confint(fitObj, level = options[["ciLevel"]])
-            boundsLow <- int[, 1]
-            boundsUp <- int[, 2]
-          }
-
-        } else if (type %in% c("onesampleTTest", "pairedTTest", "independentTTest")) {
-
-          int <- fitObj[["conf.int"]]
-          boundsLow <- int[1]
-          boundsUp <- int[2]
-
-        } else if (type == "variances") {
-          int <- .bfpackBartlettHelper(fitObj, options[["ciLevel"]])
-          boundsLow <- int[, 1]
-          boundsUp <- int[, 2]
-
-        } else if (type == "multiSampleTTest") {
-          int <- .bfpackMultiTTestHelper(fitObj, options[["ciLevel"]])
-          boundsLow <- int[, 1]
-          boundsUp <- int[, 2]
-        }
-
-
-        dtFill[, c("lower", "upper")] <- cbind(boundsLow, boundsUp)
-      }
-
       estimatesTable$setData(dtFill)
-      # footnt <- ifelse(type == "correlation",
-      #                  gettext("The uncertainty interval is a highest posterior density credible interval."),
-      #                  gettext("The uncertainty interval is a confidence interval."))
-      # estimatesTable$addFootnote(footnt)
+      footnt <- switch(type,
+                       "correlation" = gettext("The uncertainty interval is a central credible interval."),
+                       "anova" = gettext("The uncertainty interval is a frequentist confidence interval."),
+                       "variances" = gettext("The uncertainty interval is a frequentist confidence interval."),
+                       "regressionLogistic" = gettext("The uncertainty interval is a frequentist confidence interval."),
+                       gettext("The uncertainty interval is a frequentist confidence interval as well as a credible interval with a noninformative Jeffrey's prior."))
+
+      estimatesTable$addFootnote(footnt)
     }
+  }
+
+  return()
+}
+
+# standard BF table
+.bfpackStandardBfTable <- function(options, bfpackContainer, type, position) {
+
+  if (!is.null(bfpackContainer[["stdBfTable"]]) ||
+      !options[["standardHypothesisBfTable"]]) return()
+
+  if (bfpackContainer$getError()) return()
+
+  stdBfTable <- createJaspTable(gettext("BFs: Standard Hypotheses"))
+  stdBfTable$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]], options = "standardHypothesisBfTable")
+  stdBfTable$position <- position
+  bfpackContainer[["stdBfTable"]] <- stdBfTable
+
+  bfs <- bfpackContainer[["resultsContainer"]][["resultsState"]]$object$BFtu_exploratory
+  if (is.null(bfs)) return()
+
+  if (type %in% c("variances", "tTestMultiSamples")) {
+    title1 <- gettext("BF(0c)")
+    title2 <- gettext("BF(c0)")
+    stdBfTable$addColumnInfo(name = "bf1", title = title1, type = "number")
+    stdBfTable$addColumnInfo(name = "bf2", title = title2, type = "number")
+    stdBfTable$setData(data.frame(bf1 = bfs[1], bf2 = 1/bfs[1]))
+
+  } else {
+
+    stdBfTable$addColumnInfo(name = "coefficient", title = "", type = "string")
+    stdBfTable$addColumnInfo(name = "bf0", title = gettext("BF(0u)"), type = "number")
+    stdBfTable$addColumnInfo(name = "bf1", title = gettext("BF(-u)"), type = "number")
+    stdBfTable$addColumnInfo(name = "bf2", title = gettext("BF(+u)"), type = "number")
+    stdBfTable$addColumnInfo(name = "bf3", title = gettext("BF(u0)"), type = "number")
+    stdBfTable$addColumnInfo(name = "bf4", title = gettext("BF(u-)"), type = "number")
+    stdBfTable$addColumnInfo(name = "bf5", title = gettext("BF(u+)"), type = "number")
+
+    if (type == "tTestIndependentSamples") {
+      dtFill <- data.frame(coefficient = gettext("difference"))
+    } else {
+      dtFill <- data.frame(coefficient = rownames(bfs))
+    }
+    dtFill[, c("bf0", "bf1", "bf2")] <- bfs
+    dtFill[, c("bf3", "bf4", "bf5")] <- 1/bfs
+    stdBfTable$setData(dtFill)
+
   }
 
   return()
@@ -962,16 +934,17 @@
 
 
 
+
 ####### PLOTS ########
 
-.bfpackPriorPosteriorPlot <- function(options, bfpackContainer, type, position = 1) {
-  if (!is.null(bfpackContainer[["plotContainer"]][["priorPlot"]]) || !options[["plots"]]) {
+.bfpackPriorPosteriorProbabilityPlot <- function(options, bfpackContainer, type) {
+  if (!is.null(bfpackContainer[["probabilitiesPlotContainer"]]) || !options[["manualPlots"]]) {
     return()
   }
 
-  plotContainer <- createJaspContainer(gettext("Prior and Posterior Probabilities"))
-  plotContainer$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]])
-  bfpackContainer[["plotContainer"]] <- plotContainer
+  probabilitiesPlotContainer <- createJaspContainer(gettext("Prior and Posterior Probabilities"))
+  probabilitiesPlotContainer$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]], options = "manualPlots")
+  bfpackContainer[["probabilitiesPlotContainer"]] <- probabilitiesPlotContainer
 
   result <- bfpackContainer[["resultsContainer"]][["resultsState"]]$object
 
@@ -979,11 +952,11 @@
     post <- result$PHP_confirmatory
     prior <- result$prior.hyp.conf
 
-    priorPlot <- .plotHelper(prior, gettext("Prior probabilities"))
-    plotContainer[["priorPlot"]] <- priorPlot
+    priorPlot <- .plotHelper(prior, gettext("Prior Probabilities"))
+    probabilitiesPlotContainer[["priorPlot"]] <- priorPlot
 
-    postPlot <- .plotHelper(post, gettext("Posterior probabilities"))
-    plotContainer[["postPlot"]] <- postPlot
+    postPlot <- .plotHelper(post, gettext("Posterior Probabilities"))
+    probabilitiesPlotContainer[["postPlot"]] <- postPlot
 
   }
 
@@ -1009,3 +982,185 @@
   return(out)
 }
 
+
+# create the posterior distribution plots for correlation
+.bfpackPosteriorDistributionPlot <- function(options, bfpackContainer, type) {
+
+  if (!is.null(bfpackContainer[["posteriorPlotContainer"]]) || !options[["priorPosteriorPlot"]]) {
+    return()
+  }
+
+  posteriorPlotContainer <- createJaspContainer(gettext("Posterior Distribution"))
+  posteriorPlotContainer$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]],
+                                  options = c("priorPosteriorPlot", "priorPosteriorPlotAdditionalEstimationInfo",
+                                              "priorPosteriorPlotAdditionalTestingInfo"))
+  bfpackContainer[["posteriorPlotContainer"]] <- posteriorPlotContainer
+
+  result <- bfpackContainer[["resultsContainer"]][["resultsState"]]$object
+
+  if (!bfpackContainer$getError() && !is.null(result)) {
+    allDraws <- result$model$corrdraws
+    dd <- dim(allDraws[[1]])
+    numVars <- dd[2]
+    iter <- dd[1]
+    # prior
+    seq1 <- seq(-1, 1, length = 2^10)
+    P <- numVars # say
+    xPri <- seq1
+    yPri <- dbeta(seq1 / 2 + .5, P / 2, P / 2) / 2
+    yPri0 <- dbeta(0 / 2 + .5, P / 2, P / 2) / 2
+
+
+    corNames <- rownames(result$estimates)
+    z <- 1
+    for (l in 1:length(allDraws)) { # for multiple groups the list is longer than 1
+      for (j in 1:(numVars - 1)) {
+        for (i in (j + 1):numVars) {
+          postSamp <- allDraws[[l]][, i, j]
+          postDens <- density(postSamp, n = 2^10, bw = "SJ")
+          postY0 <- approx(postDens$x, postDens$y, xout = 0)$y
+
+          dfLines <- data.frame(x = c(xPri, postDens$x), y = c(yPri, postDens$y), g = c(rep(gettext("Prior"), length(xPri)), rep(gettext("Posterior"), length(postDens$x))))
+          dfPoints <- data.frame(x = c(0, 0), y = c(yPri0, postY0), g = c("Prior", "Posterior"))
+          BF0u <- result$BFtu_exploratory[z, "BF0u"]
+          cri <- result$estimates[z, 3:4]
+          criTxt <- gettextf("%s%% CI ", format(100 * options[["ciLevel"]]))
+          med <- result$estimates[z, "median"]
+
+          dfPointsVal <- if (options[["priorPosteriorPlotAdditionalTestingInfo"]]) dfPoints else NULL
+          BFVal <- if (options[["priorPosteriorPlotAdditionalTestingInfo"]]) BF0u else NULL
+          CRIVal <- if (options[["priorPosteriorPlotAdditionalEstimationInfo"]]) cri else NULL
+          medianVal <- if (options[["priorPosteriorPlotAdditionalEstimationInfo"]]) med else NULL
+
+          plt <- jaspGraphs::PlotPriorAndPosterior(
+            dfLines = dfLines,
+            dfPoints = dfPointsVal,
+            BF = BFVal,
+            CRI = CRIVal,
+            CRItxt = criTxt,
+            median = medianVal,
+            xName = gettext("ρ"),
+            hypothesis = "equal",
+            bfType = "BF01"
+          )
+
+          height <- if (!options[["priorPosteriorPlotAdditionalTestingInfo"]] && !options[["priorPosteriorPlotAdditionalEstimationInfo"]]) 400 else 460
+          postPlot <- createJaspPlot(plt, title = corNames[z], width = 560, height = height)
+          posteriorPlotContainer[[paste0("cor", z)]] <- postPlot
+          z <- z + 1
+        }
+      }
+    }
+  }
+
+  return()
+}
+
+# .makeSinglePosteriorDistributionPlot <- function(postSamples, priorSamples, int) {
+#
+#   d <- stats::density(postSamples, n = 2^10)
+#   datDens <- data.frame(x = d$x, y = d$y)
+#   xBreaks <- jaspGraphs::getPrettyAxisBreaks(datDens$x)
+#
+#   dprior <- stats::density(priorSamples, n = 2^10)
+#   datDensPrior <- data.frame(x = dprior$x, y = dprior$y)
+#
+#   datDens <- rbind(datDens, datDensPrior)
+#
+#   # max height posterior is at 90% of plot area; remainder is for credible interval
+#   ymax <- max(d$y) / .9
+#   yBreaks <- jaspGraphs::getPrettyAxisBreaks(c(0, ymax))
+#   ymax <- max(yBreaks)
+#   scaleCriRound <- round(int, 3)
+#   datCri <- data.frame(xmin = scaleCriRound[1L], xmax = scaleCriRound[2L], y = .925 * ymax)
+#   height <- (ymax - .925 * ymax) / 2
+#
+#   datTxt <- data.frame(x = c(datCri$xmin, datCri$xmax),
+#                        y = 0.985 * ymax,
+#                        label = sapply(c(datCri$xmin, datCri$xmax), format, digits = 3, scientific = -1),
+#                        stringsAsFactors = FALSE)
+#
+#   g <- ggplot2::ggplot(data = datDens, mapping = ggplot2::aes(x = x, y = y)) +
+#     ggplot2::geom_line(linewidth = .85) +
+#     ggplot2::scale_y_continuous(name = gettext("Density"), breaks = yBreaks, limits = range(yBreaks)) +
+#     ggplot2::scale_x_continuous(name = gettext("ρ"), breaks = xBreaks, limits = range(xBreaks))
+#
+#   g <- g + ggplot2::geom_errorbarh(data = datCri, mapping = ggplot2::aes(xmin = xmin, xmax = xmax, y = y),
+#                                        height = height, inherit.aes = FALSE) +
+#     ggplot2::geom_text(data = datTxt, mapping = ggplot2::aes(x = x, y = y, label = label), inherit.aes = FALSE,
+#                        size = 6)
+#
+#   g <- g + jaspGraphs::themeJaspRaw() + jaspGraphs::geom_rangeframe()
+#   g <- createJaspPlot(g)
+#   return(g)
+#
+# }
+
+# create the traceplot for correlation
+.bfpackTraceplot <- function(options, bfpackContainer, type) {
+  if (!is.null(bfpackContainer[["traceplotContainer"]]) || !options[["traceplot"]]) {
+    return()
+  }
+
+  traceplotContainer <- createJaspContainer(gettext("Traceplot"))
+  traceplotContainer$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]], options = "traceplot")
+  bfpackContainer[["traceplotContainer"]] <- traceplotContainer
+
+  result <- bfpackContainer[["resultsContainer"]][["resultsState"]]$object
+
+  if (!bfpackContainer$getError() && !is.null(result)) {
+    allDraws <- result$model$corrdraws
+    dd <- dim(allDraws[[1]])
+    numVars <- dd[2]
+    iter <- dd[1]
+    corNames <- rownames(result$estimates)
+    z <- 1
+    for (l in 1:length(allDraws)) { # for multiple groups the list is longer than 1
+      for (j in 1:(numVars - 1)) {
+        for (i in (j + 1):numVars) {
+          post <- allDraws[[l]][, i, j]
+          postPlot <- .makeSingleTraceplot(post)
+          postPlot$title <- corNames[z]
+          traceplotContainer[[paste0("cor", z)]] <- postPlot
+          z <- z + 1
+        }
+      }
+    }
+  }
+
+}
+
+.makeSingleTraceplot <- function(samples) {
+
+  dv <- cbind(samples, seq(1, length(samples)))
+  dat <- data.frame(dv)
+  colnames(dat) <- c("Value", "Iterations")
+  xBreaks <- jaspGraphs::getPrettyAxisBreaks(dat$Iterations)
+
+  g <- ggplot2::ggplot(dat, ggplot2::aes(x = Iterations, y = Value)) +
+    ggplot2::geom_line() +
+    ggplot2::ylab(gettext("x")) +
+    ggplot2::scale_x_continuous(name = gettext("Iterations"),
+                                expand = ggplot2::expansion(mult = c(0.05, 0.1)))
+  g <- g + jaspGraphs::themeJaspRaw() + jaspGraphs::geom_rangeframe()
+  g <- createJaspPlot(g, width = 580)
+  return(g)
+}
+
+
+
+##### Helpers #####
+
+.credInterval <- function(draws, level) {
+  # the credi interval:
+  bounds <- apply(draws, c(2, 3), function(x) {
+    coda::HPDinterval(coda::as.mcmc(x), prob = level)
+  })
+  boundsLow <- bounds[1, , ]
+  boundsUp <- bounds[2, , ]
+  # kind of hope this structure never changes so the elements are always in the correct order
+  boundsLow <- boundsLow[lower.tri(boundsLow)]
+  boundsUp <- boundsUp[lower.tri(boundsUp)]
+
+  return(list(low = boundsLow, up = boundsUp))
+}

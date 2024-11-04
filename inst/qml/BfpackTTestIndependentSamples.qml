@@ -51,40 +51,22 @@ Form
 		}
 	}
 
-	CheckBox
-	{
-		Layout.columnSpan: 2
-		id: 						runAnalysisBox
-		name: 					"runAnalysisBox"
-		label: 					qsTr("<b>Run Analysis</b>")
-		checked: 				false
-		visible: 				true
-		Component.onCompleted:
-		{
-			background.color = "#ff8600"
-		}
-	}
-	// Button
-	// {
-	// 	Layout.columnSpan: 2
-	// 	// anchors.right:						toSampling.left
-	// 	anchors.rightMargin:	jaspTheme.generalAnchorMargin
-	// 	text:				qsTr("<b>Run Analysis</b>")
-	// 	onClicked:	runAnalysisBox.checked = true
-	// }
-
 
 	Common.HypothesesWindowStandard{
-		parName: qsTr("delta")
+		parName: qsTr("difference")
 		specificMu: true
 	}
+
+	Common.ParametersWindow{}
 
 	Common.HypothesesWindowManual{}
 	
 
-
 	Common.Options{
 		bfTy: true
+		variances: true
+		iterationsBf: true
+		iterationsBfDefaultNumber: 1000000
 	}
 	
 }

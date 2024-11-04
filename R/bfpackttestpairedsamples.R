@@ -18,28 +18,29 @@
 bfpackTTestPairedSamples <- function(jaspResults, dataset, options, ...) {
 
   # What type of BFpack analysis is being conducted?
-  type <- "pairedTTest"
+  type <- "tTestPairedSamples"
 
   # Check if current options allow for analysis
   ready <- .bfpackOptionsReady(options, type)
 
-  # Read the data set
-  dataList <- .bfpackReadDataset(options, type, dataset)
+  # handle the data set
+  dataset <- .bfpackHandleData(dataset, options)
 
   # Check if current data allow for analysis
-  .bfpackDataReady(dataset, options, type)
+  .bfpackDataReady(dataset, options, type, ready)
 
   # Create a container for the results
   bfpackContainer <- .bfpackCreateContainer(jaspResults,
-                                            deps = c("pairs", "runAnalysisBox", "seed",
-                                                     "muValue","manualHypotheses"))
+                                            deps = c("pairs", "seed",
+                                                     "muValue","manualHypotheses", "bfType",
+                                                     "standardize"))
 
-  .bfpackGetParameterEstimates(dataList, options, bfpackContainer, ready, type, jaspResults)
+  .bfpackGetParameterEstimates(dataset, options, bfpackContainer, ready, type, jaspResults)
 
   # compute the results, aka BFs
-  .bfpackComputeResults(dataList, options, bfpackContainer, ready, type)
+  .bfpackComputeResults(dataset, options, bfpackContainer, ready, type)
 
-  .bfpackParameterTable(options, bfpackContainer, type, dataList[["dataset"]], position = 1)
+  .bfpackParameterTable(options, bfpackContainer, type, dataset, position = 1)
 
   # Create a legend containing the order constrained hypotheses
   .bfpackLegendTable(options, type, bfpackContainer, position = 2)
@@ -51,8 +52,11 @@ bfpackTTestPairedSamples <- function(jaspResults, dataset, options, ...) {
   .bfpackSpecificationTable(options, bfpackContainer, type, position = 5)
 
   # coefficients table
-  .bfpackEstimatesTable(options, bfpackContainer, type)
+  .bfpackEstimatesTable(options, bfpackContainer, type, position = 6)
+
+  # standard hypotheses BF
+  .bfpackStandardBfTable(options, bfpackContainer, type, position = 1.5)
 
   # Create the prior and posterior probability plots
-  .bfpackPriorPosteriorPlot(options, bfpackContainer, type)
+  .bfpackPriorPosteriorProbabilityPlot(options, bfpackContainer, type)
 }

@@ -7,37 +7,36 @@ options <-
     estimatesTable = TRUE,
     complement = TRUE,
     interactionTerms = list(),
-    iterations = 5000,
+    iterationsEstimation = 5000,
     muValue = 0,
     logScale = TRUE,
-    manualHypotheses = list(list(name = "mu<.5", priorProbManual = "1/2")),
-    plots = FALSE,
+    manualHypotheses = list(list(hypothesisText = "mu<.5", priorProbManual = "1/2", includeHypothesis = TRUE, value = "#")),
+    manualPlots = FALSE,
     priorProbComplement = "1/2",
-    runAnalysisBox = TRUE,
     seed = 100,
-    specificationTable = TRUE,
-    standardHypotheses = list(
-      list(priorProb = "1/3", value = "H0: mu = 0 "),
-      list(priorProb = "1/3", value = "H1: mu < 0 "),
-      list(priorProb = "1/3", value = "H2: mu > 0 ")
-    ),
-    variables = "contNormal"
+    manualHypothesisBfTable = TRUE,
+    priorProbStandard = "1",
+    priorProbStandard2 = "1",
+    priorProbStandard3 = "1",
+    variables = "contNormal",
+    standardize = FALSE,
+    standardHypothesisBfTable = FALSE
   )
 
 
 set.seed(1)
-results <- jaspTools::runAnalysis("bfpackTTestOneSample", "debug.csv", options)
+results <- jaspTools::runAnalysis("bfpackTTestOneSample", "debug.csv", options, makeTests = F)
 
 
 test_that("Coefficients table results match", {
-  table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_coefContainer"]][["collection"]][["bfpackContainer_coefContainer_estimatesTable"]][["data"]]
+  table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_resultsContainer"]][["collection"]][["bfpackContainer_resultsContainer_estimatesTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
                                  list("mu", -0.202082917611105, -0.18874858754, -0.18874858754, -0.175414257468895
                                  ))
 })
 
 test_that("Manual hypotheses legend table results match", {
-  table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_legendTable"]][["data"]]
+  table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_resultsContainer"]][["collection"]][["bfpackContainer_resultsContainer_legendTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
                                  list("mu&lt;.5", "H1", "complement", "H2"))
 })
@@ -64,7 +63,8 @@ test_that("Posterior model probability table results match", {
 test_that("Specification table results match", {
   table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_resultsContainer"]][["collection"]][["bfpackContainer_resultsContainer_specTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
-                                 list(1.46121344999626, 1, 1.46121344999626, 1, 0.684362711293717, 1,
-                                      0.999999998418288, "H1", 5.01117064831409e-09, 1, 5.01117064831409e-09,
-                                      1, 0.315637288706283, 1, 1.58171231667837e-09, "H2"))
+                                 list(1.46121344999626, 1, 1.46121344999626, 0.999999996570542, 1, 0.684362711293717,
+                                      1, 0.999999998418288, "H1", 5.01117064831409e-09, 1, 5.01117064831409e-09,
+                                      3.42945832529895e-09, 1, 0.315637288706283, 1, 1.58171231667837e-09,
+                                      "H2"))
 })

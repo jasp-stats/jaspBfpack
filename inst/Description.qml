@@ -9,11 +9,12 @@ Description
 	icon			: "bain-module"
 	requiresData	: true
 	version			: "0.19.0"
-	author			: "Mulder, J., Williams, D. R., Gu, X., Tomarken, A., Böing-Messing, F., Olsson-Collentine, A., Meijerink, M., Menke, J., Fox, J.-P., Hoijtink, H., Rosseel, Y., Wagenmakers, E.J., and van Lissa, C."
+	author			: "JASP Team"
 	maintainer		: "Julius M. Pfadt <julius.pfadt@gmail.com>"
 	website			: "https://bfpack.info"
 	license			: "GPL (>= 3)"
 	hasWrappers		: false
+	preloadData: true
 
 	GroupTitle
 	{
@@ -52,8 +53,8 @@ Description
 	}
 	Analysis
 	{
-		menu:   	"ANOVA"
-		title:		"BFpack ANOVA"
+		menu:   	"(M)AN(C)OVA"
+		title:		"BFpack (M)AN(C)OVA"
 		func:			"bfpackAnova"
 	}
 
@@ -64,14 +65,14 @@ Description
 	}
 	Analysis
 	{
-		menu:   	"Linear Regression"
-		title:		"BFpack Regression"
+		menu:   	"Linear (Multivariate) Regression"
+		title:		"BFpack Linear (Multivariate) Regression"
 		func:			"bfpackRegressionLinear"
 	}
 	Analysis
 	{
-		menu:   	"Logistic Regression"
-		title:		"BFpack Logistic Regression"
+		menu:   	"(Ordered) Logistic Regression"
+		title:		"BFpack (Ordered) Logistic Regression"
 		func:			"bfpackRegressionLogistic"
 	}
 
@@ -85,7 +86,7 @@ Description
 	GroupTitle
 	{
 		title: 		"Variances"
-		// icon: 		"analysis-bain-regression.svg"
+		icon: 		"variances.svg"
 	}
 	Analysis
 	{

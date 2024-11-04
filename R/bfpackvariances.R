@@ -17,8 +17,6 @@
 
 bfpackVariances <- function(jaspResults, dataset, options, ...) {
 
-  sink(file = "~/Downloads/logBf.txt")
-  on.exit(sink(NULL))
 
   # What type of BFpack analysis is being conducted?
   type <- "variances"
@@ -26,20 +24,21 @@ bfpackVariances <- function(jaspResults, dataset, options, ...) {
   # Check if current options allow for analysis
   ready <- .bfpackOptionsReady(options, type)
 
-  # Read the data set
-  dataList <- .bfpackReadDataset(options, type, dataset)
+  # handle the data set
+  dataset <- .bfpackHandleData(dataset, options)
 
   # Check if current data allow for analysis
-  .bfpackDataReady(dataList[["dataset"]], options, type)
+  .bfpackDataReady(dataset, options, type, ready)
 
   # Create a container for the results
-  bfpackContainer <- .bfpackCreateContainer(jaspResults, deps = c("variables", "seed", "runAnalysisBox",
-                                                                  "manualHypotheses", "groupingVariable"))
+  bfpackContainer <- .bfpackCreateContainer(jaspResults, deps = c("variables", "seed",
+                                                                  "manualHypotheses", "groupingVariable",
+                                                                  "standardize"))
 
-  .bfpackGetParameterEstimates(dataList, options, bfpackContainer, ready, type, jaspResults)
+  .bfpackGetParameterEstimates(dataset, options, bfpackContainer, ready, type, jaspResults)
 
   # compute the results, aka BFs
-  .bfpackComputeResults(dataList, options, bfpackContainer, ready, type)
+  .bfpackComputeResults(dataset, options, bfpackContainer, ready, type)
 
   .bfpackParameterTable(options, bfpackContainer, type, position = 1)
 
@@ -55,6 +54,9 @@ bfpackVariances <- function(jaspResults, dataset, options, ...) {
   # coefficients table
   .bfpackEstimatesTable(options, bfpackContainer, type, position = 6)
 
+  # standard hypotheses BF
+  .bfpackStandardBfTable(options, bfpackContainer, type, position = 1.5)
+
   # Create the prior and posterior probability plots
-  .bfpackPriorPosteriorPlot(options, bfpackContainer, type)
+  .bfpackPriorPosteriorProbabilityPlot(options, bfpackContainer, type)
 }
