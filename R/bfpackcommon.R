@@ -288,7 +288,9 @@
       dataString <- paste0(dataNames, collapse = ",")
       # this is a bit hacky, because cor_test takes multiple data frames names separated by commas,
       # but we do not know how many...
-      cor_test_call <- paste("try(BFpack::cor_test(", dataString, ", formula = ", paste0(form, collapse = ""), "))", sep = "")
+      cor_test_call <- paste("try(BFpack::cor_test(", dataString, ", formula = ", paste0(form, collapse = ""),
+                             ", iter = ", options[["iterationsEstimation"]], ", nugget.scale = ", options[["nugget"]], "))",
+                             sep = "")
 
       result <- eval(parse(text = cor_test_call))
     }
