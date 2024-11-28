@@ -64,6 +64,8 @@ Group
 		 		readOnly: true
 		 		wrapMode: Text.WordWrap
 		 		selectByMouse: true
+				font:		jaspTheme.font
+				color:		jaspTheme.textEnabled
     }
 	}
 	
