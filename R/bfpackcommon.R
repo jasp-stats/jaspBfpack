@@ -292,7 +292,6 @@
                              ", iter = ", options[["iterationsEstimation"]], ", nugget.scale = ", options[["nugget"]], "))",
                              sep = "")
 
-      print(cor_test_call)
       result <- eval(parse(text = cor_test_call))
     }
 
