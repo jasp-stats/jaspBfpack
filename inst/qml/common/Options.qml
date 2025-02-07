@@ -135,7 +135,7 @@ Section
 		{
 			visible: iterationsEst
 			name: "iterationsEstimation"
-			text: qsTr("No. iterations for parameter estimation")
+			text: qsTr("No. iterations for MCMC")
 			defaultValue: 5000
 			min: 2000
 			fieldWidth: 60 * preferencesModel.uiScale

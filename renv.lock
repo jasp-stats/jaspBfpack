@@ -432,7 +432,7 @@
     },
     "cluster": {
       "Package": "cluster",
-      "Version": "2.1.6",
+      "Version": "2.1.8",
       "Source": "Repository",
       "Requirements": [
         "R",
@@ -440,7 +440,8 @@
         "grDevices",
         "stats",
         "utils"
-      ]
+      ],
+      "Hash": "b361779da7f8b129a1859b6cf243ba58"
     },
     "coda": {
       "Package": "coda",
@@ -1228,13 +1229,14 @@
     },
     "nnet": {
       "Package": "nnet",
-      "Version": "7.3-19",
+      "Version": "7.3-20",
       "Source": "Repository",
       "Requirements": [
         "R",
         "stats",
         "utils"
-      ]
+      ],
+      "Hash": "c955edf99ff24a32e96bd0a22645af60"
     },
     "numDeriv": {
       "Package": "numDeriv",
