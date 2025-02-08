@@ -928,8 +928,8 @@
   if (is.null(bfs)) return()
 
   if (type %in% c("variances", "tTestMultiSamples")) {
-    title1 <- gettext("BF(0±)")
-    title2 <- gettext("BF(±0)")
+    title1 <- gettext("H0 vs. H±)")
+    title2 <- gettext("H± vs. H0")
     stdBfTable$addColumnInfo(name = "bf1", title = title1, type = "number")
     stdBfTable$addColumnInfo(name = "bf2", title = title2, type = "number")
     stdBfTable$setData(data.frame(bf1 = bfs[1], bf2 = 1/bfs[1]))
@@ -937,9 +937,9 @@
   } else {
 
     stdBfTable$addColumnInfo(name = "coefficient", title = "", type = "string")
-    stdBfTable$addColumnInfo(name = "bf0", title = gettext("BF(M0)"), type = "number")
-    stdBfTable$addColumnInfo(name = "bf1", title = gettext("BF(M-)"), type = "number")
-    stdBfTable$addColumnInfo(name = "bf2", title = gettext("BF(M+)"), type = "number")
+    stdBfTable$addColumnInfo(name = "bf0", title = gettext("Best vs. H0"), type = "number")
+    stdBfTable$addColumnInfo(name = "bf1", title = gettext("Best vs. H-"), type = "number")
+    stdBfTable$addColumnInfo(name = "bf2", title = gettext("Best vs. H+)"), type = "number")
 
     if (type == "tTestIndependentSamples") {
       dtFill <- data.frame(coefficient = gettext("difference"))
@@ -961,7 +961,7 @@
 
     dtFill[, c("bf0", "bf1", "bf2")] <- outDf
     stdBfTable$setData(dtFill)
-    stdBfTable$addFootnote(gettext("M denotes the best performing hypothesis. If the cell is empty the hypothesis in that column is the best performing."))
+    stdBfTable$addFootnote(gettext("If a cell is empty the hypothesis in that column is the best performing hypothesis."))
   }
 
 
