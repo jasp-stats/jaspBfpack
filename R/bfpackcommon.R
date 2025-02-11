@@ -529,6 +529,8 @@
     else
       iterations <- NULL
 
+    .setSeedJASP(options)
+
     results <- try(BFpack::BF(estimates, hypothesis = manualHyp,
                              complement = options[["complement"]],
                              prior.hyp.conf = manualPrior,
@@ -939,7 +941,7 @@
     stdBfTable$addColumnInfo(name = "coefficient", title = "", type = "string")
     stdBfTable$addColumnInfo(name = "bf0", title = gettext("Best vs. H0"), type = "number")
     stdBfTable$addColumnInfo(name = "bf1", title = gettext("Best vs. H-"), type = "number")
-    stdBfTable$addColumnInfo(name = "bf2", title = gettext("Best vs. H+)"), type = "number")
+    stdBfTable$addColumnInfo(name = "bf2", title = gettext("Best vs. H+"), type = "number")
 
     if (type == "tTestIndependentSamples") {
       dtFill <- data.frame(coefficient = gettext("difference"))
@@ -1074,7 +1076,9 @@
             median = medianVal,
             xName = gettext("ρ"),
             hypothesis = "equal",
-            bfType = "BF01"
+            bfType = "BF01",
+            pizzaTxt = c("data | H0", "data | Hu"),
+            bfSubscripts = c("BF0u", "BFu0")
           )
 
           height <- if (!options[["priorPosteriorPlotAdditionalTestingInfo"]] && !options[["priorPosteriorPlotAdditionalEstimationInfo"]]) 400 else 460
