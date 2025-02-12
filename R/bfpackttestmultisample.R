@@ -31,7 +31,7 @@ bfpackTTestMultiSample <- function(jaspResults, dataset, options, ...) {
 
   # Create a container for the results
   bfpackContainer <- .bfpackCreateContainer(jaspResults,
-                                            deps = c("variables", "seed",
+                                            deps = c("variables", "seed", "setSeed",
                                                      "testValues", "manualHypotheses", "bfType",
                                                      "standardize"))
 

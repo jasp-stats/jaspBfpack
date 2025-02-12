@@ -454,7 +454,7 @@
   # create a container because both the results and the tables depending on them have the same dependencies
   deps <- c("complement", "logScale", "manualHypotheses", "priorProbManual",
             "priorProbStandard", "priorProbStandard2", "priorProbStandard3",
-            "priorProbComplement", "seed", "bfType", "includeHypothesis", "ciLevel",
+            "priorProbComplement", "seed", "setSeed", "bfType", "includeHypothesis", "ciLevel",
             "interactionTerms", "includeInteractionEffect", "priorProbMainZero",
             "priorProbMainNonZero", "priorProbInteractionZero", "priorProbInteractionNonZero",
             "iterationsBayesFactor")
