@@ -33,7 +33,7 @@ bfpackAnova <- function(jaspResults, dataset, options, ...) {
   # Create a container for the results
   bfpackContainer <- .bfpackCreateContainer(jaspResults,
                                             deps = c("dependent", "fixedFactors", "covariates",
-                                                     "seed", "manualHypotheses", "bfType", "standardize"))
+                                                     "seed", "setSeed", "manualHypotheses", "bfType", "standardize"))
 
   .bfpackGetParameterEstimates(dataset, options, bfpackContainer, ready, type, jaspResults)
 

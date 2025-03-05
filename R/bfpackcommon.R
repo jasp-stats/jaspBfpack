@@ -133,9 +133,7 @@
   return(postestimates)
 }
 
-
 ####### CHECKS #######
-
 # this function needs updating when there is a new analysis added
 # Check if current options allow for analysis
 .bfpackOptionsReady <- function(options, type) {
@@ -456,7 +454,7 @@
   # create a container because both the results and the tables depending on them have the same dependencies
   deps <- c("complement", "logScale", "manualHypotheses", "priorProbManual",
             "priorProbStandard", "priorProbStandard2", "priorProbStandard3",
-            "priorProbComplement", "seed", "bfType", "includeHypothesis", "ciLevel",
+            "priorProbComplement", "seed", "setSeed", "bfType", "includeHypothesis", "ciLevel",
             "interactionTerms", "includeInteractionEffect", "priorProbMainZero",
             "priorProbMainNonZero", "priorProbInteractionZero", "priorProbInteractionNonZero",
             "iterationsBayesFactor")
@@ -531,6 +529,8 @@
     else
       iterations <- NULL
 
+    .setSeedJASP(options)
+
     results <- try(BFpack::BF(estimates, hypothesis = manualHyp,
                              complement = options[["complement"]],
                              prior.hyp.conf = manualPrior,
@@ -559,7 +559,6 @@
   return()
 }
 
-
 ####### TABLES #######
 # table for the posterior probabilities of the parameter estimates
 .bfpackParameterTable <- function(options, bfpackContainer, type, dataset, position) {
@@ -568,8 +567,9 @@
   # inner container
   if (!is.null(bfpackContainer[["parameterTable"]])) return()
 
-  parameterTable <- createJaspTable(gettext("Posterior Probabilities Testing Standard Hypotheses"))
-  parameterTable$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]], options = "priorProb")
+  parameterTable <- createJaspTable(gettext("Posterior Probabilities of the Standard Hypotheses"))
+  parameterTable$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]],
+                          options = c("priorProbStandard", "priorProbStandard2", "priorProbStandard3"))
   parameterTable$position <- position
 
   if (type %in% c("variances", "tTestMultiSamples")) {
@@ -579,16 +579,16 @@
       title2 <- gettext("Unequal Variances")
     } else if (type == "tTestMultiSamples") {
       # testValues <- sapply(options[["testValues"]] function(x) x[["testValue"]]))
-      title1 <- gettext("Pr(H0)")
-      title2 <- gettext("Pr(H±)")
+      title1 <- gettext("Pr(H0|Data)")
+      title2 <- gettext("Pr(H±|Data)")
     }
     parameterTable$addColumnInfo(name = "equal", type = "number", title = title1)
     parameterTable$addColumnInfo(name = "unequal", type = "number", title = title2)
 
   } else {
-    title1 <- gettext("Pr(H0)")
-    title2 <- gettext("Pr(H-)")
-    title3 <- gettext("Pr(H+)")
+    title1 <- gettext("Pr(H0|Data)")
+    title2 <- gettext("Pr(H-|Data)")
+    title3 <- gettext("Pr(H+|Data)")
 
     if (type == "correlation" && options[["groupingVariable"]] != "") {
       groupName <- options[["groupingVariable"]]
@@ -621,9 +621,21 @@
         dtFill[, c("equal", "smaller", "larger")] <- parPhp
       }
       parameterTable$setData(dtFill)
-    }
 
+    }
   }
+
+  # standard hypotheses priors
+  if (type %in% c("variances", "tTestMultiSamples")) {
+    standPrior <- sapply(parse(text = c(options[["priorProbStandard"]], options[["priorProbStandard2"]])), eval)
+  } else {
+    standPrior <- sapply(parse(text = c(options[["priorProbStandard"]], options[["priorProbStandard2"]],
+                                        options[["priorProbStandard3"]])), eval)
+  }
+  standPrior <- standPrior/sum(standPrior)
+
+  # print the prior probs as a footnote
+  parameterTable$addFootnote(gettextf("Prior probabilities of the standard hypotheses: %1$s.", paste0(sprintf("%.3f", standPrior), collapse = ", ")))
 
   if (type == "tTestIndependentSamples") {
     levels <- levels(dataset[[options[["groupingVariable"]]]])
@@ -645,7 +657,8 @@
   if (!is.null(bfpackContainer[["mainEffectsTable"]])) return()
 
   mainEffectsTable <- createJaspTable(gettext("Posterior Probabilities for Main Effects"))
-  mainEffectsTable$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]])
+  mainEffectsTable$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]],
+                            options = c("priorProbMainZero", "priorProbMainNonZero"))
   mainEffectsTable$position <- position
 
   mainEffectsTable$addColumnInfo(name = "coefficient", type = "string", title = "")
@@ -661,8 +674,13 @@
       dtFill[, c("noEffect", "fullModel")] <- php
       mainEffectsTable$setData(dtFill)
     }
-
   }
+
+  # standard main effects priors
+  standPrior <- sapply(parse(text = c(options[["priorProbMainZero"]], options[["priorProbMainNonZero"]])), eval)
+  standPrior <- standPrior/sum(standPrior)
+  # print the prior probs as a footnote
+  mainEffectsTable$addFootnote(gettextf("Prior probabilities of the main effects: %1$s.", paste0(sprintf("%.3f", standPrior), collapse = ", ")))
 
   return()
 }
@@ -675,7 +693,8 @@
   if (!is.null(bfpackContainer[["iaEffectsTable"]])) return()
 
   iaEffectsTable <- createJaspTable(gettext("Posterior Probabilities for Interaction Effects"))
-  iaEffectsTable$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]])
+  iaEffectsTable$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]],
+                          options = c("priorProbInteractionZero", "priorProbInteractionNonZero"))
   iaEffectsTable$position <- position
 
   iaEffectsTable$addColumnInfo(name = "coefficient", type = "string", title = "")
@@ -693,6 +712,12 @@
       iaEffectsTable$setData(dtFill)
     }
   }
+
+  # standard prior probs
+  standPrior <- sapply(parse(text = c(options[["priorProbInteractionZero"]], options[["priorProbInteractionNonZero"]])), eval)
+  standPrior <- standPrior/sum(standPrior)
+  # print the prior probs as a footnote
+  iaEffectsTable$addFootnote(gettextf("Prior probabilities of the interaction effects: %1$s.", paste0(sprintf("%.3f", standPrior), collapse = ", ")))
 
   return()
 }
@@ -749,6 +774,7 @@
 
   matrixTable$addColumnInfo(name = "hypothesis", title = "", type = "string")
   matrixTable$addColumnInfo(name = "H1", title = gettext("H1"), type = "number")
+  matrixTable$addFootnote(gettext("The BFs are to be interpreted as the hypotheses in rows over the hypotheses in columns."))
 
   if (!bfpackContainer$getError()) {
     bfMatrix <- bfpackContainer[["resultsContainer"]][["resultsState"]]$object$BFmatrix_confirmatory
@@ -904,8 +930,8 @@
   if (is.null(bfs)) return()
 
   if (type %in% c("variances", "tTestMultiSamples")) {
-    title1 <- gettext("BF(0c)")
-    title2 <- gettext("BF(c0)")
+    title1 <- gettext("H0 vs. H±)")
+    title2 <- gettext("H± vs. H0")
     stdBfTable$addColumnInfo(name = "bf1", title = title1, type = "number")
     stdBfTable$addColumnInfo(name = "bf2", title = title2, type = "number")
     stdBfTable$setData(data.frame(bf1 = bfs[1], bf2 = 1/bfs[1]))
@@ -913,29 +939,33 @@
   } else {
 
     stdBfTable$addColumnInfo(name = "coefficient", title = "", type = "string")
-    stdBfTable$addColumnInfo(name = "bf0", title = gettext("BF(0u)"), type = "number")
-    stdBfTable$addColumnInfo(name = "bf1", title = gettext("BF(-u)"), type = "number")
-    stdBfTable$addColumnInfo(name = "bf2", title = gettext("BF(+u)"), type = "number")
-    stdBfTable$addColumnInfo(name = "bf3", title = gettext("BF(u0)"), type = "number")
-    stdBfTable$addColumnInfo(name = "bf4", title = gettext("BF(u-)"), type = "number")
-    stdBfTable$addColumnInfo(name = "bf5", title = gettext("BF(u+)"), type = "number")
+    stdBfTable$addColumnInfo(name = "bf0", title = gettext("Best vs. H0"), type = "number")
+    stdBfTable$addColumnInfo(name = "bf1", title = gettext("Best vs. H-"), type = "number")
+    stdBfTable$addColumnInfo(name = "bf2", title = gettext("Best vs. H+"), type = "number")
 
     if (type == "tTestIndependentSamples") {
       dtFill <- data.frame(coefficient = gettext("difference"))
+      bfs <- as.matrix(bfs)
     } else {
       dtFill <- data.frame(coefficient = rownames(bfs))
     }
-    dtFill[, c("bf0", "bf1", "bf2")] <- bfs
-    dtFill[, c("bf3", "bf4", "bf5")] <- 1/bfs
-    stdBfTable$setData(dtFill)
 
+    # we do the best performing hypothesis vs. the others
+    bfs <- t(apply(bfs, 1, function(x) max(x)/x))
+    out <- as.data.frame(bfs)
+    outDf <- sapply(out, function(x) {
+    	x[x == 1] <- NA
+    	x
+    })
+
+    dtFill[, c("bf0", "bf1", "bf2")] <- outDf
+    stdBfTable$setData(dtFill)
+    stdBfTable$addFootnote(gettext("If a cell is empty the hypothesis in that column is the best performing hypothesis."))
   }
+
 
   return()
 }
-
-
-
 
 ####### PLOTS ########
 
@@ -1043,7 +1073,9 @@
             median = medianVal,
             xName = gettext("ρ"),
             hypothesis = "equal",
-            bfType = "BF01"
+            bfType = "BF01",
+            pizzaTxt = c("data | H0", "data | Hu"),
+            bfSubscripts = c("BF0u", "BFu0")
           )
 
           height <- if (!options[["priorPosteriorPlotAdditionalTestingInfo"]] && !options[["priorPosteriorPlotAdditionalEstimationInfo"]]) 400 else 460
@@ -1148,8 +1180,6 @@
   g <- createJaspPlot(g, width = 580)
   return(g)
 }
-
-
 
 ##### Helpers #####
 

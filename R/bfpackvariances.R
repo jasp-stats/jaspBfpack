@@ -31,7 +31,7 @@ bfpackVariances <- function(jaspResults, dataset, options, ...) {
   .bfpackDataReady(dataset, options, type, ready)
 
   # Create a container for the results
-  bfpackContainer <- .bfpackCreateContainer(jaspResults, deps = c("variables", "seed",
+  bfpackContainer <- .bfpackCreateContainer(jaspResults, deps = c("variables", "seed", "setSeed",
                                                                   "manualHypotheses", "groupingVariable",
                                                                   "standardize"))
 

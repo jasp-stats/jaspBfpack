@@ -17,7 +17,6 @@
 
 bfpackTTestIndependentSamples <- function(jaspResults, dataset, options, ...) {
 
-
   # What type of BFpack analysis is being conducted?
   type <- "tTestIndependentSamples"
 
@@ -32,7 +31,7 @@ bfpackTTestIndependentSamples <- function(jaspResults, dataset, options, ...) {
 
   # Create a container for the results
   bfpackContainer <- .bfpackCreateContainer(jaspResults,
-                                            deps = c("groupingVariable", "variables", "seed",
+                                            deps = c("groupingVariable", "variables", "seed", "setSeed",
                                                      "muValue", "manualHypotheses", "bfType",
                                                      "standardize"))
 
