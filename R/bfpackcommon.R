@@ -953,13 +953,10 @@
     # we do the best performing hypothesis vs. the others
     bfs <- t(apply(bfs, 1, function(x) max(x)/x))
     out <- as.data.frame(bfs)
-    outDf <- sapply(out, function(x) sapply(x, function(y) {
-      if (y == 1) {
-        return(NA)
-      } else {
-        return(y)
-      }
-    }))
+    outDf <- sapply(out, function(x) {
+    	x[x == 1] <- NA
+    	x
+    })
 
     dtFill[, c("bf0", "bf1", "bf2")] <- outDf
     stdBfTable$setData(dtFill)
