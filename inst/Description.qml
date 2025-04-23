@@ -8,7 +8,7 @@ Description
 	description		: qsTr("A module for computing Bayes factors for equality, inequality, and order constrained hypotheses.")
 	icon			: "bain-module"
 	requiresData	: true
-	version			: "0.19.0"
+	version			: "0.20.0"
 	author			: "JASP Team"
 	maintainer		: "Julius M. Pfadt <julius.pfadt@gmail.com>"
 	website			: "https://bfpack.info"
