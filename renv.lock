@@ -12,7 +12,7 @@
     "BFpack": {
       "Package": "BFpack",
       "Version": "1.4.2",
-      "Source": "GitHub",
+	  "Source": "Repository",
       "Requirements": [
         "R",
         "bain",
@@ -35,12 +35,7 @@
         "knitr",
         "rmarkdown",
         "lmtest"
-      ],
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "jomulder",
-      "RemoteRepo": "BFpack",
-      "RemoteSha": "1ef5a17912f48bb1da5d3024dabbb3853125042a"
+	  ]
     },
     "BH": {
       "Package": "BH",
@@ -852,7 +847,7 @@
     },
     "lpSolveAPI": {
       "Package": "lpSolveAPI",
-      "Version": "5.5.2.0-17.12",
+	  "Version": "5.5.2.0-17.14",
       "Source": "Repository",
       "Requirements": []
     },
