@@ -343,6 +343,10 @@
         "Matrix",
         "methods",
         "mvtnorm",
+        "Matrix",
+        "Brobdingnag",
+        "stringr",
+        "coda",
         "parallel",
         "R",
         "scales",
@@ -440,11 +444,8 @@
       "Source": "Repository",
       "Requirements": [
         "generics",
-        "lifecycle",
-        "numDeriv",
-        "pillar",
-        "rlang",
         "stats",
+        "numDeriv",
         "utils",
         "vctrs"
       ]
@@ -560,7 +561,7 @@
         "glue",
         "grDevices",
         "grid",
-        "gtable",
+        "gtable (>= 0.1.1)",
         "isoband",
         "lifecycle",
         "MASS",
@@ -643,7 +644,7 @@
       "Requirements": [
         "base64enc",
         "digest",
-        "fastmap",
+        "fastmap (>= 1.1.0)",
         "grDevices",
         "R",
         "rlang",
@@ -834,7 +835,7 @@
       "Source": "Repository",
       "Requirements": [
         "checkmate",
-        "matrixStats",
+        "matrixStats (>= 0.52)",
         "parallel",
         "posterior",
         "R",
@@ -922,6 +923,9 @@
         "R",
         "splines",
         "stats",
+        "graphics",
+        "Matrix",
+        "splines",
         "utils"
       ]
     },
@@ -1029,8 +1033,8 @@
         "cli",
         "glue",
         "lifecycle",
-        "rlang",
-        "utf8",
+        "rlang (>= 1.0.2)",
+        "utf8 (>= 1.1.0)",
         "utils",
         "vctrs"
       ]
@@ -1080,6 +1084,8 @@
         "R",
         "rlang",
         "stats",
+        "tibble (>= 3.1.0)",
+        "vctrs (>= 0.5.0)",
         "tensorA",
         "tibble",
         "vctrs"
@@ -1279,7 +1285,7 @@
       "Source": "Repository",
       "Requirements": [
         "cli",
-        "farver",
+        "farver (>= 2.0.3)",
         "glue",
         "labeling",
         "lifecycle",
@@ -1307,6 +1313,7 @@
         "coda",
         "Matrix",
         "methods",
+        "coda",
         "parallel",
         "R",
         "tools",
@@ -1421,7 +1428,7 @@
         "lifecycle",
         "magrittr",
         "methods",
-        "pillar",
+        "pillar (>= 1.8.1)",
         "pkgconfig",
         "R",
         "rlang",
@@ -1451,7 +1458,6 @@
         "methods",
         "R",
         "stats",
-        "timeDate",
         "utils"
       ]
     },
