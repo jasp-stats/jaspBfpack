@@ -52,7 +52,7 @@ bfpackAnova <- function(jaspResults, dataset, options, ...) {
 
   .bfpackPosteriorHypothesesTable(options, bfpackContainer, type, position = 4)
 
-  .bfpackSpecificationTable(options, bfpackContainer, type, position = 5)
+  .bfpackManualBfTable(options, bfpackContainer, type, position = 5)
 
   # coefficients table
   .bfpackEstimatesTable(options, bfpackContainer, type, position = 6)
