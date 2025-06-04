@@ -24,7 +24,7 @@
 }
 
 
-# handle listwise deletion
+# handle listwise deletion and standardization
 .bfpackHandleData <- function(dataset, options) {
 
   dataset <- excludeNaListwise(dataset)
@@ -832,13 +832,20 @@
 }
 
 
-# specification table
-.bfpackSpecificationTable <- function(options, bfpackContainer, type, position) {
+# manual BF table
+.bfpackManualBfTable <- function(options, bfpackContainer, type, position) {
 
   if (!is.null(bfpackContainer[["resultsContainer"]][["specTable"]]) ||
       !options[["manualHypothesisBfTable"]]) return()
 
-  specTable <- createJaspTable(gettext("BFs: Manual Hypotheses"))
+  if (!is.null(options[["logScale"]])) {
+    if (options[["logScale"]]) {
+      title <- gettext("Log BFs: Manual Hypotheses")
+    } else {
+      title <- gettext("BFs: Manual Hypotheses")
+    }
+  }
+  specTable <- createJaspTable(title)
   specTable$dependOn("manualHypothesisBfTable")
   specTable$position <- position
 
@@ -921,7 +928,14 @@
 
   if (bfpackContainer$getError()) return()
 
-  stdBfTable <- createJaspTable(gettext("BFs: Standard Hypotheses"))
+  if (!is.null(options[["logScale"]])) {
+    if (options[["logScale"]]) {
+      title <- gettext("Log BFs: Standard Hypotheses")
+    } else {
+      title <- gettext("BFs: Standard Hypotheses")
+    }
+  }
+  stdBfTable <- createJaspTable(title)
   stdBfTable$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]], options = "standardHypothesisBfTable")
   stdBfTable$position <- position
   bfpackContainer[["stdBfTable"]] <- stdBfTable

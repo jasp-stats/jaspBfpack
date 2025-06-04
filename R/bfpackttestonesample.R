@@ -23,8 +23,8 @@ bfpackTTestOneSample <- function(jaspResults, dataset, options, ...) {
   # Check if current options allow for analysis
   ready <- .bfpackOptionsReady(options, type)
 
-  # Read the data set
-  # dataset <- .bfpackReadDataset(options, type, dataset)
+  # handle the data set
+  dataset <- .bfpackHandleData(dataset, options)
 
   # Check if current data allow for analysis
   .bfpackDataReady(dataset, options, type, ready)
@@ -49,7 +49,7 @@ bfpackTTestOneSample <- function(jaspResults, dataset, options, ...) {
 
   .bfpackPosteriorHypothesesTable(options, bfpackContainer, type, position = 4)
 
-  .bfpackSpecificationTable(options, bfpackContainer, type, position = 5)
+  .bfpackManualBfTable(options, bfpackContainer, type, position = 5)
 
   # coefficients table
   .bfpackEstimatesTable(options, bfpackContainer, type, position = 6)
