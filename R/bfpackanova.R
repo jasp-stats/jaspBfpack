@@ -40,7 +40,7 @@ bfpackAnova <- function(jaspResults, dataset, options, ...) {
   # compute the results, aka BFs
   .bfpackComputeResults(dataset, options, bfpackContainer, ready, type)
 
-  .bfpackParameterTable(options, bfpackContainer, type, dataset, position = 1)
+  .bfpackPosteriorParameterTable(options, bfpackContainer, type, dataset, position = 1)
 
   .bfpackMainEffectsTable(options, bfpackContainer, type, position = 1.5)
   .bfpackInteractionEffectsTable(options, bfpackContainer, type, position = 1.6)
