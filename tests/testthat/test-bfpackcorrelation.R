@@ -57,13 +57,14 @@ results <- jaspTools::runAnalysis("bfpackCorrelation", testthat::test_path("sale
 test_that("Posterior Probabilities of the Standard Hypotheses table results match", {
   table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_parameterTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
-                                 list("sales_with_adverts", 3.63925815458126e-19, 1, 1.95450322482754e-21,
-                                      "airplay_with_adverts", 0.754119020141021, 0.224255578578344,
-                                      0.0216254012806351, "attract_with_adverts", 0.815121179506138,
-                                      0.1582918525355, 0.0265869679583617, "airplay_with_sales", 2.81577651763816e-19,
-                                      1, 1.56979601995476e-21, "attract_with_sales", 0.000103992786328404,
-                                      0.999894918244598, 1.08896907338297e-06, "attract_with_airplay",
-                                      0.274731578764012, 0.720044084944159, 0.00522433629182948))
+                                 list("sales_with_adverts", 1.25965242354417e-20, 1, 6.30047090958772e-23,
+                                      "airplay_with_adverts", 0.764067303703275, 0.214172189292728,
+                                      0.0217605070039969, "attract_with_adverts", 0.81103151830978,
+                                      0.162734632999874, 0.0262338486903459, "airplay_with_sales",
+                                      6.0552627054929e-19, 1, 3.41252975927948e-21, "attract_with_sales",
+                                      0.000105124939115191, 0.999893765316547, 1.10974433775939e-06,
+                                      "attract_with_airplay", 0.292836501058348, 0.701426532422573,
+                                      0.00573696651907904))
 })
 
 test_that("Posterior Probabilities plot matches", {
@@ -81,15 +82,15 @@ test_that("Prior Probabilities plot matches", {
 test_that("Estimates Table results match", {
   table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_resultsContainer"]][["collection"]][["bfpackContainer_resultsContainer_estimatesTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
-                                 list("sales_with_adverts", 0.46850609728035, 0.567696755034827, 0.568484470153949,
-                                      0.652328059899295, "airplay_with_adverts", -0.0489214020430954,
-                                      0.0935448716917604, 0.0932004003059686, 0.225810810974835, "attract_with_adverts",
-                                      -0.0539695056070947, 0.0726722206281893, 0.0729081662582253,
-                                      0.20573165784248, "airplay_with_sales", 0.489278810174119, 0.586067084326948,
-                                      0.588624456682559, 0.673096867967619, "attract_with_sales",
-                                      0.189105103360261, 0.314730045767477, 0.314438140449582, 0.433992526051401,
-                                      "attract_with_airplay", 0.0346531603465677, 0.170231597506475,
-                                      0.169710786321016, 0.305871521447342))
+                                 list("sales_with_adverts", 0.477735792808419, 0.568548538908731, 0.568536812578564,
+                                      0.65118339386032, "airplay_with_adverts", -0.0382877935474967,
+                                      0.0900218751790515, 0.089600655323082, 0.220152171556741, "attract_with_adverts",
+                                      -0.058672006706562, 0.0744079433170593, 0.0735699408188674,
+                                      0.211475076254999, "airplay_with_sales", 0.487417447406021,
+                                      0.583270983838333, 0.584832395647687, 0.671286339854072, "attract_with_sales",
+                                      0.193386143277419, 0.316622922762359, 0.316114275737559, 0.438099554775709,
+                                      "attract_with_airplay", 0.0318182003949569, 0.169842607852354,
+                                      0.168460989305395, 0.306349129258222))
 })
 
 test_that("Manual Hypotheses Legend table results match", {
@@ -103,38 +104,38 @@ test_that("Manual Hypotheses Legend table results match", {
 test_that("Evidence Matrix (log BFs) table results match", {
   table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_resultsContainer"]][["collection"]][["bfpackContainer_resultsContainer_matrixTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
-                                 list(0, -43.9605581486528, -41.9812957745389, "H1", 43.9605581486528,
-                                      0, 1.97926237411396, "H2", 41.9812957745389, -1.97926237411396,
+                                 list(0, -47.8301810840189, -45.9392756876506, "H1", 47.8301810840189,
+                                      0, 1.89090539636835, "H2", 45.9392756876506, -1.89090539636835,
                                       0, "H3"))
 })
 
 test_that("Posterior Model Probability table results match", {
   table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_resultsContainer"]][["collection"]][["bfpackContainer_resultsContainer_postTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
-                                 list("H1", 7.11155566337474e-20, "H2", 0.878602508796586, "H3", 0.121397491203414
+                                 list("H1", 1.4674572401231e-21, "H2", 0.868858728812906, "H3", 0.131141271187094
                                  ))
 })
 
-test_that("BFs: Manual Hypotheses table results match", {
+test_that("Log BFs: Manual Hypotheses table results match", {
   table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_resultsContainer"]][["collection"]][["bfpackContainer_resultsContainer_specTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
-                                 list(2.8722147423499e-19, 2.8722147423499e-19, 1, 7.11155566337474e-20,
-                                      0.334621459725668, 1, 9.61104689730706e-20, 1, "H1", 3.54849936903064,
-                                      1, 3.54849936903064, 0.878602508796586, 1, 0.166666666666667,
-                                      1, 0.591416561505107, "H2", 0.490300126193871, 1, 0.490300126193871,
-                                      0.121397491203414, 1, 0.833333333333333, 1, 0.408583438494893,
+                                 list(5.77524930146998e-21, 5.77524930146998e-21, 1, 1.4674572401231e-21,
+                                      0.334621459725668, 1, 1.93252235153753e-21, 1, "H1", 3.41943576238849,
+                                      1, 3.41943576238849, 0.868858728812906, 1, 0.166666666666667,
+                                      1, 0.569905960398082, "H2", 0.516112847522302, 1, 0.516112847522302,
+                                      0.131141271187094, 1, 0.833333333333333, 1, 0.430094039601918,
                                       "H3"))
 })
 
-test_that("BFs: Standard Hypotheses table results match", {
+test_that("Log BFs: Standard Hypotheses table results match", {
   table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_stdBfTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
-                                 list(-0.0163257338074273, -0.0147506357758907, "", "sales_with_adverts",
-                                      "", -0.644885543670207, 1.86446312743751, "airplay_with_adverts",
-                                      "", -1.19059290781714, 2.75826697832401, "attract_with_adverts",
-                                      -0.0162276805985185, -0.0146821506243353, "", "airplay_with_sales",
-                                      -0.0755795077210352, -0.0531674930011395, "", "attract_with_sales",
-                                      -0.706587401559197, -0.161770513780311, "", "attract_with_airplay"
+                                 list(-0.0151273260546063, -0.0137459148563934, "", "sales_with_adverts",
+                                      "", -0.695206436046034, 1.97040057613332, "airplay_with_adverts",
+                                      "", -1.13683980208192, 2.67934406984223, "attract_with_adverts",
+                                      -0.0165238880870198, -0.0149276794908004, "", "airplay_with_sales",
+                                      -0.0756688545762342, -0.0532446784650983, "", "attract_with_sales",
+                                      -0.776956186969178, -0.166214715930709, "", "attract_with_airplay"
                                  ))
 })
 
