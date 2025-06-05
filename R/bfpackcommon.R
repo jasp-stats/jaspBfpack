@@ -561,7 +561,7 @@
 
 ####### TABLES #######
 # table for the posterior probabilities of the parameter estimates
-.bfpackParameterTable <- function(options, bfpackContainer, type, dataset, position) {
+.bfpackPosteriorParameterTable <- function(options, bfpackContainer, type, dataset, position) {
 
   # the parameterTable does go into the outer container given it does not depend on the options for the
   # inner container
@@ -636,6 +636,25 @@
 
   # print the prior probs as a footnote
   parameterTable$addFootnote(gettextf("Prior probabilities of the standard hypotheses: %1$s.", paste0(sprintf("%.3f", standPrior), collapse = ", ")))
+
+  if (type == "correlation") {
+    corResultRhat <- bfpackContainer[["estimatesState"]][["object"]][["Rhat_gelmanrubin"]]
+    psrf <- corResultRhat[["psrf"]]
+    warns <- which(psrf[, "Point est."] > 1.05)
+    if (length(warns) > 0) {
+      parameterTable$addFootnote(gettextf("R-hat values for the posterior samples of the correlation coefficients are larger than 1.05.
+                                           This indicates that the chains have not converged well.
+                                           Try decreasing the nugget parameter or running the chains for more iterations.
+                                           The following variables have R-hat > 1.05: %1$s.",
+                           paste0(rownames(psrf)[warns], collapse = ", ")))
+    }
+    if (!is.null(corResultRhat[["mpsrf"]])) {
+      if (corResultRhat[["mpsrf"]] > 1.05) {
+        parameterTable$addFootnote(gettext("The multivariate R-hat value is larger than 1.05, indicating that the chains have not converged well.
+                              Try decreasing the nugget parameter or running the chains for more iterations."))
+      }
+    }
+  }
 
   if (type == "tTestIndependentSamples") {
     levels <- levels(dataset[[options[["groupingVariable"]]]])
