@@ -56,12 +56,11 @@ test_that("Prior probabilities plot matches", {
   jaspTools::expect_equal_plots(testPlot, "prior-probabilities")
 })
 
-test_that("Evidence matrix (BFs) table results match", {
+test_that("Evidence Matrix (BFs) table results match", {
   table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_resultsContainer"]][["collection"]][["bfpackContainer_resultsContainer_matrixTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
-                                 list(1, 64347.4223936863, 1.01119137876107e-32, "H1", 1.55406380364681e-05,
-                                      1, 1.57145592029229e-37, "H2", 9.88932482024538e+31, 6.36352561396695e+36,
-                                      1, "H3"))
+                                 list(1, 0, 0, "H1", "<unicode>", 1, 1.65949117110234e-37, "H2", "<unicode>",
+                                      6.02594347842016e+36, 1, "H3"))
 })
 
 test_that("Posterior model probability table results match", {
