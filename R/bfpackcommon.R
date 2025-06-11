@@ -628,14 +628,16 @@
   # standard hypotheses priors
   if (type %in% c("variances", "tTestMultiSamples")) {
     standPrior <- sapply(parse(text = c(options[["priorProbStandard"]], options[["priorProbStandard2"]])), eval)
+    footnoteText <- gettext("Prior probabilities of hypotheses H0 and H±:")
   } else {
     standPrior <- sapply(parse(text = c(options[["priorProbStandard"]], options[["priorProbStandard2"]],
                                         options[["priorProbStandard3"]])), eval)
+    footnoteText <- gettext("Prior probabilities of hypotheses H0, H- and H+: ")
   }
   standPrior <- standPrior/sum(standPrior)
 
   # print the prior probs as a footnote
-  parameterTable$addFootnote(gettextf("Prior probabilities of the standard hypotheses: %1$s.", paste0(sprintf("%.3f", standPrior), collapse = ", ")))
+  parameterTable$addFootnote(paste0(footnoteText, paste0(sprintf("%.3f", standPrior), collapse = ", ")))
 
   if (type == "correlation") {
     corResultRhat <- bfpackContainer[["estimatesState"]][["object"]][["Rhat_gelmanrubin"]]
@@ -1002,7 +1004,7 @@
 
 ####### PLOTS ########
 
-.bfpackPriorPosteriorProbabilityPlot <- function(options, bfpackContainer, type) {
+.bfpackPriorPosteriorProbabilityPlot <- function(options, bfpackContainer, type, position = 7) {
   if (!is.null(bfpackContainer[["probabilitiesPlotContainer"]]) || !options[["manualPlots"]]) {
     return()
   }
@@ -1018,9 +1020,11 @@
     prior <- result$prior.hyp.conf
 
     priorPlot <- .plotHelper(prior, gettext("Prior Probabilities"))
+    priorPlot$position <- position + 0.1
     probabilitiesPlotContainer[["priorPlot"]] <- priorPlot
 
     postPlot <- .plotHelper(post, gettext("Posterior Probabilities"))
+    postPlot$position <- position + 0.2
     probabilitiesPlotContainer[["postPlot"]] <- postPlot
 
   }
@@ -1049,7 +1053,7 @@
 
 
 # create the posterior distribution plots for correlation
-.bfpackPosteriorDistributionPlot <- function(options, bfpackContainer, type) {
+.bfpackPosteriorDistributionPlot <- function(options, bfpackContainer, type, position = 8) {
 
   if (!is.null(bfpackContainer[["posteriorPlotContainer"]]) || !options[["priorPosteriorPlot"]]) {
     return()
@@ -1113,6 +1117,7 @@
 
           height <- if (!options[["priorPosteriorPlotAdditionalTestingInfo"]] && !options[["priorPosteriorPlotAdditionalEstimationInfo"]]) 400 else 460
           postPlot <- createJaspPlot(plt, title = corNames[z], width = 560, height = height)
+          postPlot$position <- position + z * 0.1
           posteriorPlotContainer[[paste0("cor", z)]] <- postPlot
           z <- z + 1
         }
@@ -1123,48 +1128,9 @@
   return()
 }
 
-# .makeSinglePosteriorDistributionPlot <- function(postSamples, priorSamples, int) {
-#
-#   d <- stats::density(postSamples, n = 2^10)
-#   datDens <- data.frame(x = d$x, y = d$y)
-#   xBreaks <- jaspGraphs::getPrettyAxisBreaks(datDens$x)
-#
-#   dprior <- stats::density(priorSamples, n = 2^10)
-#   datDensPrior <- data.frame(x = dprior$x, y = dprior$y)
-#
-#   datDens <- rbind(datDens, datDensPrior)
-#
-#   # max height posterior is at 90% of plot area; remainder is for credible interval
-#   ymax <- max(d$y) / .9
-#   yBreaks <- jaspGraphs::getPrettyAxisBreaks(c(0, ymax))
-#   ymax <- max(yBreaks)
-#   scaleCriRound <- round(int, 3)
-#   datCri <- data.frame(xmin = scaleCriRound[1L], xmax = scaleCriRound[2L], y = .925 * ymax)
-#   height <- (ymax - .925 * ymax) / 2
-#
-#   datTxt <- data.frame(x = c(datCri$xmin, datCri$xmax),
-#                        y = 0.985 * ymax,
-#                        label = sapply(c(datCri$xmin, datCri$xmax), format, digits = 3, scientific = -1),
-#                        stringsAsFactors = FALSE)
-#
-#   g <- ggplot2::ggplot(data = datDens, mapping = ggplot2::aes(x = x, y = y)) +
-#     ggplot2::geom_line(linewidth = .85) +
-#     ggplot2::scale_y_continuous(name = gettext("Density"), breaks = yBreaks, limits = range(yBreaks)) +
-#     ggplot2::scale_x_continuous(name = gettext("ρ"), breaks = xBreaks, limits = range(xBreaks))
-#
-#   g <- g + ggplot2::geom_errorbarh(data = datCri, mapping = ggplot2::aes(xmin = xmin, xmax = xmax, y = y),
-#                                        height = height, inherit.aes = FALSE) +
-#     ggplot2::geom_text(data = datTxt, mapping = ggplot2::aes(x = x, y = y, label = label), inherit.aes = FALSE,
-#                        size = 6)
-#
-#   g <- g + jaspGraphs::themeJaspRaw() + jaspGraphs::geom_rangeframe()
-#   g <- createJaspPlot(g)
-#   return(g)
-#
-# }
 
 # create the traceplot for correlation
-.bfpackTraceplot <- function(options, bfpackContainer, type) {
+.bfpackTraceplot <- function(options, bfpackContainer, type, position = 9) {
   if (!is.null(bfpackContainer[["traceplotContainer"]]) || !options[["traceplot"]]) {
     return()
   }
@@ -1188,6 +1154,7 @@
           post <- allDraws[[l]][, i, j]
           postPlot <- .makeSingleTraceplot(post)
           postPlot$title <- corNames[z]
+          postPlot$position <- position + z * 0.1
           traceplotContainer[[paste0("cor", z)]] <- postPlot
           z <- z + 1
         }

@@ -57,14 +57,13 @@ results <- jaspTools::runAnalysis("bfpackCorrelation", testthat::test_path("sale
 test_that("Posterior Probabilities of the Standard Hypotheses table results match", {
   table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_parameterTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
-                                 list("sales_with_adverts", 1.25965242354417e-20, 1, 6.30047090958772e-23,
-                                      "airplay_with_adverts", 0.764067303703275, 0.214172189292728,
-                                      0.0217605070039969, "attract_with_adverts", 0.81103151830978,
-                                      0.162734632999874, 0.0262338486903459, "airplay_with_sales",
-                                      6.0552627054929e-19, 1, 3.41252975927948e-21, "attract_with_sales",
-                                      0.000105124939115191, 0.999893765316547, 1.10974433775939e-06,
-                                      "attract_with_airplay", 0.292836501058348, 0.701426532422573,
-                                      0.00573696651907904))
+                                 list("sales_with_adverts", 1.77942563859518e-20, 1, 8.92961235286475e-23,
+                                      "airplay_with_adverts", 0.766948560255952, 0.211092073274922,
+                                      0.0219593664691263, "attract_with_adverts", 0.813884824859506,
+                                      0.159564264441074, 0.02655091069942, "airplay_with_sales", 6.41121035546808e-19,
+                                      1, 3.61451462181043e-21, "attract_with_sales", 0.000120557087633689,
+                                      0.999878163322489, 1.27958987778277e-06, "attract_with_airplay",
+                                      0.308603140108504, 0.685289204304595, 0.00610765558690174))
 })
 
 test_that("Posterior Probabilities plot matches", {
@@ -104,38 +103,38 @@ test_that("Manual Hypotheses Legend table results match", {
 test_that("Evidence Matrix (log BFs) table results match", {
   table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_resultsContainer"]][["collection"]][["bfpackContainer_resultsContainer_matrixTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
-                                 list(0, -47.8301810840189, -45.9392756876506, "H1", 47.8301810840189,
-                                      0, 1.89090539636835, "H2", 45.9392756876506, -1.89090539636835,
+                                 list(0, -47.581294238802, -45.683831705795, "H1", 47.581294238802,
+                                      0, 1.89746253300694, "H2", 45.683831705795, -1.89746253300694,
                                       0, "H3"))
 })
 
 test_that("Posterior Model Probability table results match", {
   table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_resultsContainer"]][["collection"]][["bfpackContainer_resultsContainer_postTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
-                                 list("H1", 1.4674572401231e-21, "H2", 0.868858728812906, "H3", 0.131141271187094
+                                 list("H1", 1.88377067290424e-21, "H2", 0.869604064811951, "H3", 0.130395935188049
                                  ))
 })
 
 test_that("Log BFs: Manual Hypotheses table results match", {
   table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_resultsContainer"]][["collection"]][["bfpackContainer_resultsContainer_specTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
-                                 list(5.77524930146998e-21, 5.77524930146998e-21, 1, 1.4674572401231e-21,
-                                      0.334621459725668, 1, 1.93252235153753e-21, 1, "H1", 3.41943576238849,
-                                      1, 3.41943576238849, 0.868858728812906, 1, 0.166666666666667,
-                                      1, 0.569905960398082, "H2", 0.516112847522302, 1, 0.516112847522302,
-                                      0.131141271187094, 1, 0.833333333333333, 1, 0.430094039601918,
+                                 list(7.42819717029706e-21, 7.42819717029706e-21, 1, 1.88377067290424e-21,
+                                      0.334621459725668, 1, 2.48563418025488e-21, 1, "H1", 3.42907475226594,
+                                      1, 3.42907475226594, 0.869604064811951, 1, 0.166666666666667,
+                                      1, 0.57151245871099, "H2", 0.514185049546813, 1, 0.514185049546813,
+                                      0.130395935188049, 1, 0.833333333333333, 1, 0.42848754128901,
                                       "H3"))
 })
 
 test_that("Log BFs: Standard Hypotheses table results match", {
   table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_stdBfTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
-                                 list(-0.0151273260546063, -0.0137459148563934, "", "sales_with_adverts",
-                                      "", -0.695206436046034, 1.97040057613332, "airplay_with_adverts",
-                                      "", -1.13683980208192, 2.67934406984223, "attract_with_adverts",
-                                      -0.0165238880870198, -0.0149276794908004, "", "airplay_with_sales",
-                                      -0.0756688545762342, -0.0532446784650983, "", "attract_with_sales",
-                                      -0.776956186969178, -0.166214715930709, "", "attract_with_airplay"
+                                 list(-0.0152422410688517, -0.0138416449257139, "", "sales_with_adverts",
+                                      "", -0.713732101660131, 2.00470522770377, "airplay_with_adverts",
+                                      "", -1.17645249461639, 2.73623129725681, "attract_with_adverts",
+                                      -0.0165464191347455, -0.0149461889223048, "", "airplay_with_sales",
+                                      -0.0768176240163965, -0.0538336345865915, "", "attract_with_sales",
+                                      -0.848282977106952, -0.169541651077943, "", "attract_with_airplay"
                                  ))
 })
 
