@@ -40,7 +40,7 @@ bfpackVariances <- function(jaspResults, dataset, options, ...) {
   # compute the results, aka BFs
   .bfpackComputeResults(dataset, options, bfpackContainer, ready, type)
 
-  .bfpackPosteriorParameterTable(options, bfpackContainer, type, position = 1)
+  .bfpackPosteriorParameterTable(options, bfpackContainer, type, dataset, position = 1)
 
   # Create a legend containing the order constrained hypotheses
   .bfpackLegendTable(options, type, bfpackContainer, position = 2)
