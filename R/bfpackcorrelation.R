@@ -61,11 +61,11 @@ bfpackCorrelation <- function(jaspResults, dataset, options, ...) {
   .bfpackStandardBfTable(options, bfpackContainer, type, position = 1.5)
 
   # Create the prior and posterior probability plots
-  .bfpackPriorPosteriorProbabilityPlot(options, bfpackContainer, type)
+  .bfpackPriorPosteriorProbabilityPlot(options, bfpackContainer, type, position = 7)
 
   # create the posterior distribution plot
-  .bfpackPosteriorDistributionPlot(options, bfpackContainer, type)
+  .bfpackPosteriorDistributionPlot(options, bfpackContainer, type, position = 8)
 
   # create the traceplot
-  .bfpackTraceplot(options, bfpackContainer, type)
+  .bfpackTraceplot(options, bfpackContainer, type, position = 9)
 }
