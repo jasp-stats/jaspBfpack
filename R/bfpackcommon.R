@@ -25,13 +25,18 @@
 
 
 # handle listwise deletion and standardization
-.bfpackHandleData <- function(dataset, options) {
+.bfpackHandleData <- function(dataset, options, type = "") {
 
   dataset <- excludeNaListwise(dataset)
 
   if (options[["standardize"]]) {
     cindex <- which(sapply(dataset, is.numeric))
-    dataset[, cindex] <- scale(dataset[, cindex])
+
+    if (type == "tTestOneSample") {
+      dataset[, cindex] <- scale(dataset[, cindex], center = FALSE)
+    } else {
+      dataset[, cindex] <- scale(dataset[, cindex])
+    }
   }
 
   return(dataset)
