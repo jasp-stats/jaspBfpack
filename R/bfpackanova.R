@@ -40,7 +40,7 @@ bfpackAnova <- function(jaspResults, dataset, options, ...) {
   # compute the results, aka BFs
   .bfpackComputeResults(dataset, options, bfpackContainer, ready, type)
 
-  .bfpackParameterTable(options, bfpackContainer, type, dataset, position = 1)
+  .bfpackPosteriorParameterTable(options, bfpackContainer, type, dataset, position = 1)
 
   .bfpackMainEffectsTable(options, bfpackContainer, type, position = 1.5)
   .bfpackInteractionEffectsTable(options, bfpackContainer, type, position = 1.6)
@@ -52,7 +52,7 @@ bfpackAnova <- function(jaspResults, dataset, options, ...) {
 
   .bfpackPosteriorHypothesesTable(options, bfpackContainer, type, position = 4)
 
-  .bfpackSpecificationTable(options, bfpackContainer, type, position = 5)
+  .bfpackManualBfTable(options, bfpackContainer, type, position = 5)
 
   # coefficients table
   .bfpackEstimatesTable(options, bfpackContainer, type, position = 6)
@@ -61,6 +61,6 @@ bfpackAnova <- function(jaspResults, dataset, options, ...) {
   .bfpackStandardBfTable(options, bfpackContainer, type, position = 1.4)
 
   # Create the prior and posterior probability plots
-  .bfpackPriorPosteriorProbabilityPlot(options, bfpackContainer, type)
+  .bfpackPriorPosteriorProbabilityPlot(options, bfpackContainer, type, position = 7)
 
 }
