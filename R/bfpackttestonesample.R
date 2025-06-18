@@ -24,7 +24,7 @@ bfpackTTestOneSample <- function(jaspResults, dataset, options, ...) {
   ready <- .bfpackOptionsReady(options, type)
 
   # handle the data set
-  dataset <- .bfpackHandleData(dataset, options)
+  dataset <- .bfpackHandleData(dataset, options, type = type)
 
   # Check if current data allow for analysis
   .bfpackDataReady(dataset, options, type, ready)
