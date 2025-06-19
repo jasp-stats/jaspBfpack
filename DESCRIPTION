@@ -1,7 +1,7 @@
 Package: jaspBfpack
 Type: Package
 Title: BFpack Module for JASP
-Version: 0.20.0
+Version: 0.95.0
 Date: 2024-09-25
 Author: JASP Team
 Website: https://bfpack.info
