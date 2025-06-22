@@ -17,6 +17,7 @@
 
 bfpackTTestMultiSample <- function(jaspResults, dataset, options, ...) {
 
+
   # What type of BFpack analysis is being conducted?
   type <- "tTestMultiSamples"
 
