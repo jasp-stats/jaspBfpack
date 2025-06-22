@@ -81,6 +81,7 @@ Group
 			fieldWidth: 50
 			name: "priorProbStandard2"
 			defaultValue: onlyUnequal ? "1" : "1"
+			min: 0
 	}
 
 	Text { text: standGroup.hypoString[2] ; visible: !onlyUnequal}
@@ -91,6 +92,7 @@ Group
 			name: "priorProbStandard3"
 			defaultValue: "1"
 			visible: !onlyUnequal
+			min: 0
 	}
 }
 

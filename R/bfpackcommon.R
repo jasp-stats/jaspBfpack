@@ -727,23 +727,24 @@
   iaEffectsTable$addColumnInfo(name = "noEffect", type = "number", title = gettext("Pr(No effect)"))
   iaEffectsTable$addColumnInfo(name = "fullModel", type = "number", title = gettext("Pr(Full model)"))
 
-  bfpackContainer[["iaEffectsTable"]] <- iaEffectsTable
-
   if (!bfpackContainer$getError()) {
     php <- bfpackContainer[["resultsContainer"]][["resultsState"]]$object$PHP_interaction
+
     if (!is.null(php)) {
 
       dtFill <- data.frame(coefficient = rownames(php))
       dtFill[, c("noEffect", "fullModel")] <- php
       iaEffectsTable$setData(dtFill)
+
+      # table is only printed if there are interaction results
+      bfpackContainer[["iaEffectsTable"]] <- iaEffectsTable
+      # standard prior probs
+      standPrior <- sapply(parse(text = c(options[["priorProbInteractionZero"]], options[["priorProbInteractionNonZero"]])), eval)
+      standPrior <- standPrior/sum(standPrior)
+      # print the prior probs as a footnote
+      iaEffectsTable$addFootnote(gettextf("Prior probabilities of the interaction effects: %1$s.", paste0(sprintf("%.3f", standPrior), collapse = ", ")))
     }
   }
-
-  # standard prior probs
-  standPrior <- sapply(parse(text = c(options[["priorProbInteractionZero"]], options[["priorProbInteractionNonZero"]])), eval)
-  standPrior <- standPrior/sum(standPrior)
-  # print the prior probs as a footnote
-  iaEffectsTable$addFootnote(gettextf("Prior probabilities of the interaction effects: %1$s.", paste0(sprintf("%.3f", standPrior), collapse = ", ")))
 
   return()
 }
