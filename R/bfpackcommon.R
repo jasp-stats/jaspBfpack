@@ -164,14 +164,29 @@
 
   if (!ready) return()
 
-  findex <- which(sapply(dataset, is.factor))
-  oindex <- which(sapply(dataset, is.ordered))
-  findex <- findex[findex != oindex]
-  if (length(findex > 0)) {
-    factors <- colnames(dataset)[findex]
+  print(str(options))
+
+  vars <- c(options[["variables"]],
+            options[["dependent"]],
+            options[["fixedFactors"]],
+            options[["covariates"]],
+            options[["groupingVariable"]],
+            unlist(options[["pairs"]]))
+  varsTypes <- c(options[["variables.types"]],
+                 options[["dependent.types"]],
+                 options[["fixedFactors.types"]],
+                 options[["covariates.types"]],
+                 options[["groupingVariable.type"]],
+                 unlist(options[["pairs.types"]]))
+
+  factors <- vars[varsTypes == "nominal"]
+  orders <- vars[varsTypes == "ordinal"]
+  scales <- vars[varsTypes == "scale"]
+  if (length(factors) > 0) {
     .hasErrors(dataset,
                type = "factorLevels",
-               factorLevels.target = factors, factorLevels.amount = '!= 2',
+               factorLevels.target = factors,
+               factorLevels.amount = '!= 2',
                exitAnalysisIfErrors = TRUE
     )
 
@@ -180,7 +195,8 @@
     }
   }
 
-  nonfactors <- colnames(dataset)[-findex]
+  nonfactors <- c(orders, scales)
+  print(nonfactors)
   if (length(nonfactors) > 0) {
     .hasErrors(dataset,
       type = c("infinity", "variance", "observations"),
