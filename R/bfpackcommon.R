@@ -164,14 +164,13 @@
 
   if (!ready) return()
 
-  print(str(options))
-
   vars <- c(options[["variables"]],
             options[["dependent"]],
             options[["fixedFactors"]],
             options[["covariates"]],
             options[["groupingVariable"]],
             unlist(options[["pairs"]]))
+  vars <- vars[vars != ""]
   varsTypes <- c(options[["variables.types"]],
                  options[["dependent.types"]],
                  options[["fixedFactors.types"]],
@@ -196,7 +195,6 @@
   }
 
   nonfactors <- c(orders, scales)
-  print(nonfactors)
   if (length(nonfactors) > 0) {
     .hasErrors(dataset,
       type = c("infinity", "variance", "observations"),
@@ -563,10 +561,11 @@
 
     if (isTryError(results)) {
 
-      if (grepl("parse_hyp$hyp_mat", results, fixed = TRUE)) {
-        bfpackContainer$setError(gettext("BFpack failed because of an issue with the specification of the manual hypotheses. Please check that you specified them correctly. You probably have to refresh the analysis."))
+      if (grepl("parse_hyp$hyp_mat", results, fixed = TRUE) || grepl("pattern", results, fixed = TRUE)) {
+        bfpackContainer$setError(gettext("BFpack failed because of an issue with the specification of the manual hypotheses. Please check that you specified them correctly. You should then refresh the analysis."))
       } else {
         bfpackContainer$setError(gettextf("BFpack failed with the following error message: %1$s", jaspBase::.extractErrorMessage(results)))
+
       }
 
     }
