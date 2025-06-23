@@ -198,9 +198,15 @@
 
   nonfactors <- c(orders, scales)
   if (length(nonfactors) > 0) {
+    if (type == "regression") {
+      ttpy <- c("infinity", "variance", "observations", "varCovData")
+    } else {
+      ttpy <- c("infinity", "variance", "observations")
+    }
     .hasErrors(dataset,
-      type = c("infinity", "variance", "observations"),
+      type = ttpy,
       all.target = nonfactors, observations.amount = "< 3",
+      varCovData.corFun = stats::cov,
       exitAnalysisIfErrors = TRUE
     )
   }
