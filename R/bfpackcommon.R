@@ -25,7 +25,9 @@
 
 
 # handle listwise deletion and standardization
-.bfpackHandleData <- function(dataset, options, type = "") {
+.bfpackHandleData <- function(dataset, options, type = "", ready) {
+
+  if (!ready) return()
 
   dataset <- excludeNaListwise(dataset)
 
