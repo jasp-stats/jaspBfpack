@@ -147,8 +147,9 @@
 
   ready <- switch(type,
     "tTestIndependentSamples" = options[["variables"]] != "" && options[["groupingVariable"]] != "",
-    "tTestPairedSamples" = sum(unlist(options[["pairs"]]) != "") > 1,
+    "tTestPairedSamples" = sum(unlist(options[["pairs"]]) != "") > 1, # only allow 2 variables
     "tTestOneSample" = options[["variables"]] != "",
+    "anova" = length(unlist(options[["dependent"]])) > 0 && length(unlist(options[["fixedFactors"]])) > 0,
     "anova" = length(unlist(options[["dependent"]])) > 0 && length(unlist(options[["fixedFactors"]])) > 0,
     "regression" = sum(unlist(options[["dependent"]]) != "") > 0 && length(unlist(options[["covariates"]])) > 0,
     "correlation" = length(unlist(options[["variables"]])) > 1,
@@ -209,6 +210,10 @@
       varCovData.corFun = stats::cov,
       exitAnalysisIfErrors = TRUE
     )
+  }
+
+ if (type == "tTestPairedSamples" && sum(unlist(options[["pairs"]]) != "") > 2) {
+    jaspBase:::.quitAnalysis(gettext("Only two variables can be specified for the paired samples t-test."))
   }
 
   return()
