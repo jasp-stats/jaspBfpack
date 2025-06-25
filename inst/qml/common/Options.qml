@@ -136,14 +136,14 @@ Section
 			visible: iterationsEst
 			name: "iterationsEstimation"
 			text: qsTr("No. iterations for MCMC")
-			defaultValue: 5000
+			defaultValue: 10000
 			min: 2000
 			fieldWidth: 60 * preferencesModel.uiScale
 		}
 
 		IntegerField
 		{
-			visible: iterationsBfDefaultNumber === 1000000 ?  (iterationsBf && variancesId.value === "unequal") : iterationsBf // if the default value is 1000000, then the iterationsBf is visible only if variances are unequal meaning we have a t-test
+			visible: true
 			name: "iterationsBayesFactor"
 			text: qsTr("No. iterations for BF computation")
 			defaultValue: iterationsBfDefaultNumber

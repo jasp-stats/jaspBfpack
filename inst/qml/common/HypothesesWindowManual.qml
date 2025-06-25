@@ -81,6 +81,7 @@ Group
 			fieldWidth: 60
 			name: "priorProbComplement"
 			defaultValue: "1"
+			min: 0
 		}
 		Item {
 			id: spacer
