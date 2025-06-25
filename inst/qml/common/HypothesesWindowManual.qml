@@ -60,6 +60,7 @@ Group
 					fieldWidth: 60
 					name: "priorProbManual"
 					defaultValue: "1"
+					min: 0
 				}
 				Item {}
 				CheckBox
