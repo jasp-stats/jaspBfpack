@@ -150,7 +150,6 @@
     "tTestPairedSamples" = sum(unlist(options[["pairs"]]) != "") > 1, # only allow 2 variables
     "tTestOneSample" = options[["variables"]] != "",
     "anova" = length(unlist(options[["dependent"]])) > 0 && length(unlist(options[["fixedFactors"]])) > 0,
-    "anova" = length(unlist(options[["dependent"]])) > 0 && length(unlist(options[["fixedFactors"]])) > 0,
     "regression" = sum(unlist(options[["dependent"]]) != "") > 0 && length(unlist(options[["covariates"]])) > 0,
     "correlation" = length(unlist(options[["variables"]])) > 1,
     "variances" = options[["variables"]] != "" && options[["groupingVariable"]] != "",

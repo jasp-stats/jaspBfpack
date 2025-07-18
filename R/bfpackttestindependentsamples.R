@@ -24,7 +24,7 @@ bfpackTTestIndependentSamples <- function(jaspResults, dataset, options, ...) {
   ready <- .bfpackOptionsReady(options, type)
 
   # handle the data set
-  dataset <- dataset <- .bfpackHandleData(dataset, options, ready = ready)
+  dataset <- .bfpackHandleData(dataset, options, ready = ready)
 
   # Check if current data allow for analysis
   .bfpackDataReady(dataset, options, type, ready)
