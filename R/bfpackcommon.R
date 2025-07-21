@@ -229,7 +229,6 @@
 
   if (!ready) return()
 
-  dataset <- dataset
   # decode the colnames otherwise bfpack fails when trying to match hypotheses and estimate names
   colnames(dataset) <- decodeColNames(colnames(dataset))
 
