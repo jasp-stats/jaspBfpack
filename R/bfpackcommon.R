@@ -1053,6 +1053,13 @@
     postPlot$position <- position + 0.2
     probabilitiesPlotContainer[["postPlot"]] <- postPlot
 
+  } else {
+    p <- ggplot2::ggplot() +
+      jaspGraphs::getEmptyTheme()
+    probabilitiesPlotContainer[["priorPlot"]] <- createJaspPlot(p, title = gettext("Prior Probabilities"),
+                                                                width = 250, height = 250)
+    probabilitiesPlotContainer[["postPlot"]]  <- createJaspPlot(p, title = gettext("Posterior Probabilities"),
+                                                                width = 250, height = 250)
   }
 
 }
