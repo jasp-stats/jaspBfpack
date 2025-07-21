@@ -24,14 +24,21 @@
 }
 
 
-# handle listwise deletion
-.bfpackHandleData <- function(dataset, options) {
+# handle listwise deletion and standardization
+.bfpackHandleData <- function(dataset, options, type = "", ready) {
+
+  if (!ready) return()
 
   dataset <- excludeNaListwise(dataset)
 
   if (options[["standardize"]]) {
     cindex <- which(sapply(dataset, is.numeric))
-    dataset[, cindex] <- scale(dataset[, cindex])
+
+    if (type == "tTestOneSample") {
+      dataset[, cindex] <- scale(dataset[, cindex], center = FALSE)
+    } else {
+      dataset[, cindex] <- scale(dataset[, cindex])
+    }
   }
 
   return(dataset)
@@ -140,7 +147,7 @@
 
   ready <- switch(type,
     "tTestIndependentSamples" = options[["variables"]] != "" && options[["groupingVariable"]] != "",
-    "tTestPairedSamples" = sum(unlist(options[["pairs"]]) != "") > 1,
+    "tTestPairedSamples" = sum(unlist(options[["pair"]]) != "") > 1, # only allow 2 variables
     "tTestOneSample" = options[["variables"]] != "",
     "anova" = length(unlist(options[["dependent"]])) > 0 && length(unlist(options[["fixedFactors"]])) > 0,
     "regression" = sum(unlist(options[["dependent"]]) != "") > 0 && length(unlist(options[["covariates"]])) > 0,
@@ -159,14 +166,28 @@
 
   if (!ready) return()
 
-  findex <- which(sapply(dataset, is.factor))
-  oindex <- which(sapply(dataset, is.ordered))
-  findex <- findex[findex != oindex]
-  if (length(findex > 0)) {
-    factors <- colnames(dataset)[findex]
+  vars <- c(options[["variables"]],
+            options[["dependent"]],
+            options[["fixedFactors"]],
+            options[["covariates"]],
+            options[["groupingVariable"]],
+            unlist(options[["pair"]]))
+  vars <- vars[vars != ""]
+  varsTypes <- c(options[["variables.types"]],
+                 options[["dependent.types"]],
+                 options[["fixedFactors.types"]],
+                 options[["covariates.types"]],
+                 options[["groupingVariable.type"]],
+                 unlist(options[["pair.types"]]))
+
+  factors <- vars[varsTypes == "nominal"]
+  orders <- vars[varsTypes == "ordinal"]
+  scales <- vars[varsTypes == "scale"]
+  if (length(factors) > 0) {
     .hasErrors(dataset,
                type = "factorLevels",
-               factorLevels.target = factors, factorLevels.amount = '!= 2',
+               factorLevels.target = factors,
+               factorLevels.amount = '!= 2',
                exitAnalysisIfErrors = TRUE
     )
 
@@ -175,13 +196,23 @@
     }
   }
 
-  nonfactors <- colnames(dataset)[-findex]
+  nonfactors <- c(orders, scales)
   if (length(nonfactors) > 0) {
+    if (type == "regression") {
+      ttpy <- c("infinity", "variance", "observations", "varCovData")
+    } else {
+      ttpy <- c("infinity", "variance", "observations")
+    }
     .hasErrors(dataset,
-      type = c("infinity", "variance", "observations"),
+      type = ttpy,
       all.target = nonfactors, observations.amount = "< 3",
+      varCovData.corFun = stats::cov,
       exitAnalysisIfErrors = TRUE
     )
+  }
+
+ if (type == "tTestPairedSamples" && sum(unlist(options[["pair"]]) != "") > 2) {
+    jaspBase:::.quitAnalysis(gettext("Only two variables can be specified for the paired samples t-test."))
   }
 
   return()
@@ -198,7 +229,6 @@
 
   if (!ready) return()
 
-  dataset <- dataset
   # decode the colnames otherwise bfpack fails when trying to match hypotheses and estimate names
   colnames(dataset) <- decodeColNames(colnames(dataset))
 
@@ -395,7 +425,7 @@
                                mu = options[["muValue"]]))
 
   } else if (type == "tTestPairedSamples") {
-    variables <- decodeColNames(unlist(unlist(options[["pairs"]])))
+    variables <- decodeColNames(unlist(unlist(options[["pair"]])))
     result <- try(bain::t_test(x = dataset[, variables[1]], y = dataset[, variables[2]],
                                paired = TRUE, var.equal = FALSE,
                                conf.level = options[["ciLevel"]],
@@ -429,7 +459,7 @@
   # new dependencies for the qml source since it is not part of bfpackContainer but jaspResults
   deps2 <- switch(type,
                  "tTestIndependentSamples" = c("variables", "groupingVariable"),
-                 "tTestPairedSamples" = "pairs",
+                 "tTestPairedSamples" = "pair",
                  "tTestOneSample" = "variables",
                  "anova" = c("dependent", "fixedFactors", "covariates"),
                  "regression" = c("dependent", "covariates"),
@@ -542,10 +572,11 @@
 
     if (isTryError(results)) {
 
-      if (grepl("parse_hyp$hyp_mat", results, fixed = TRUE)) {
-        bfpackContainer$setError(gettext("BFpack failed because of an issue with the specification of the manual hypotheses. Please check that you specified them correctly. You probably have to refresh the analysis."))
+      if (grepl("parse_hyp$hyp_mat", results, fixed = TRUE) || grepl("pattern", results, fixed = TRUE)) {
+        bfpackContainer$setError(gettext("BFpack failed because of an issue with the specification of the manual hypotheses. Please check that you specified them correctly. You should then refresh the analysis."))
       } else {
         bfpackContainer$setError(gettextf("BFpack failed with the following error message: %1$s", jaspBase::.extractErrorMessage(results)))
+
       }
 
     }
@@ -561,7 +592,7 @@
 
 ####### TABLES #######
 # table for the posterior probabilities of the parameter estimates
-.bfpackParameterTable <- function(options, bfpackContainer, type, dataset, position) {
+.bfpackPosteriorParameterTable <- function(options, bfpackContainer, type, dataset, position) {
 
   # the parameterTable does go into the outer container given it does not depend on the options for the
   # inner container
@@ -628,14 +659,35 @@
   # standard hypotheses priors
   if (type %in% c("variances", "tTestMultiSamples")) {
     standPrior <- sapply(parse(text = c(options[["priorProbStandard"]], options[["priorProbStandard2"]])), eval)
+    footnoteText <- gettext("Prior probabilities of hypotheses H0 and H±:")
   } else {
     standPrior <- sapply(parse(text = c(options[["priorProbStandard"]], options[["priorProbStandard2"]],
                                         options[["priorProbStandard3"]])), eval)
+    footnoteText <- gettext("Prior probabilities of hypotheses H0, H- and H+: ")
   }
   standPrior <- standPrior/sum(standPrior)
 
   # print the prior probs as a footnote
-  parameterTable$addFootnote(gettextf("Prior probabilities of the standard hypotheses: %1$s.", paste0(sprintf("%.3f", standPrior), collapse = ", ")))
+  parameterTable$addFootnote(paste0(footnoteText, paste0(sprintf("%.3f", standPrior), collapse = ", ")))
+
+  if (type == "correlation") {
+    corResultRhat <- bfpackContainer[["estimatesState"]][["object"]][["Rhat_gelmanrubin"]]
+    psrf <- corResultRhat[["psrf"]]
+    warns <- which(psrf[, "Point est."] > 1.05)
+    if (length(warns) > 0) {
+      parameterTable$addFootnote(gettextf("R-hat values for the posterior samples of the correlation coefficients are larger than 1.05.
+                                           This indicates that the chains have not converged well.
+                                           Try decreasing the nugget parameter or running the chains for more iterations.
+                                           The following variables have R-hat > 1.05: %1$s.",
+                           paste0(rownames(psrf)[warns], collapse = ", ")))
+    }
+    if (!is.null(corResultRhat[["mpsrf"]])) {
+      if (corResultRhat[["mpsrf"]] > 1.05) {
+        parameterTable$addFootnote(gettext("The multivariate R-hat value is larger than 1.05, indicating that the chains have not converged well.
+                              Try decreasing the nugget parameter or running the chains for more iterations."))
+      }
+    }
+  }
 
   if (type == "tTestIndependentSamples") {
     levels <- levels(dataset[[options[["groupingVariable"]]]])
@@ -701,23 +753,24 @@
   iaEffectsTable$addColumnInfo(name = "noEffect", type = "number", title = gettext("Pr(No effect)"))
   iaEffectsTable$addColumnInfo(name = "fullModel", type = "number", title = gettext("Pr(Full model)"))
 
-  bfpackContainer[["iaEffectsTable"]] <- iaEffectsTable
-
   if (!bfpackContainer$getError()) {
     php <- bfpackContainer[["resultsContainer"]][["resultsState"]]$object$PHP_interaction
+
     if (!is.null(php)) {
 
       dtFill <- data.frame(coefficient = rownames(php))
       dtFill[, c("noEffect", "fullModel")] <- php
       iaEffectsTable$setData(dtFill)
+
+      # table is only printed if there are interaction results
+      bfpackContainer[["iaEffectsTable"]] <- iaEffectsTable
+      # standard prior probs
+      standPrior <- sapply(parse(text = c(options[["priorProbInteractionZero"]], options[["priorProbInteractionNonZero"]])), eval)
+      standPrior <- standPrior/sum(standPrior)
+      # print the prior probs as a footnote
+      iaEffectsTable$addFootnote(gettextf("Prior probabilities of the interaction effects: %1$s.", paste0(sprintf("%.3f", standPrior), collapse = ", ")))
     }
   }
-
-  # standard prior probs
-  standPrior <- sapply(parse(text = c(options[["priorProbInteractionZero"]], options[["priorProbInteractionNonZero"]])), eval)
-  standPrior <- standPrior/sum(standPrior)
-  # print the prior probs as a footnote
-  iaEffectsTable$addFootnote(gettextf("Prior probabilities of the interaction effects: %1$s.", paste0(sprintf("%.3f", standPrior), collapse = ", ")))
 
   return()
 }
@@ -832,13 +885,20 @@
 }
 
 
-# specification table
-.bfpackSpecificationTable <- function(options, bfpackContainer, type, position) {
+# manual BF table
+.bfpackManualBfTable <- function(options, bfpackContainer, type, position) {
 
   if (!is.null(bfpackContainer[["resultsContainer"]][["specTable"]]) ||
       !options[["manualHypothesisBfTable"]]) return()
 
-  specTable <- createJaspTable(gettext("BFs: Manual Hypotheses"))
+  if (!is.null(options[["logScale"]])) {
+    if (options[["logScale"]]) {
+      title <- gettext("Log BFs: Manual Hypotheses")
+    } else {
+      title <- gettext("BFs: Manual Hypotheses")
+    }
+  }
+  specTable <- createJaspTable(title)
   specTable$dependOn("manualHypothesisBfTable")
   specTable$position <- position
 
@@ -857,6 +917,9 @@
 
   if (!bfpackContainer$getError()) {
     spec <- bfpackContainer[["resultsContainer"]][["resultsState"]]$object$BFtable_confirmatory
+    if (options[["logScale"]]) {
+      spec <- log(spec)
+    }
     if (!is.null(spec)) {
       dtFill <- data.frame(hypothesis = paste0(gettext("H"), seq(1:nrow(spec))))
       dtFill[, c("complex=", "complex>", "fit=", "fit>", "BF=", "BF>", "BF", "PHP")] <- spec[, 1:8]
@@ -864,7 +927,6 @@
     }
 
   }
-
 
   return()
 }
@@ -921,7 +983,14 @@
 
   if (bfpackContainer$getError()) return()
 
-  stdBfTable <- createJaspTable(gettext("BFs: Standard Hypotheses"))
+  if (!is.null(options[["logScale"]])) {
+    if (options[["logScale"]]) {
+      title <- gettext("Log BFs: Standard Hypotheses")
+    } else {
+      title <- gettext("BFs: Standard Hypotheses")
+    }
+  }
+  stdBfTable <- createJaspTable(title)
   stdBfTable$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]], options = "standardHypothesisBfTable")
   stdBfTable$position <- position
   bfpackContainer[["stdBfTable"]] <- stdBfTable
@@ -969,7 +1038,7 @@
 
 ####### PLOTS ########
 
-.bfpackPriorPosteriorProbabilityPlot <- function(options, bfpackContainer, type) {
+.bfpackPriorPosteriorProbabilityPlot <- function(options, bfpackContainer, type, position = 7) {
   if (!is.null(bfpackContainer[["probabilitiesPlotContainer"]]) || !options[["manualPlots"]]) {
     return()
   }
@@ -985,11 +1054,20 @@
     prior <- result$prior.hyp.conf
 
     priorPlot <- .plotHelper(prior, gettext("Prior Probabilities"))
+    priorPlot$position <- position + 0.1
     probabilitiesPlotContainer[["priorPlot"]] <- priorPlot
 
     postPlot <- .plotHelper(post, gettext("Posterior Probabilities"))
+    postPlot$position <- position + 0.2
     probabilitiesPlotContainer[["postPlot"]] <- postPlot
 
+  } else {
+    p <- ggplot2::ggplot() +
+      jaspGraphs::getEmptyTheme()
+    probabilitiesPlotContainer[["priorPlot"]] <- createJaspPlot(p, title = gettext("Prior Probabilities"),
+                                                                width = 250, height = 250)
+    probabilitiesPlotContainer[["postPlot"]]  <- createJaspPlot(p, title = gettext("Posterior Probabilities"),
+                                                                width = 250, height = 250)
   }
 
 }
@@ -1016,7 +1094,7 @@
 
 
 # create the posterior distribution plots for correlation
-.bfpackPosteriorDistributionPlot <- function(options, bfpackContainer, type) {
+.bfpackPosteriorDistributionPlot <- function(options, bfpackContainer, type, position = 8) {
 
   if (!is.null(bfpackContainer[["posteriorPlotContainer"]]) || !options[["priorPosteriorPlot"]]) {
     return()
@@ -1080,6 +1158,7 @@
 
           height <- if (!options[["priorPosteriorPlotAdditionalTestingInfo"]] && !options[["priorPosteriorPlotAdditionalEstimationInfo"]]) 400 else 460
           postPlot <- createJaspPlot(plt, title = corNames[z], width = 560, height = height)
+          postPlot$position <- position + z * 0.1
           posteriorPlotContainer[[paste0("cor", z)]] <- postPlot
           z <- z + 1
         }
@@ -1090,48 +1169,9 @@
   return()
 }
 
-# .makeSinglePosteriorDistributionPlot <- function(postSamples, priorSamples, int) {
-#
-#   d <- stats::density(postSamples, n = 2^10)
-#   datDens <- data.frame(x = d$x, y = d$y)
-#   xBreaks <- jaspGraphs::getPrettyAxisBreaks(datDens$x)
-#
-#   dprior <- stats::density(priorSamples, n = 2^10)
-#   datDensPrior <- data.frame(x = dprior$x, y = dprior$y)
-#
-#   datDens <- rbind(datDens, datDensPrior)
-#
-#   # max height posterior is at 90% of plot area; remainder is for credible interval
-#   ymax <- max(d$y) / .9
-#   yBreaks <- jaspGraphs::getPrettyAxisBreaks(c(0, ymax))
-#   ymax <- max(yBreaks)
-#   scaleCriRound <- round(int, 3)
-#   datCri <- data.frame(xmin = scaleCriRound[1L], xmax = scaleCriRound[2L], y = .925 * ymax)
-#   height <- (ymax - .925 * ymax) / 2
-#
-#   datTxt <- data.frame(x = c(datCri$xmin, datCri$xmax),
-#                        y = 0.985 * ymax,
-#                        label = sapply(c(datCri$xmin, datCri$xmax), format, digits = 3, scientific = -1),
-#                        stringsAsFactors = FALSE)
-#
-#   g <- ggplot2::ggplot(data = datDens, mapping = ggplot2::aes(x = x, y = y)) +
-#     ggplot2::geom_line(linewidth = .85) +
-#     ggplot2::scale_y_continuous(name = gettext("Density"), breaks = yBreaks, limits = range(yBreaks)) +
-#     ggplot2::scale_x_continuous(name = gettext("ρ"), breaks = xBreaks, limits = range(xBreaks))
-#
-#   g <- g + ggplot2::geom_errorbarh(data = datCri, mapping = ggplot2::aes(xmin = xmin, xmax = xmax, y = y),
-#                                        height = height, inherit.aes = FALSE) +
-#     ggplot2::geom_text(data = datTxt, mapping = ggplot2::aes(x = x, y = y, label = label), inherit.aes = FALSE,
-#                        size = 6)
-#
-#   g <- g + jaspGraphs::themeJaspRaw() + jaspGraphs::geom_rangeframe()
-#   g <- createJaspPlot(g)
-#   return(g)
-#
-# }
 
 # create the traceplot for correlation
-.bfpackTraceplot <- function(options, bfpackContainer, type) {
+.bfpackTraceplot <- function(options, bfpackContainer, type, position = 9) {
   if (!is.null(bfpackContainer[["traceplotContainer"]]) || !options[["traceplot"]]) {
     return()
   }
@@ -1155,6 +1195,7 @@
           post <- allDraws[[l]][, i, j]
           postPlot <- .makeSingleTraceplot(post)
           postPlot$title <- corNames[z]
+          postPlot$position <- position + z * 0.1
           traceplotContainer[[paste0("cor", z)]] <- postPlot
           z <- z + 1
         }

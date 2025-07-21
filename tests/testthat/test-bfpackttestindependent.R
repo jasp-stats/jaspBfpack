@@ -78,11 +78,12 @@ test_that("Posterior model probability table results match", {
                                  list("H1", 0, "H2", 0.501315439842767, "H3", 0.498684560157233))
 })
 
-test_that("Specification table results match", {
+test_that("Log BFs: Manual Hypotheses table results match", {
   table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_resultsContainer"]][["collection"]][["bfpackContainer_resultsContainer_specTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
-                                 list("<unicode>", 1, 0, 0, 1, 0.188267672651421, 1, 0, "H1", "<unicode>",
-                                      1, 1.23843243033821, 0.501315439842767, 1, 0.511289453654182,
-                                      1, 0.633197440695244, "H2", "NaN", 1, 1.23193319559709, 0.498684560157233,
-                                      1, 0.811732327348579, 1, 1, "H3"))
+                                 list("<unicode>", 0, "-<unicode>", "-<unicode>", 0, -1.66989053808205,
+                                      0, "-<unicode>", "H1", "<unicode>", 0, 0.21384641079905, -0.69051975558042,
+                                      0, -0.670819403640925, 0, -0.456972992841875, "H2", "NaN", 0,
+                                      0.208584639288125, -0.695781527091345, 0, -0.208584639288125,
+                                      0, 0, "H3"))
 })
