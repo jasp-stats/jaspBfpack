@@ -147,7 +147,7 @@
 
   ready <- switch(type,
     "tTestIndependentSamples" = options[["variables"]] != "" && options[["groupingVariable"]] != "",
-    "tTestPairedSamples" = sum(unlist(options[["pairs"]]) != "") > 1, # only allow 2 variables
+    "tTestPairedSamples" = sum(unlist(options[["pair"]]) != "") > 1, # only allow 2 variables
     "tTestOneSample" = options[["variables"]] != "",
     "anova" = length(unlist(options[["dependent"]])) > 0 && length(unlist(options[["fixedFactors"]])) > 0,
     "regression" = sum(unlist(options[["dependent"]]) != "") > 0 && length(unlist(options[["covariates"]])) > 0,
@@ -171,14 +171,14 @@
             options[["fixedFactors"]],
             options[["covariates"]],
             options[["groupingVariable"]],
-            unlist(options[["pairs"]]))
+            unlist(options[["pair"]]))
   vars <- vars[vars != ""]
   varsTypes <- c(options[["variables.types"]],
                  options[["dependent.types"]],
                  options[["fixedFactors.types"]],
                  options[["covariates.types"]],
                  options[["groupingVariable.type"]],
-                 unlist(options[["pairs.types"]]))
+                 unlist(options[["pair.types"]]))
 
   factors <- vars[varsTypes == "nominal"]
   orders <- vars[varsTypes == "ordinal"]
@@ -211,7 +211,7 @@
     )
   }
 
- if (type == "tTestPairedSamples" && sum(unlist(options[["pairs"]]) != "") > 2) {
+ if (type == "tTestPairedSamples" && sum(unlist(options[["pair"]]) != "") > 2) {
     jaspBase:::.quitAnalysis(gettext("Only two variables can be specified for the paired samples t-test."))
   }
 
@@ -425,7 +425,7 @@
                                mu = options[["muValue"]]))
 
   } else if (type == "tTestPairedSamples") {
-    variables <- decodeColNames(unlist(unlist(options[["pairs"]])))
+    variables <- decodeColNames(unlist(unlist(options[["pair"]])))
     result <- try(bain::t_test(x = dataset[, variables[1]], y = dataset[, variables[2]],
                                paired = TRUE, var.equal = FALSE,
                                conf.level = options[["ciLevel"]],
@@ -459,7 +459,7 @@
   # new dependencies for the qml source since it is not part of bfpackContainer but jaspResults
   deps2 <- switch(type,
                  "tTestIndependentSamples" = c("variables", "groupingVariable"),
-                 "tTestPairedSamples" = "pairs",
+                 "tTestPairedSamples" = "pair",
                  "tTestOneSample" = "variables",
                  "anova" = c("dependent", "fixedFactors", "covariates"),
                  "regression" = c("dependent", "covariates"),

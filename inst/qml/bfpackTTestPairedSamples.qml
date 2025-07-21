@@ -34,7 +34,7 @@ Form
 		}
 		AssignedPairsVariablesList
 		{
-			name: 						"pairs"
+			name: 						"pair"
 			title: 						qsTr("Pair")
 			allowedColumns: 			["scale"]
 			singleVariable: true
