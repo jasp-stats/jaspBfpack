@@ -891,8 +891,13 @@
   if (!is.null(bfpackContainer[["resultsContainer"]][["specTable"]]) ||
       !options[["manualHypothesisBfTable"]]) return()
 
-  # this should switch between BF and log BF depending on logScale
-  title <- gettext("BFs: Manual Hypotheses")
+  if (!is.null(options[["logScale"]])) {
+    if (options[["logScale"]]) {
+      title <- gettext("Log BFs: Manual Hypotheses")
+    } else {
+      title <- gettext("BFs: Manual Hypotheses")
+    }
+  }
   specTable <- createJaspTable(title)
   specTable$dependOn("manualHypothesisBfTable")
   specTable$position <- position
@@ -912,6 +917,9 @@
 
   if (!bfpackContainer$getError()) {
     spec <- bfpackContainer[["resultsContainer"]][["resultsState"]]$object$BFtable_confirmatory
+    if (options[["logScale"]]) {
+      spec <- log(spec)
+    }
     if (!is.null(spec)) {
       dtFill <- data.frame(hypothesis = paste0(gettext("H"), seq(1:nrow(spec))))
       dtFill[, c("complex=", "complex>", "fit=", "fit>", "BF=", "BF>", "BF", "PHP")] <- spec[, 1:8]
