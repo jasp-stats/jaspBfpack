@@ -39,6 +39,7 @@ Section
 	Group
 	{
 		title: qsTr("Bayes Factor")
+		enabled: standardHypothesisBfTable.checked | manualHypothesisBfTable.checked
 		// Layout.rowSpan: 2
 
 		CheckBox
@@ -65,12 +66,14 @@ Section
 
 		CheckBox 
 		{
+			id: standardHypothesisBfTable
 			name: "standardHypothesisBfTable"
 			text: qsTr("BFs: Standard hypotheses")
 		}	
 
 		CheckBox 
 		{
+			id: manualHypothesisBfTable
 			name: "manualHypothesisBfTable"
 			text: qsTr("BFs: Manual hypotheses")
 		}
