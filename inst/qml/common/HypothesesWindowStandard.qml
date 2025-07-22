@@ -94,7 +94,6 @@ Group
 			defaultValue: "1"
 			min: 0
 			visible: !onlyUnequal
-			min: 0
 	}
 }
 
