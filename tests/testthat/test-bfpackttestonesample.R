@@ -23,7 +23,6 @@ options <-
     standardHypothesisBfTable = FALSE
   )
 
-
 set.seed(1)
 results <- jaspTools::runAnalysis("bfpackTTestOneSample", "debug.csv", options, makeTests = F)
 
