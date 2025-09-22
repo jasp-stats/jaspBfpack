@@ -38,6 +38,17 @@ test_that("Coefficients table results match", {
                                  ))
 })
 
+test_that("Estimates Table results match", {
+  table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_resultsContainer"]][["collection"]][["bfpackContainer_resultsContainer_estimatesTable"]][["data"]]
+  jaspTools::expect_equal_tables(table,
+                                 list("Intercept", -60.8296096716485, -26.61295836168, -26.61295836168,
+                                      7.60369294828845, "adverts", 0.0712316582019457, 0.0848848251534776,
+                                      0.0848848251534776, 0.0985379921050094, "airplay", 2.81962186317387,
+                                      3.36742517051031, 3.36742517051031, 3.91522847784676, "attract",
+                                      6.2785521770913, 11.0863352045518, 11.0863352045518, 15.8941182320124
+                                 ))
+})
+
 test_that("Manual hypotheses legend table results match", {
   table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_resultsContainer"]][["collection"]][["bfpackContainer_resultsContainer_legendTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
@@ -129,7 +140,7 @@ set.seed(1)
 results <- jaspTools::runAnalysis("bfpackRegressionLinear", "debug.csv", options, makeTests = F)
 
 
-test_that("Estimates table results match", {
+test_that("Estimates Table results match", {
   table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_resultsContainer"]][["collection"]][["bfpackContainer_resultsContainer_estimatesTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
                                  list("Intercept_on_contNormal", -0.407335959001421, -0.197600108422593,

@@ -951,6 +951,7 @@
   estimatesTable$addColumnInfo(name = "median", title = gettext("Median"), type = "number")
   estimatesTable$addColumnInfo(name = "lower", title = intervalLow, type = "number")
   estimatesTable$addColumnInfo(name = "upper", title = intervalUp, type = "number")
+  # estimatesTable$addColumnInfo(name = "pLarger0", title = gettext("P(>0)"), type = "number")
 
   if (!bfpackContainer$getError()) {
     result <- bfpackContainer[["resultsContainer"]][["resultsState"]]$object
@@ -958,7 +959,8 @@
     #### TODO: estimates is NULL for independent TTest
     if (!is.null(estimates)) {
       dtFill <- data.frame(coefficient = rownames(estimates))
-      dtFill[, c("mean", "median", "lower", "upper")] <- estimates
+      dtFill[, c("mean", "median", "lower", "upper")] <- estimates[, 1:4]
+      # dtFill[, c("mean", "median", "lower", "upper", "pLarger0")] <- estimates #for the future
 
       estimatesTable$setData(dtFill)
       footnt <- switch(type,
