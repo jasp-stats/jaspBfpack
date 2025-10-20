@@ -191,9 +191,12 @@
                exitAnalysisIfErrors = TRUE
     )
 
-    if (any(grepl(pattern = " ", x = levels(dataset[, findex])))) {
+    levs <- lapply(factors, function(v) levels(as.factor(dataset[[v]])))
+    hasSpaces <- any(grepl("\\s", unlist(levs), perl = TRUE))
+    if (hasSpaces) {
       jaspBase:::.quitAnalysis(gettext("BFpack does not accept factor levels that contain spaces. Please remove the spaces from your factor levels to continue."))
     }
+
   }
 
   nonfactors <- c(orders, scales)
