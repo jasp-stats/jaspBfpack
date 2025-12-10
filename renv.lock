@@ -96,10 +96,10 @@
       "Version": "7.3-65",
       "Source": "Repository",
       "Requirements": [
-        "graphics",
-        "grDevices",
         "methods",
         "R",
+        "grDevices",
+        "graphics",
         "stats",
         "utils"
       ]
@@ -127,14 +127,14 @@
       "Version": "1.7-4",
       "Source": "Repository",
       "Requirements": [
-        "graphics",
         "grDevices",
+        "graphics",
         "grid",
         "lattice",
-        "methods",
-        "R",
         "stats",
-        "utils"
+        "utils",
+        "R",
+        "methods"
       ]
     },
     "MatrixModels": {
@@ -189,11 +189,10 @@
     },
     "Rcpp": {
       "Package": "Rcpp",
-      "Version": "1.1.0.8.1",
+      "Version": "1.1.0",
       "Source": "Repository",
       "Requirements": [
         "methods",
-        "R",
         "utils"
       ]
     },
@@ -328,8 +327,8 @@
       "Version": "1.3-32",
       "Source": "Repository",
       "Requirements": [
-        "graphics",
         "R",
+        "graphics",
         "stats"
       ]
     },
@@ -778,12 +777,12 @@
       "Version": "0.22-7",
       "Source": "Repository",
       "Requirements": [
-        "graphics",
-        "grDevices",
         "grid",
-        "R",
+        "grDevices",
+        "graphics",
         "stats",
-        "utils"
+        "utils",
+        "R"
       ]
     },
     "lavaan": {
@@ -935,17 +934,17 @@
     },
     "mgcv": {
       "Package": "mgcv",
-      "Version": "1.9-4",
+      "Version": "1.9-3",
       "Source": "Repository",
       "Requirements": [
+        "methods",
+        "stats",
         "graphics",
         "Matrix",
-        "methods",
-        "nlme",
-        "R",
         "splines",
-        "stats",
-        "utils"
+        "utils",
+        "R",
+        "nlme"
       ]
     },
     "minqa": {
@@ -992,10 +991,10 @@
       "Source": "Repository",
       "Requirements": [
         "graphics",
-        "lattice",
-        "R",
         "stats",
-        "utils"
+        "utils",
+        "lattice",
+        "R"
       ]
     },
     "nloptr": {
@@ -1373,10 +1372,10 @@
         "graphics",
         "Matrix",
         "methods",
-        "R",
         "splines",
         "stats",
-        "utils"
+        "utils",
+        "R"
       ]
     },
     "svglite": {
@@ -1595,7 +1594,7 @@
     },
     "yaml": {
       "Package": "yaml",
-      "Version": "2.3.11",
+      "Version": "2.3.12",
       "Source": "Repository",
       "Requirements": []
     },
