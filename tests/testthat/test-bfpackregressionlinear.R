@@ -5,7 +5,7 @@ options <- list(
   ciLevel = 0.95,
   estimatesTable = TRUE,
   complement = TRUE,
-  covariates = c("adverts", "airplay", "attract"),
+  predictors = c("adverts", "airplay", "attract"),
   dependent = "sales",
   logScale = FALSE,
   manualHypotheses = list(
@@ -15,11 +15,11 @@ options <- list(
   manualPlots = TRUE,
   priorProbComplement = "1",
   seed = 100,
-  manualHypothesisBfTable = TRUE,
+  tablesManualHypothesesComputationBfs = TRUE,
   priorProbStandard = "1",
   priorProbStandard2 = "0",
   priorProbStandard3 = "1",
-  standardHypothesisBfTable = FALSE,
+  tablesStandardHypothesesViewBfs = FALSE,
   standardize = FALSE
 )
 
@@ -110,7 +110,7 @@ options <- list(
     bfType = "fractional",
     ciLevel = 0.95,
     complement = TRUE,
-    covariates = "contcor1",
+    predictors = "contcor1",
     dependent = c("contNormal", "contGamma"),
     estimatesTable = TRUE,
     interactionTerms = list(),
@@ -131,8 +131,8 @@ options <- list(
     priorProbStandard2 = "1",
     priorProbStandard3 = "1",
     seed = 100,
-    manualHypothesisBfTable = FALSE,
-    standardHypothesisBfTable = FALSE,
+    tablesManualHypothesesComputationBfs = FALSE,
+    tablesStandardHypothesesViewBfs = FALSE,
     standardize = FALSE
   )
 
@@ -189,7 +189,7 @@ options <- list(
   ciLevel = 0.95,
   estimatesTable = TRUE,
   complement = TRUE,
-  covariates = c("adverts", "airplay", "attract"),
+  predictors = c("adverts", "airplay", "attract"),
   dependent = "sales",
   logScale = FALSE,
   manualHypotheses = list(
@@ -199,11 +199,11 @@ options <- list(
   manualPlots = FALSE,
   priorProbComplement = "1",
   seed = 100,
-  manualHypothesisBfTable = TRUE,
+  tablesManualHypothesesComputationBfs = TRUE,
   priorProbStandard = "1",
   priorProbStandard2 = "0",
   priorProbStandard3 = "1",
-  standardHypothesisBfTable = FALSE,
+  tablesStandardHypothesesViewBfs = FALSE,
   standardize = TRUE
 )
 

@@ -22,7 +22,7 @@ options <- list(
   manualPlots = TRUE,
   priorProbComplement = "1/2",
   seed = 100,
-  manualHypothesisBfTable = FALSE,
+  tablesManualHypothesesComputationBfs = FALSE,
   priorProbStandard = "1",
   priorProbStandard2 = "1",
   priorProbStandard3 = "1",
@@ -33,7 +33,7 @@ options <- list(
   iterationsBayesFactor = 10000,
   ciLevel = .95,
   standardize = FALSE,
-  standardHypothesisBfTable = FALSE
+  tablesStandardHypothesesViewBfs = FALSE
 )
 
 debug <- read.csv("https://raw.githubusercontent.com/jasp-stats/jasp-desktop/development/Resources/Data%20Sets/debug.csv")
@@ -119,7 +119,7 @@ options <- list(
   manualPlots = TRUE,
   priorProbComplement = "1/2",
   seed = 100,
-  manualHypothesisBfTable = FALSE,
+  tablesManualHypothesesComputationBfs = FALSE,
   priorProbStandard = "1",
   priorProbStandard2 = "1",
   priorProbStandard3 = "1",
@@ -127,7 +127,7 @@ options <- list(
   priorProbInteractionZero = "1",
   priorProbMainNonZero = "1",
   priorProbMainZero = "1",
-  standardHypothesisBfTable = FALSE,
+  tablesStandardHypothesesViewBfs = FALSE,
   standardize = FALSE
 )
 
@@ -193,8 +193,8 @@ options <-
     priorProbStandard2 = "1",
     priorProbStandard3 = "1",
     seed = 100,
-    manualHypothesisBfTable = FALSE,
-    standardHypothesisBfTable = FALSE,
+    tablesManualHypothesesComputationBfs = FALSE,
+    tablesStandardHypothesesViewBfs = FALSE,
     standardize = FALSE
   )
 

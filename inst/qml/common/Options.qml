@@ -39,7 +39,6 @@ Section
 	Group
 	{
 		title: qsTr("Bayes Factor")
-		enabled: standardHypothesisBfTable.checked | manualHypothesisBfTable.checked
 		// Layout.rowSpan: 2
 
 		CheckBox
@@ -66,16 +65,16 @@ Section
 
 		CheckBox 
 		{
-			id: standardHypothesisBfTable
-			name: "standardHypothesisBfTable"
-			text: qsTr("BFs: Standard hypotheses")
+			id: tablesStandardHypothesesViewBfs
+			name: "tablesStandardHypothesesViewBfs"
+			text: qsTr("Standard Hypotheses: View BFs")
 		}	
 
 		CheckBox 
 		{
-			id: manualHypothesisBfTable
-			name: "manualHypothesisBfTable"
-			text: qsTr("BFs: Manual hypotheses")
+			id: tablesManualHypothesesComputationBfs
+			name: "tablesManualHypothesesComputationBfs"
+			text: qsTr("Manual Hypotheses: Computation BFs")
 		}
 
 		CheckBox
@@ -198,7 +197,7 @@ Section
 			addItemManually: false
 			rowComponent: RowLayout { 
 				Text { Layout.preferredWidth: 210*jaspTheme.uiScale; text: rowValue }
-				CheckBox { Layout.preferredWidth: 50*jaspTheme.uiScale; name: "includeInteractionEffect"; checked: true }
+				CheckBox { Layout.preferredWidth: 50*jaspTheme.uiScale; name: "includeInteractionEffect"; checked: false }
 			}
 		}
 	}

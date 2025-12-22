@@ -26,7 +26,7 @@ options <- list(
       value = "#2"
     )
   ),
-  manualHypothesisBfTable = TRUE,
+  tablesManualHypothesesComputationBfs = TRUE,
   manualPlots = TRUE,
   muValue = 0,
   plotHeight = 320,
@@ -44,7 +44,7 @@ options <- list(
   priorProbStandard3 = "1",
   seed = 1,
   setSeed = FALSE,
-  standardHypothesisBfTable = TRUE,
+  tablesStandardHypothesesViewBfs = TRUE,
   traceplot = FALSE,
   variables = c("adverts", "sales", "airplay", "attract"),
   variables.types = c("scale", "scale", "scale", "ordinal"),
@@ -125,7 +125,7 @@ test_that("Log BFs: Manual Hypotheses table results match", {
                                       0, -0.182321556793955, 0, -0.847493616538498, "H3"))
 })
 
-test_that("Log BFs: Standard Hypotheses table results match", {
+test_that("Log Standard Hypotheses: View BFs table results match", {
   table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_stdBfTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
                                  list(-0.0152422410688517, -0.0138416449257139, "", "sales_with_adverts",
@@ -177,8 +177,8 @@ options <- list(
   priorProbStandard2 = "1",
   priorProbStandard3 = "1",
   seed = 100,
-  manualHypothesisBfTable = FALSE,
-  standardHypothesisBfTable = FALSE,
+  tablesManualHypothesesComputationBfs = FALSE,
+  tablesStandardHypothesesViewBfs = FALSE,
   traceplot = TRUE,
   variables =  c("contNormal", "contGamma", "contExpon")
   )

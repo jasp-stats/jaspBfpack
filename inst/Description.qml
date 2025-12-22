@@ -8,6 +8,7 @@ Description
 	icon			: "bain-module"
 	requiresData		: true
 	hasWrappers		: false
+	preloadData: 	true
 
 	GroupTitle
 	{
@@ -58,8 +59,8 @@ Description
 	}
 	Analysis
 	{
-		menu:   	"Linear (Multivariate) Regression"
-		title:		"BFpack Linear (Multivariate) Regression"
+		menu:   	"Univariate/Multivariate Linear Regression"
+		title:		"BFpack Univariate/Multivariate Linear Regression"
 		func:			"bfpackRegressionLinear"
 	}
 	Analysis

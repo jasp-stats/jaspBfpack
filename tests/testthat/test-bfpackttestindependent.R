@@ -23,14 +23,14 @@ options <-
     manualPlots = TRUE,
     priorProbComplement = "1/2",
     seed = 100,
-    manualHypothesisBfTable = TRUE,
+    tablesManualHypothesesComputationBfs = TRUE,
     priorProbStandard = "1",
     priorProbStandard2 = "1",
     priorProbStandard3 = "1",
     variables = "contNormal",
     variables.types = "scale",
     standardize = FALSE,
-    standardHypothesisBfTable = FALSE
+    tablesStandardHypothesesViewBfs = FALSE
   )
 
 debug <- read.csv("https://raw.githubusercontent.com/jasp-stats/jasp-desktop/development/Resources/Data%20Sets/debug.csv")
@@ -81,9 +81,9 @@ test_that("Posterior model probability table results match", {
 test_that("Log BFs: Manual Hypotheses table results match", {
   table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_resultsContainer"]][["collection"]][["bfpackContainer_resultsContainer_specTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
-                                 list("<unicode>", 0, "-<unicode>", "-<unicode>", 0, -1.66989053808205,
-                                      0, "-<unicode>", "H1", "<unicode>", 0, 0.21384641079905, -0.69051975558042,
-                                      0, -0.670819403640925, 0, -0.456972992841875, "H2", "NaN", 0,
-                                      0.208584639288125, -0.695781527091345, 0, -0.208584639288125,
-                                      0, 0, "H3"))
+                                 list("-<unicode>", 0, "-<unicode>", "-<unicode>", 0, -1.66989053808205,
+                                      0, "-<unicode>", "H1", 0.21384641079905, 0, 0.21384641079905,
+                                      -0.69051975558042, 0, -0.670819403640925, 0, -0.456972992841875,
+                                      "H2", 0.208584639288125, 0, 0.208584639288125, -0.695781527091345,
+                                      0, -0.208584639288125, 0, 0, "H3"))
 })
