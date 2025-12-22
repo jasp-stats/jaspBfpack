@@ -6,7 +6,7 @@ The analysis allows to test exploratory hypotheses (e.g., equal vs negative vs p
 ## Input
 ### Main Window
 - Dependent Variable: Input a variable that is ordinal or nominal. If the is ordinal, an ordered logistic regression is performed, if binary, a binary logistic.
-- Covariates: Predictors for the logistic regression model; they can have any scaling, that is, continuous, ordinal, nominal
+- Predictor Variables: Predictors for the logistic regression model; they can have any scaling, that is, continuous, ordinal, nominal
 
 #### Standard Hypothesis Test
 - Hypotheses: Test hypothesis that each regression coefficient (beta) is equal to, smaller than, or larger than 0.
@@ -47,7 +47,7 @@ This box contains the names (labels) of the parameters on which equality/one-sid
 #### Posterior probabilities when testing standard hypotheses
 - Posterior probabilities for the standard hypotheses
 
-#### BFs: Standard Hypotheses Table
+#### Standard Hypotheses: View BFs Table
 - BF(0u): Bayes factor of the standard H0 vs the unconstrained hypothesis
 - BF(-u): Bayes factor of the standard H- vs the unconstrained hypothesis
 - BF(+u): Bayes factor of the standard H+ vs the unconstrained hypothesis

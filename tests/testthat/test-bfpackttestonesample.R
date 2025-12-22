@@ -14,13 +14,13 @@ options <-
     manualPlots = FALSE,
     priorProbComplement = "1/2",
     seed = 100,
-    manualHypothesisBfTable = TRUE,
+    tablesManualHypothesesComputationBfs = TRUE,
     priorProbStandard = "1",
     priorProbStandard2 = "1",
     priorProbStandard3 = "1",
     variables = "contNormal",
     standardize = FALSE,
-    standardHypothesisBfTable = FALSE
+    tablesStandardHypothesesViewBfs = FALSE
   )
 
 set.seed(1)

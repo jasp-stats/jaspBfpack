@@ -6,7 +6,7 @@ options <-
     ciLevel = 0.95,
     estimatesTable = TRUE,
     complement = TRUE,
-    covariates = c("contNormal", "contcor1"),
+    predictors = c("contNormal", "contcor1"),
     dependent = "contBinom",
     interactionTerms = list(
       list(
@@ -27,11 +27,11 @@ options <-
     manualPlots = FALSE,
     priorProbComplement = "1/2",
     seed = 100,
-    manualHypothesisBfTable = FALSE,
+    tablesManualHypothesesComputationBfs = FALSE,
     priorProbStandard = "1",
     priorProbStandard2 = "1",
     priorProbStandard3 = "1",
-    standardHypothesisBfTable = FALSE,
+    tablesStandardHypothesesViewBfs = FALSE,
     standardize = FALSE
   )
 
@@ -90,7 +90,7 @@ options <-
     ciLevel = 0.95,
     estimatesTable = TRUE,
     complement = TRUE,
-    covariates = c("contNormal", "contcor1"),
+    predictors = c("contNormal", "contcor1"),
     dependent = "facFive",
     interactionTerms = list(
       list(
@@ -111,11 +111,11 @@ options <-
     manualPlots = FALSE,
     priorProbComplement = "1/2",
     seed = 100,
-    manualHypothesisBfTable = FALSE,
+    tablesManualHypothesesComputationBfs = FALSE,
     priorProbStandard = "1",
     priorProbStandard2 = "1",
     priorProbStandard3 = "1",
-    standardHypothesisBfTable = FALSE,
+    tablesStandardHypothesesViewBfs = FALSE,
     standardize = FALSE
   )
 
