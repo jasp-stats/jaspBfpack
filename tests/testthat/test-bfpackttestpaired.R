@@ -18,11 +18,11 @@ options <-
       manualPlots = TRUE,
       priorProbComplement = "1/2",
       seed = 100,
-      manualHypothesisBfTable = FALSE,
+      tablesManualHypothesesComputationBfs = FALSE,
       priorProbStandard = "1",
       priorProbStandard2 = ".5",
       priorProbStandard3 = "1",
-      standardHypothesisBfTable = FALSE,
+      tablesStandardHypothesesViewBfs = FALSE,
       standardize = FALSE
     )
 

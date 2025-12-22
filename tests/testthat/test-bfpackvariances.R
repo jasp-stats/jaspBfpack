@@ -20,7 +20,7 @@ options <- list(
       value = "#"
     )
   ),
-  manualHypothesisBfTable = FALSE,
+  tablesManualHypothesesComputationBfs = FALSE,
   manualPlots = FALSE,
   muValue = 0,
   plotHeight = 320,
@@ -38,7 +38,7 @@ options <- list(
   priorProbStandard3 = "1",
   seed = 1,
   setSeed = FALSE,
-  standardHypothesisBfTable = FALSE,
+  tablesStandardHypothesesViewBfs = FALSE,
   traceplot = FALSE,
   variables = "contNormal",
   variables.types = "scale",

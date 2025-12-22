@@ -22,7 +22,7 @@ options <-
       manualPlots = FALSE,
       priorProbComplement = "1/2",
       seed = 100,
-      manualHypothesisBfTable = FALSE,
+      tablesManualHypothesesComputationBfs = FALSE,
       priorProbStandard = "1",
       priorProbStandard2 = "1",
       testValues = list(
@@ -30,7 +30,7 @@ options <-
         list(testValue = 0, value = "contGamma")
       ),
       variables = c("contNormal", "contGamma"),
-      standardHypothesisBfTable = FALSE,
+      tablesStandardHypothesesViewBfs = FALSE,
       standardize = FALSE
 )
 

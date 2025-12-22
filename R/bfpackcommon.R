@@ -150,10 +150,10 @@
     "tTestPairedSamples" = sum(unlist(options[["pair"]]) != "") > 1, # only allow 2 variables
     "tTestOneSample" = options[["variables"]] != "",
     "anova" = length(unlist(options[["dependent"]])) > 0 && length(unlist(options[["fixedFactors"]])) > 0,
-    "regression" = sum(unlist(options[["dependent"]]) != "") > 0 && length(unlist(options[["covariates"]])) > 0,
+    "regression" = sum(unlist(options[["dependent"]]) != "") > 0 && length(unlist(options[["predictors"]])) > 0,
     "correlation" = length(unlist(options[["variables"]])) > 1,
     "variances" = options[["variables"]] != "" && options[["groupingVariable"]] != "",
-    "regressionLogistic" = options[["dependent"]] != "" && length(unlist(options[["covariates"]])) > 0,
+    "regressionLogistic" = options[["dependent"]] != "" && length(unlist(options[["predictors"]])) > 0,
     "tTestMultiSamples" = length(unlist(options[["variables"]])) > 1
     )
 
@@ -170,6 +170,7 @@
             options[["dependent"]],
             options[["fixedFactors"]],
             options[["covariates"]],
+            options[["predictors"]],
             options[["groupingVariable"]],
             unlist(options[["pair"]]))
   vars <- vars[vars != ""]
@@ -177,6 +178,7 @@
                  options[["dependent.types"]],
                  options[["fixedFactors.types"]],
                  options[["covariates.types"]],
+                 options[["predictors.types"]],
                  options[["groupingVariable.type"]],
                  unlist(options[["pair.types"]]))
 
@@ -330,9 +332,9 @@
   } else if (type %in%  c("regression", "regressionLogistic")) {
 
     dependent <- decodeColNames(unlist(options[["dependent"]]))
-    covariates <- decodeColNames(unlist(options[["covariates"]]))
-    ncov <- length(covariates)
-    covariateString <- paste0(covariates, collapse = "+")
+    predictors <- decodeColNames(unlist(options[["predictors"]]))
+    ncov <- length(predictors)
+    covariateString <- paste0(predictors, collapse = "+")
     # handle the interactions
     iastring <- .bfpackUnwrapInteractions(options)
     if (!is.null(iastring)) {
@@ -465,10 +467,10 @@
                  "tTestPairedSamples" = "pair",
                  "tTestOneSample" = "variables",
                  "anova" = c("dependent", "fixedFactors", "covariates"),
-                 "regression" = c("dependent", "covariates"),
+                 "regression" = c("dependent", "predictors"),
                  "correlation" = c("variables", "groupingVariable"),
                  "variances" = c("variables", "groupingVariable"),
-                 "regressionLogistic" = c("dependent", "covariates"))
+                 "regressionLogistic" = c("dependent", "predictors"))
 
   namesForQml <- createJaspQmlSource("estimateNamesForQml", estimateNames)
   namesForQml$dependOn(deps2)
@@ -892,7 +894,7 @@
 .bfpackManualBfTable <- function(options, bfpackContainer, type, position) {
 
   if (!is.null(bfpackContainer[["resultsContainer"]][["specTable"]]) ||
-      !options[["manualHypothesisBfTable"]]) return()
+      !options[["tablesManualHypothesesComputationBfs"]]) return()
 
   if (!is.null(options[["logScale"]])) {
     if (options[["logScale"]]) {
@@ -902,7 +904,7 @@
     }
   }
   specTable <- createJaspTable(title)
-  specTable$dependOn("manualHypothesisBfTable")
+  specTable$dependOn("tablesManualHypothesesComputationBfs")
   specTable$position <- position
 
   specTable$addColumnInfo(name = "hypothesis",  title = "",                               type = "string")
@@ -984,19 +986,19 @@
 .bfpackStandardBfTable <- function(options, bfpackContainer, type, position) {
 
   if (!is.null(bfpackContainer[["stdBfTable"]]) ||
-      !options[["standardHypothesisBfTable"]]) return()
+      !options[["tablesStandardHypothesesViewBfs"]]) return()
 
   if (bfpackContainer$getError()) return()
 
   if (!is.null(options[["logScale"]])) {
     if (options[["logScale"]]) {
-      title <- gettext("Log BFs: Standard Hypotheses")
+      title <- gettext("Log Standard Hypotheses: View BFs")
     } else {
-      title <- gettext("BFs: Standard Hypotheses")
+      title <- gettext("Standard Hypotheses: View BFs")
     }
   }
   stdBfTable <- createJaspTable(title)
-  stdBfTable$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]], options = "standardHypothesisBfTable")
+  stdBfTable$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]], options = "tablesStandardHypothesesViewBfs")
   stdBfTable$position <- position
   bfpackContainer[["stdBfTable"]] <- stdBfTable
 

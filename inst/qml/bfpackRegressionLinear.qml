@@ -43,9 +43,9 @@ Form
 
 		AssignedVariablesList
 		{
-			name: 						"covariates"
-			title: 						qsTr("Covariates")
-			id: 							covariates
+			name: 						"predictors"
+			title: 						qsTr("Predictor Variables")
+			id: 							predictors
 			allowTypeChange: true
 		}
 	}

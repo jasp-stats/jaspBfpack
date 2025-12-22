@@ -65,7 +65,7 @@ This box contains the names (labels) of the parameters on which equality/one-sid
 #### Posterior probabilities for the manual hypothesis test
 - Prints the posterior probability for each hypothesis for the manual hypothesis test.
 
-#### BFs: Manual hypotheses table
+#### Manual Hypotheses: Computation BFs table
 - Equal-complex: Quantifies the relative complexity of the equality constraints of a hypothesis (the prior density at the equality constraints in the extended Savage Dickey density ratio)
 - Order-complex: Quantifies the relative complexity of the order constraints of a hypothesis (the prior probability of the order constraints in the extended Savage Dickey density ratio)
 - Equal-fit: Quantifies the relative fit of the equality constraints of a hypothesis (the posterior density at the equality constraints in the extended Savage Dickey density ratio)
