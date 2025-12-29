@@ -299,7 +299,8 @@
       result <- try(BFpack::cor_test(dataset,
                                      formula = form,
                                      iter = options[["iterationsEstimation"]],
-                                     nugget.scale = options[["nugget"]]))
+                                     nugget.scale = options[["nugget"]],
+                                     method = options[["correlationSamplingMethod"]]))
 
     } else {
       groupName <- decodeColNames(options[["groupingVariable"]])
@@ -322,7 +323,8 @@
       # this is a bit hacky, because cor_test takes multiple data frames names separated by commas,
       # but we do not know how many...
       cor_test_call <- paste("try(BFpack::cor_test(", dataString, ", formula = ", paste0(form, collapse = ""),
-                             ", iter = ", options[["iterationsEstimation"]], ", nugget.scale = ", options[["nugget"]], "))",
+                             ", iter = ", options[["iterationsEstimation"]], ", nugget.scale = ", options[["nugget"]],
+                             ", method = '", options[["correlationSamplingMethod"]], "'))",
                              sep = "")
 
       result <- eval(parse(text = cor_test_call))
@@ -345,6 +347,10 @@
       depString <- paste0("cbind(", paste0(dependent, collapse = ","), ")")
     } else {
       depString <- dependent
+    }
+
+    if (options[["excludeIntercept"]]) {
+      covariateString <- paste0(covariateString, "-1")
     }
 
     formula <- as.formula(paste0(depString, "~", covariateString))
@@ -378,13 +384,17 @@
       istring <- paste0(istring, "+", iastring)
     }
 
+    if (options[["excludeIntercept"]]) {
+      istring <- paste0(istring, "-1")
+    }
+
     if (length(dependent) == 1) { # ANOVA
 
-      formula <- as.formula(paste0(dependent, "~", istring, "-1"))
+      formula <- as.formula(paste0(dependent, "~", istring))
       result <- try(aov(formula, data = dataset))
 
     } else { # manova
-      formula <- as.formula(paste0("cbind(", paste0(dependent, collapse = ","), ") ~ ", istring, "-1"))
+      formula <- as.formula(paste0("cbind(", paste0(dependent, collapse = ","), ") ~ ", istring))
       result <- try(manova(formula, data = dataset))
     }
 
@@ -682,14 +692,14 @@
     if (length(warns) > 0) {
       parameterTable$addFootnote(gettextf("R-hat values for the posterior samples of the correlation coefficients are larger than 1.05.
                                            This indicates that the chains have not converged well.
-                                           Try decreasing the nugget parameter or running the chains for more iterations.
+                                           If you used the 'LD' sampling method try decreasing the nugget parameter or running the chains for more iterations.
                                            The following variables have R-hat > 1.05: %1$s.",
                            paste0(rownames(psrf)[warns], collapse = ", ")))
     }
     if (!is.null(corResultRhat[["mpsrf"]])) {
       if (corResultRhat[["mpsrf"]] > 1.05) {
         parameterTable$addFootnote(gettext("The multivariate R-hat value is larger than 1.05, indicating that the chains have not converged well.
-                              Try decreasing the nugget parameter or running the chains for more iterations."))
+                              If you used the 'LD' sampling method try decreasing the nugget parameter or running the chains for more iterations."))
       }
     }
   }

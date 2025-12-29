@@ -9,6 +9,7 @@ options <- list(
   groupingVariable = "",
   interactionTerms = list(),
   iterationsEstimation = 2000,
+  correlationSamplingMethod = "LD",
   nugget = .995,
   standardize = FALSE,
   logScale = TRUE,
@@ -151,6 +152,7 @@ options <- list(
   groupingVariable = "facGender",
   interactionTerms = list(),
   iterationsEstimation = 2000,
+  correlationSamplingMethod = "LD",
   logScale = FALSE,
   manualHypotheses = list(
     list(

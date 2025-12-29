@@ -20,6 +20,7 @@ options <- list(
   priorProbStandard2 = "0",
   priorProbStandard3 = "1",
   tablesStandardHypothesesViewBfs = FALSE,
+  excludeIntercept = FALSE,
   standardize = FALSE
 )
 
@@ -133,6 +134,7 @@ options <- list(
     seed = 100,
     tablesManualHypothesesComputationBfs = FALSE,
     tablesStandardHypothesesViewBfs = FALSE,
+    excludeIntercept = FALSE,
     standardize = FALSE
   )
 
@@ -204,6 +206,7 @@ options <- list(
   priorProbStandard2 = "0",
   priorProbStandard3 = "1",
   tablesStandardHypothesesViewBfs = FALSE,
+  excludeIntercept = FALSE,
   standardize = TRUE
 )
 

@@ -36,7 +36,7 @@ bfpackCorrelation <- function(jaspResults, dataset, options, ...) {
   # Create a container for the results
   bfpackContainer <- .bfpackCreateContainer(jaspResults, deps = c("variables", "seed", "setSeed", "iterationsEstimation",
                                                                   "manualHypotheses", "groupingVariable", "covariates",
-                                                                  "nugget", "standardize"))
+                                                                  "nugget", "standardize", "correlationSamplingMethod"))
 
   .bfpackGetParameterEstimates(dataset, options, bfpackContainer, ready, type, jaspResults)
 

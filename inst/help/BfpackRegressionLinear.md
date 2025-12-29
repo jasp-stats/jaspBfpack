@@ -36,6 +36,7 @@ This box contains the names (labels) of the parameters on which equality/one-sid
 #### Additional Options
 - Uncertainty interval level
 - Standardize continous variables
+- Exclude Intercept from the model
 - Repeatability: Seed
 
 #### Interaction Terms

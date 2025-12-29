@@ -62,6 +62,6 @@ Form
 		bfTy: false
 		interactions: true
 		interactionValues: covariates.columnsNames
-
+		intercept: true
 	}
 }

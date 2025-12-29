@@ -32,6 +32,7 @@ options <-
     priorProbStandard2 = "1",
     priorProbStandard3 = "1",
     tablesStandardHypothesesViewBfs = FALSE,
+    excludeIntercept = FALSE,
     standardize = FALSE
   )
 
@@ -116,6 +117,7 @@ options <-
     priorProbStandard2 = "1",
     priorProbStandard3 = "1",
     tablesStandardHypothesesViewBfs = FALSE,
+    excludeIntercept = FALSE,
     standardize = FALSE
   )
 

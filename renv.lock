@@ -1769,14 +1769,18 @@
         "rstanarm (>= 2.19.0)",
         "rstantools",
         "spdep",
-        "testthat (>= 2.1.0)"
+        "testthat (>= 3.0)"
       ],
       "VignetteBuilder": "knitr",
+      "Config/testthat/edition": "3",
+      "Config/testthat/parallel": "true",
+      "Config/testthat/start-first": "loo_subsampling_cases, loo_subsampling",
       "Encoding": "UTF-8",
+      "LazyData": "TRUE",
+      "RoxygenNote": "7.3.3",
       "SystemRequirements": "pandoc (>= 1.12.3), pandoc-citeproc",
-      "RoxygenNote": "7.3.1",
       "NeedsCompilation": "no",
-      "Author": "Aki Vehtari [aut], Jonah Gabry [cre, aut], Måns Magnusson [aut], Yuling Yao [aut], Paul-Christian Bürkner [aut], Topi Paananen [aut], Andrew Gelman [aut], Ben Goodrich [ctb], Juho Piironen [ctb], Bruno Nicenboim [ctb], Leevi Lindgren [ctb]",
+      "Author": "Aki Vehtari [aut], Jonah Gabry [cre, aut], Måns Magnusson [aut], Yuling Yao [aut], Paul-Christian Bürkner [aut], Topi Paananen [aut], Andrew Gelman [aut], Ben Goodrich [ctb], Juho Piironen [ctb], Bruno Nicenboim [ctb], Leevi Lindgren [ctb], Visruth Srimath Kandali [ctb]",
       "Repository": "CRAN"
     },
     "lpSolveAPI": {

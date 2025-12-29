@@ -73,5 +73,6 @@ Form
 		interactionValues: fixedFactors.columnsNames.concat(covariates.columnsNames)
 		iterationsBf: true
 		iterationsBfDefaultNumber: 10000
+		intercept: true
 	}
 }

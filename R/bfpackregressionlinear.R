@@ -33,7 +33,7 @@ bfpackRegressionLinear <- function(jaspResults, dataset, options, ...) {
   bfpackContainer <- .bfpackCreateContainer(jaspResults,
                                             deps = c("dependent", "predictors",
                                                      "seed", "setSeed", "manualHypotheses", "bfType",
-                                                     "standardize"))
+                                                     "standardize", "excludeIntercept"))
 
   .bfpackGetParameterEstimates(dataset, options, bfpackContainer, ready, type, jaspResults)
 

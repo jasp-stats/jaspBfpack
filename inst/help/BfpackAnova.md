@@ -40,6 +40,7 @@ This box contains the names (labels) of the parameters on which equality/one-sid
 - Uncertainty interval level
 - Standardize continous variables
 - No. iterations for BF computation: BF computation is done using iterative sampling and the number of iterations can be specified
+- Exclude Intercept from the model: Checked by default for ANOVAs
 - Repeatability: Seed
 
 #### Interaction terms
