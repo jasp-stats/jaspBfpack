@@ -67,14 +67,14 @@ Section
 		{
 			id: tablesStandardHypothesesViewBfs
 			name: "tablesStandardHypothesesViewBfs"
-			text: qsTr("Standard Hypotheses: View BFs")
+			text: qsTr("Standard hypotheses: View BFs")
 		}	
 
 		CheckBox 
 		{
 			id: tablesManualHypothesesComputationBfs
 			name: "tablesManualHypothesesComputationBfs"
-			text: qsTr("Manual Hypotheses: Computation BFs")
+			text: qsTr("Manual hypotheses: Computation BFs")
 		}
 
 		CheckBox
