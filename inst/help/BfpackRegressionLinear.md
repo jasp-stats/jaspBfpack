@@ -6,7 +6,7 @@ The analysis allows to test exploratory hypotheses (e.g., equal vs negative vs p
 ## Input
 ### Main Window
 - Dependent Variables: Input one or more variables that are continuous (if they are not, they will be treated as such); if there is more than one DV, a multivariate multiple regression is considered.
-- Covariates: Predictors for the regression model; they can have any scaling, that is, continuous, ordinal, nominal. In the case of ordinal and nominal predictor variables, dummy variables are automatically created.
+- Predictor Variables: Predictors for the regression model; they can have any scaling, that is, continuous, ordinal, nominal. In the case of ordinal and nominal predictor variables, dummy variables are automatically created.
 
 #### Standard Hypothesis Test
 - Hypotheses: Test the hypotheses that each separate parameter (‘beta’) is equal to, smaller than, or larger than 0.
@@ -36,6 +36,7 @@ This box contains the names (labels) of the parameters on which equality/one-sid
 #### Additional Options
 - Uncertainty interval level
 - Standardize continous variables
+- Exclude Intercept from the model
 - Repeatability: Seed
 
 #### Interaction Terms
@@ -47,7 +48,7 @@ This box contains the names (labels) of the parameters on which equality/one-sid
 #### Posterior Probabilities When Testing Standard Hypotheses
 - Posterior probabilities for the standard hypotheses.
 
-#### BFs: Standard Hypotheses Table
+#### Standard Hypotheses: View BFs Table
 - BF(0u): Bayes factor of the standard H0 vs the unconstrained hypothesis
 - BF(-u): Bayes factor of the standard H- vs the unconstrained hypothesis
 - BF(+u): Bayes factor of the standard H+ vs the unconstrained hypothesis

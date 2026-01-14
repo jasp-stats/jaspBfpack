@@ -24,14 +24,14 @@ import JASP.Controls
 Section
 {
 	property bool bfTy: true
-	property bool iterationsEst: false
 	property bool iterationsBf: false
 	property var iterationsBfDefaultNumber: 10000
 	property bool interactions: false
 	property bool anova: false
 	property bool variances: false
 	property var interactionValues: []
-	property bool nugget: false
+	property bool correlation: false
+	property bool intercept: false
 
 	id: options
 	title: 	qsTr("Options")
@@ -39,7 +39,6 @@ Section
 	Group
 	{
 		title: qsTr("Bayes Factor")
-		enabled: standardHypothesisBfTable.checked | manualHypothesisBfTable.checked
 		// Layout.rowSpan: 2
 
 		CheckBox
@@ -66,16 +65,16 @@ Section
 
 		CheckBox 
 		{
-			id: standardHypothesisBfTable
-			name: "standardHypothesisBfTable"
-			text: qsTr("BFs: Standard hypotheses")
+			id: tablesStandardHypothesesViewBfs
+			name: "tablesStandardHypothesesViewBfs"
+			text: qsTr("Standard hypotheses: View BFs")
 		}	
 
 		CheckBox 
 		{
-			id: manualHypothesisBfTable
-			name: "manualHypothesisBfTable"
-			text: qsTr("BFs: Manual hypotheses")
+			id: tablesManualHypothesesComputationBfs
+			name: "tablesManualHypothesesComputationBfs"
+			text: qsTr("Manual hypotheses: Computation BFs")
 		}
 
 		CheckBox
@@ -133,17 +132,6 @@ Section
 			RadioButton { value: "equal"; 	label: qsTr("Equal"); checked: true }
 			RadioButton { value: "unequal"; 	label: qsTr("Unequal") }
 		}
-
-		IntegerField
-		{
-			visible: iterationsEst
-			name: "iterationsEstimation"
-			text: qsTr("No. iterations for MCMC")
-			defaultValue: 10000
-			min: 2000
-			fieldWidth: 60 * preferencesModel.uiScale
-		}
-
 		IntegerField
 		{
 			visible: true
@@ -154,9 +142,30 @@ Section
 			fieldWidth: 60 * preferencesModel.uiScale
 		}
 
+		IntegerField
+		{
+			visible: correlation
+			name: "iterationsEstimation"
+			text: qsTr("No. iterations for MCMC")
+			defaultValue: 10000
+			min: 2000
+			fieldWidth: 60 * preferencesModel.uiScale
+		}
+
+		RadioButtonGroup
+		{
+			visible: correlation
+			id: correlationSamplingMethod
+			title: qsTr("Sampling Method")
+			name: "correlationSamplingMethod"
+			radioButtonsOnSameRow: true
+			RadioButton { value: "LKJ"; 	label: qsTr("LKJ"); checked: true }
+			RadioButton { value: "LD"; 	label: qsTr("LD") }
+		}
+
 		DoubleField
 		{
-			visible: nugget
+			visible: correlation && correlationSamplingMethod.value == "LD"
 			name: "nugget"
 			text: qsTr("Nugget")
 			defaultValue: 0.999
@@ -164,7 +173,13 @@ Section
 			max: 1
 			fieldWidth: 60 * preferencesModel.uiScale
 		}
-
+		CheckBox
+		{
+			visible: intercept
+			name: "excludeIntercept"
+			text: qsTr("Exclude intercept from the model")
+			checked: anova
+		}
 		SetSeed{}
 	}
 
@@ -198,7 +213,7 @@ Section
 			addItemManually: false
 			rowComponent: RowLayout { 
 				Text { Layout.preferredWidth: 210*jaspTheme.uiScale; text: rowValue }
-				CheckBox { Layout.preferredWidth: 50*jaspTheme.uiScale; name: "includeInteractionEffect"; checked: true }
+				CheckBox { Layout.preferredWidth: 50*jaspTheme.uiScale; name: "includeInteractionEffect"; checked: false }
 			}
 		}
 	}

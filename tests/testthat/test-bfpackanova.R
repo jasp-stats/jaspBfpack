@@ -22,7 +22,7 @@ options <- list(
   manualPlots = TRUE,
   priorProbComplement = "1/2",
   seed = 100,
-  manualHypothesisBfTable = FALSE,
+  tablesManualHypothesesComputationBfs = FALSE,
   priorProbStandard = "1",
   priorProbStandard2 = "1",
   priorProbStandard3 = "1",
@@ -33,8 +33,9 @@ options <- list(
   iterationsBayesFactor = 10000,
   ciLevel = .95,
   standardize = FALSE,
-  standardHypothesisBfTable = FALSE
-)
+  excludeIntercept = TRUE,
+  tablesStandardHypothesesViewBfs = FALSE
+  )
 
 debug <- read.csv("https://raw.githubusercontent.com/jasp-stats/jasp-desktop/development/Resources/Data%20Sets/debug.csv")
 dt <- debug[, c("contNormal", "facFive", "facGender")]
@@ -119,7 +120,7 @@ options <- list(
   manualPlots = TRUE,
   priorProbComplement = "1/2",
   seed = 100,
-  manualHypothesisBfTable = FALSE,
+  tablesManualHypothesesComputationBfs = FALSE,
   priorProbStandard = "1",
   priorProbStandard2 = "1",
   priorProbStandard3 = "1",
@@ -127,7 +128,8 @@ options <- list(
   priorProbInteractionZero = "1",
   priorProbMainNonZero = "1",
   priorProbMainZero = "1",
-  standardHypothesisBfTable = FALSE,
+  tablesStandardHypothesesViewBfs = FALSE,
+  excludeIntercept = TRUE,
   standardize = FALSE
 )
 
@@ -193,9 +195,10 @@ options <-
     priorProbStandard2 = "1",
     priorProbStandard3 = "1",
     seed = 100,
-    manualHypothesisBfTable = FALSE,
-    standardHypothesisBfTable = FALSE,
-    standardize = FALSE
+    tablesManualHypothesesComputationBfs = FALSE,
+    tablesStandardHypothesesViewBfs = FALSE,
+    standardize = FALSE,
+    excludeIntercept = TRUE
   )
 
 dt <- debug[, c("contNormal", "contcor1", "contBinom")]

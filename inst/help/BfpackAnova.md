@@ -40,6 +40,7 @@ This box contains the names (labels) of the parameters on which equality/one-sid
 - Uncertainty interval level
 - Standardize continous variables
 - No. iterations for BF computation: BF computation is done using iterative sampling and the number of iterations can be specified
+- Exclude Intercept from the model: Checked by default for ANOVAs
 - Repeatability: Seed
 
 #### Interaction terms
@@ -58,7 +59,7 @@ This box contains the names (labels) of the parameters on which equality/one-sid
 #### Posterior Probabilities When Testing Standard Hypotheses
 - Posterior probabilities for the standard hypotheses.
 
-#### BFs: Standard Hypotheses Table
+#### Standard Hypotheses: View BFs Table
 - BF(0u): Bayes factor of the standard H0 vs the unconstrained hypothesis
 - BF(-u): Bayes factor of the standard H- vs the unconstrained hypothesis
 - BF(+u): Bayes factor of the standard H+ vs the unconstrained hypothesis

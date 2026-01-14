@@ -150,10 +150,10 @@
     "tTestPairedSamples" = sum(unlist(options[["pair"]]) != "") > 1, # only allow 2 variables
     "tTestOneSample" = options[["variables"]] != "",
     "anova" = length(unlist(options[["dependent"]])) > 0 && length(unlist(options[["fixedFactors"]])) > 0,
-    "regression" = sum(unlist(options[["dependent"]]) != "") > 0 && length(unlist(options[["covariates"]])) > 0,
+    "regression" = sum(unlist(options[["dependent"]]) != "") > 0 && length(unlist(options[["predictors"]])) > 0,
     "correlation" = length(unlist(options[["variables"]])) > 1,
     "variances" = options[["variables"]] != "" && options[["groupingVariable"]] != "",
-    "regressionLogistic" = options[["dependent"]] != "" && length(unlist(options[["covariates"]])) > 0,
+    "regressionLogistic" = options[["dependent"]] != "" && length(unlist(options[["predictors"]])) > 0,
     "tTestMultiSamples" = length(unlist(options[["variables"]])) > 1
     )
 
@@ -170,6 +170,7 @@
             options[["dependent"]],
             options[["fixedFactors"]],
             options[["covariates"]],
+            options[["predictors"]],
             options[["groupingVariable"]],
             unlist(options[["pair"]]))
   vars <- vars[vars != ""]
@@ -177,6 +178,7 @@
                  options[["dependent.types"]],
                  options[["fixedFactors.types"]],
                  options[["covariates.types"]],
+                 options[["predictors.types"]],
                  options[["groupingVariable.type"]],
                  unlist(options[["pair.types"]]))
 
@@ -297,7 +299,8 @@
       result <- try(BFpack::cor_test(dataset,
                                      formula = form,
                                      iter = options[["iterationsEstimation"]],
-                                     nugget.scale = options[["nugget"]]))
+                                     nugget.scale = options[["nugget"]],
+                                     method = options[["correlationSamplingMethod"]]))
 
     } else {
       groupName <- decodeColNames(options[["groupingVariable"]])
@@ -320,7 +323,8 @@
       # this is a bit hacky, because cor_test takes multiple data frames names separated by commas,
       # but we do not know how many...
       cor_test_call <- paste("try(BFpack::cor_test(", dataString, ", formula = ", paste0(form, collapse = ""),
-                             ", iter = ", options[["iterationsEstimation"]], ", nugget.scale = ", options[["nugget"]], "))",
+                             ", iter = ", options[["iterationsEstimation"]], ", nugget.scale = ", options[["nugget"]],
+                             ", method = '", options[["correlationSamplingMethod"]], "'))",
                              sep = "")
 
       result <- eval(parse(text = cor_test_call))
@@ -330,9 +334,9 @@
   } else if (type %in%  c("regression", "regressionLogistic")) {
 
     dependent <- decodeColNames(unlist(options[["dependent"]]))
-    covariates <- decodeColNames(unlist(options[["covariates"]]))
-    ncov <- length(covariates)
-    covariateString <- paste0(covariates, collapse = "+")
+    predictors <- decodeColNames(unlist(options[["predictors"]]))
+    ncov <- length(predictors)
+    covariateString <- paste0(predictors, collapse = "+")
     # handle the interactions
     iastring <- .bfpackUnwrapInteractions(options)
     if (!is.null(iastring)) {
@@ -343,6 +347,10 @@
       depString <- paste0("cbind(", paste0(dependent, collapse = ","), ")")
     } else {
       depString <- dependent
+    }
+
+    if (options[["excludeIntercept"]]) {
+      covariateString <- paste0(covariateString, "-1")
     }
 
     formula <- as.formula(paste0(depString, "~", covariateString))
@@ -376,13 +384,17 @@
       istring <- paste0(istring, "+", iastring)
     }
 
+    if (options[["excludeIntercept"]]) {
+      istring <- paste0(istring, "-1")
+    }
+
     if (length(dependent) == 1) { # ANOVA
 
-      formula <- as.formula(paste0(dependent, "~", istring, "-1"))
+      formula <- as.formula(paste0(dependent, "~", istring))
       result <- try(aov(formula, data = dataset))
 
     } else { # manova
-      formula <- as.formula(paste0("cbind(", paste0(dependent, collapse = ","), ") ~ ", istring, "-1"))
+      formula <- as.formula(paste0("cbind(", paste0(dependent, collapse = ","), ") ~ ", istring))
       result <- try(manova(formula, data = dataset))
     }
 
@@ -465,10 +477,10 @@
                  "tTestPairedSamples" = "pair",
                  "tTestOneSample" = "variables",
                  "anova" = c("dependent", "fixedFactors", "covariates"),
-                 "regression" = c("dependent", "covariates"),
+                 "regression" = c("dependent", "predictors"),
                  "correlation" = c("variables", "groupingVariable"),
                  "variances" = c("variables", "groupingVariable"),
-                 "regressionLogistic" = c("dependent", "covariates"))
+                 "regressionLogistic" = c("dependent", "predictors"))
 
   namesForQml <- createJaspQmlSource("estimateNamesForQml", estimateNames)
   namesForQml$dependOn(deps2)
@@ -680,14 +692,14 @@
     if (length(warns) > 0) {
       parameterTable$addFootnote(gettextf("R-hat values for the posterior samples of the correlation coefficients are larger than 1.05.
                                            This indicates that the chains have not converged well.
-                                           Try decreasing the nugget parameter or running the chains for more iterations.
+                                           If you used the 'LD' sampling method try decreasing the nugget parameter or running the chains for more iterations.
                                            The following variables have R-hat > 1.05: %1$s.",
                            paste0(rownames(psrf)[warns], collapse = ", ")))
     }
     if (!is.null(corResultRhat[["mpsrf"]])) {
       if (corResultRhat[["mpsrf"]] > 1.05) {
         parameterTable$addFootnote(gettext("The multivariate R-hat value is larger than 1.05, indicating that the chains have not converged well.
-                              Try decreasing the nugget parameter or running the chains for more iterations."))
+                              If you used the 'LD' sampling method try decreasing the nugget parameter or running the chains for more iterations."))
       }
     }
   }
@@ -892,7 +904,7 @@
 .bfpackManualBfTable <- function(options, bfpackContainer, type, position) {
 
   if (!is.null(bfpackContainer[["resultsContainer"]][["specTable"]]) ||
-      !options[["manualHypothesisBfTable"]]) return()
+      !options[["tablesManualHypothesesComputationBfs"]]) return()
 
   if (!is.null(options[["logScale"]])) {
     if (options[["logScale"]]) {
@@ -902,7 +914,7 @@
     }
   }
   specTable <- createJaspTable(title)
-  specTable$dependOn("manualHypothesisBfTable")
+  specTable$dependOn("tablesManualHypothesesComputationBfs")
   specTable$position <- position
 
   specTable$addColumnInfo(name = "hypothesis",  title = "",                               type = "string")
@@ -984,19 +996,19 @@
 .bfpackStandardBfTable <- function(options, bfpackContainer, type, position) {
 
   if (!is.null(bfpackContainer[["stdBfTable"]]) ||
-      !options[["standardHypothesisBfTable"]]) return()
+      !options[["tablesStandardHypothesesViewBfs"]]) return()
 
   if (bfpackContainer$getError()) return()
 
   if (!is.null(options[["logScale"]])) {
     if (options[["logScale"]]) {
-      title <- gettext("Log BFs: Standard Hypotheses")
+      title <- gettext("Log Standard Hypotheses: View BFs")
     } else {
-      title <- gettext("BFs: Standard Hypotheses")
+      title <- gettext("Standard Hypotheses: View BFs")
     }
   }
   stdBfTable <- createJaspTable(title)
-  stdBfTable$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]], options = "standardHypothesisBfTable")
+  stdBfTable$dependOn(optionsFromObject = bfpackContainer[["resultsContainer"]], options = "tablesStandardHypothesesViewBfs")
   stdBfTable$position <- position
   bfpackContainer[["stdBfTable"]] <- stdBfTable
 

@@ -47,25 +47,33 @@ Group
 	}
 	
 
-	ListView
+	Rectangle
 	{
-		// width: parent.width
-		// anchors.margins: 1
-		spacing: 5
-		height: 80 * jaspTheme.uiScale 
+		height: 90 * jaspTheme.uiScale
 		width: 300 * jaspTheme.uiScale
+		border.width: 1
+		border.color: jaspTheme.borderColor
+		color: "transparent"
 
-		QTCONTROLS.ScrollBar.vertical: QTCONTROLS.ScrollBar { policy: QTCONTROLS.ScrollBar.AlwaysOn}
-		QTCONTROLS.ScrollBar.horizontal: QTCONTROLS.ScrollBar {}
-		model: hiddenNames.model
-		delegate: TextEdit {
-		 		text: model.name
-		 		readOnly: true
-		 		wrapMode: Text.WordWrap
-		 		selectByMouse: true
-				font:		jaspTheme.font
-				color:		jaspTheme.textEnabled
-    }
+		ListView
+		{
+			anchors.fill: parent
+			anchors.margins: 5
+			spacing: 5
+			clip: true
+
+			QTCONTROLS.ScrollBar.vertical: QTCONTROLS.ScrollBar { policy: QTCONTROLS.ScrollBar.AlwaysOn}
+			QTCONTROLS.ScrollBar.horizontal: QTCONTROLS.ScrollBar {}
+			model: hiddenNames.model
+			delegate: TextEdit {
+					text: model.name
+					readOnly: true
+					wrapMode: Text.WordWrap
+					selectByMouse: true
+					font:		jaspTheme.font
+					color:		jaspTheme.textEnabled
+			}
+		}
 	}
 	
 }

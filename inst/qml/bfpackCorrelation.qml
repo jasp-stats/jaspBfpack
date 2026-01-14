@@ -72,8 +72,7 @@ Form
 
 	Common.Options{
 		bfTy: false
-		iterationsEst: true
-		nugget: true
+		correlation: true
 	}
 
 	// Section

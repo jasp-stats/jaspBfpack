@@ -46,7 +46,7 @@ This box contains the names (labels) of the parameters on which equality/one-sid
 #### Posterior Probabilities When Testing Standard Hypotheses
 - Posterior probabilities for the standard hypotheses.
 
-#### BFs: Standard Hypotheses Table
+#### Standard Hypotheses: View BFs Table
 - BF(0u): Bayes factor of the standard H0 vs the unconstrained hypothesis
 - BF(-u): Bayes factor of the standard H- vs the unconstrained hypothesis
 - BF(+u): Bayes factor of the standard H+ vs the unconstrained hypothesis

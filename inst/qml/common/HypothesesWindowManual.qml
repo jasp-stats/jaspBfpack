@@ -51,6 +51,7 @@ Group
 			RowLayout {
 				TextField
 				{ 
+					id: hypothesisTextField
 					name: "hypothesisText"
 					placeholderText: "..."
 					fieldWidth: 400 * jaspTheme.uiScale
@@ -75,9 +76,20 @@ Group
 	{
 		width: 536 * jaspTheme.uiScale
 		height: complement.height
-		Label { text: qsTr("Complement hypothesis:") }
+		Rectangle {
+			x: 1.4 * jaspTheme.labelSpacing
+			y: -10
+			color: jaspTheme.white
+			radius: jaspTheme.borderRadius
+			border.width: 1
+			border.color: jaspTheme.borderColor
+			width: 397 * jaspTheme.uiScale
+			height: complementLabel.implicitHeight + 4
+			Label { id: complementLabel; anchors.verticalCenter: parent.verticalCenter; anchors.left: parent.left; anchors.leftMargin: 4; text: qsTr("Complement hypothesis:") }
+		}
 		FormulaField {
 			anchors.right: spacer.left
+			y: -10
 			fieldWidth: 60
 			name: "priorProbComplement"
 			defaultValue: "1"
@@ -85,11 +97,12 @@ Group
 		}
 		Item {
 			id: spacer
-			width: 30 * jaspTheme.uiScale // Adjust the width as needed for the desired space
+			width: 31 * jaspTheme.uiScale // Adjust the width as needed for the desired space
 			anchors.right: complement.left
 		}
 		CheckBox {
 			anchors.right: parent.right
+			y: -10
 			id: complement
 			name: "complement"
 			checked: true

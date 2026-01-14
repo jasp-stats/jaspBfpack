@@ -39,7 +39,8 @@ This box contains the names (labels) of the parameters on which equality/one-sid
 - Uncertainty interval level
 - Standardize continous variables
 - No. iterations for parameter estimation: default is 5000 samples from the posterior distribution 
-- Nugget: A scaling number to avoid computational issues due to posterior draws for the correlations too close to 1 in absolute value. Posterior draws for the correlations are multiplied with this nugget value. So nugget should be close to 1 (the default is .999). If the traceplots show that draws are stuck at 1 or -1 too long try a slightly smaller nugget.
+- Sampling Method: Can be either the LKJ (Lewandowski, Kurowicka, & Joe (2009)) or LD (Liu and Daniels (2006)) method.
+- Nugget: Only applicable when the sampling method equals 'LD'. A scaling number to avoid computational issues due to posterior draws for the correlations too close to 1 in absolute value. Posterior draws for the correlations are multiplied with this nugget value. So nugget should be close to 1 (the default is .999). If the traceplots show that draws are stuck at 1 or -1 too long try a slightly smaller nugget.
 - Repeatability: Seed
 
 ## Output
@@ -65,7 +66,7 @@ This box contains the names (labels) of the parameters on which equality/one-sid
 #### Posterior probabilities for the manual hypothesis test
 - Prints the posterior probability for each hypothesis for the manual hypothesis test.
 
-#### BFs: Manual hypotheses table
+#### Manual Hypotheses: Computation BFs table
 - Equal-complex: Quantifies the relative complexity of the equality constraints of a hypothesis (the prior density at the equality constraints in the extended Savage Dickey density ratio)
 - Order-complex: Quantifies the relative complexity of the order constraints of a hypothesis (the prior probability of the order constraints in the extended Savage Dickey density ratio)
 - Equal-fit: Quantifies the relative fit of the equality constraints of a hypothesis (the posterior density at the equality constraints in the extended Savage Dickey density ratio)
@@ -89,6 +90,7 @@ This box contains the names (labels) of the parameters on which equality/one-sid
 - Plot the trace of the posterior samples of each correlation. Should resemble a "hairy caterpillar".
 
 ### References
-
+- Lewandowski, D., Kurowicka, D., & Joe, H. (2009). Generating random correlation matrices based on vines and extended onion method. *Journal of Multivariate Analysis, 100*(9), 1989–2001. https://doi.org/10.1016/j.jmva.2009.04.008
+- Liu, X., & Daniels, M. J. (2006). A new algorithm for simulating a correlation matrix based on parameter expansion and reparameterization. *Journal of Computational and Graphical Statistics, 15*(4), 897–914. https://doi.org/10.1198/106186006X160681
 - Mulder, J., & Gelissen, J. P. T. M. (2023). Bayes factor testing of equality and order constraints on measures of association in social research. *Journal of Applied Statistics, 50*(2), 315–351. https://doi.org/10.1080/02664763.2021.1992360
 - Mulder, J., Williams, D. R., Gu, X., Tomarken, A., Böing-Messing, F., Olsson-Collentine, A., Meijerink, M., Menke, J., Fox, J.-P., Hoijtink, H., Rosseel, Y., Wagenmakers, E.J., and van Lissa, C. (2021). BFpack: Flexible Bayes Factor Testing of Scientific Theories in R. *Journal of Statistical Software, 100*(18), 1-63. https://doi.org/10.18637/jss.v100.i18
