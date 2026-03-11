@@ -17,7 +17,6 @@
 
 bfpackCorrelation <- function(jaspResults, dataset, options, ...) {
 
-
   # What type of BFpack analysis is being conducted?
   type <- "correlation"
 
@@ -28,7 +27,7 @@ bfpackCorrelation <- function(jaspResults, dataset, options, ...) {
   ready <- .bfpackOptionsReady(options, type)
 
   # handle the data set
-  dataset <- .bfpackHandleData(dataset, options, ready = ready)
+  dataset <- .bfpackHandleData(dataset, options, type = "correlation", ready = ready)
 
   # Check if current data allow for analysis
   .bfpackDataReady(dataset, options, type, ready)

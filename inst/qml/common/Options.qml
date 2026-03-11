@@ -134,7 +134,7 @@ Section
 		}
 		IntegerField
 		{
-			visible: true
+			visible: iterationsBf
 			name: "iterationsBayesFactor"
 			text: qsTr("No. iterations for BF computation")
 			defaultValue: iterationsBfDefaultNumber
