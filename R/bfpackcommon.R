@@ -29,6 +29,11 @@
 
   if (!ready) return()
 
+  if (type == "correlation") {
+    variables <- unlist(options[["variables"]])
+    dataset   <- dataset[, c(variables, setdiff(colnames(dataset), variables))]
+  }
+
   dataset <- excludeNaListwise(dataset)
 
   if (options[["standardize"]]) {
