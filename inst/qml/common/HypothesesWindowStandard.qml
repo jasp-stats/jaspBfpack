@@ -28,10 +28,24 @@ Group
 	property bool onlyUnequal: false
 	property bool specificMu: false
 	property bool multiTest: false
+	property string parameterDescription: onlyUnequal ?
+		(multiTest ?
+			qsTr("the means of the selected variables relative to their test values") :
+			qsTr("the group variances")) :
+		(parName === qsTr("ρ") ?
+			qsTr("the correlation coefficients") :
+			qsTr("the parameter %1").arg(parName))
 	
     // Layout.columnSpan: 2
 	id: standGroup
 	title: qsTr("<b>Standard Hypothesis Test</b>")
+	info: onlyUnequal ?
+		(multiTest ?
+			qsTr("Tests whether each selected mean equals its test value or differs from it.") :
+			qsTr("Tests whether the group variances are equal or unequal.")) :
+		(specificMu ?
+			qsTr("Tests whether %1 is equal to, smaller than, or larger than the specified test value.").arg(parameterDescription) :
+			qsTr("Tests whether %1 is equal to, smaller than, or larger than zero.").arg(parameterDescription))
 	columns: specificMu ? 3 : 2
 	// implicitHeight: 100 * preferencesModel.uiScale
 	// implicitWidth: 250 * preferencesModel.uiScale
@@ -66,6 +80,7 @@ Group
 			visible: specificMu
 			id: muValue
 			negativeValues: true
+			info: qsTr("Reference value used in the standard hypothesis test for %1.").arg(parameterDescription)
 	}
 
 	FormulaField {
@@ -73,6 +88,7 @@ Group
 			name: "priorProbStandard"
 			defaultValue: onlyUnequal ? "1" : "2"
 			min: 0
+			info: qsTr("Prior weight for the first standard hypothesis. Larger values assign more prior probability to that hypothesis.")
 	}
 
 	Text { text: standGroup.hypoString[1] }
@@ -83,6 +99,7 @@ Group
 			name: "priorProbStandard2"
 			defaultValue: onlyUnequal ? "1" : "1"
 			min: 0
+			info: qsTr("Prior weight for the second standard hypothesis.")
 	}
 
 	Text { text: standGroup.hypoString[2] ; visible: !onlyUnequal}
@@ -94,8 +111,8 @@ Group
 			defaultValue: "1"
 			min: 0
 			visible: !onlyUnequal
+			info: qsTr("Prior weight for the third standard hypothesis.")
 	}
 }
-
 
 

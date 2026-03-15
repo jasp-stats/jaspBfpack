@@ -24,6 +24,7 @@ import QtQuick.Controls as QTCONTROLS
 
 Group
 {
+	info: qsTr("Specify confirmatory hypotheses with equality (=) and order (<, >) constraints on the available parameters. Separate multiple hypotheses into rows and optionally include a complement hypothesis.")
 
 	Layout.columnSpan: 2
 
@@ -42,7 +43,7 @@ Group
 	}
 	ComponentsList
 	{
-		
+		info: qsTr("List of manually specified hypotheses. Use parameter names from the Parameters box, assign prior weights, and tick Include for the hypotheses that should be tested.")
 		name: "manualHypotheses"
 		title: ""
 		minimumItems: 1
@@ -55,6 +56,7 @@ Group
 					name: "hypothesisText"
 					placeholderText: "..."
 					fieldWidth: 400 * jaspTheme.uiScale
+					info: qsTr("Enter a constrained hypothesis using the shown parameter names, for example a = 0, a > 0, or a > b > 0.")
 				}
 				FormulaField
 				{
@@ -62,11 +64,13 @@ Group
 					name: "priorProbManual"
 					defaultValue: "1"
 					min: 0
+					info: qsTr("Prior weight for this manual hypothesis.")
 				}
 				Item {}
 				CheckBox
 				{
 					name: "includeHypothesis"
+					info: qsTr("Include this manual hypothesis in the analysis.")
 				}
 			}
 		addBorder: false
@@ -94,6 +98,7 @@ Group
 			name: "priorProbComplement"
 			defaultValue: "1"
 			min: 0
+			info: qsTr("Prior weight assigned to the complement hypothesis.")
 		}
 		Item {
 			id: spacer
@@ -106,6 +111,7 @@ Group
 			id: complement
 			name: "complement"
 			checked: true
+			info: qsTr("Include the complement hypothesis in the hypothesis set.")
 		}
 	}
 }

@@ -24,6 +24,7 @@ import QtQuick.Controls as QTCONTROLS
 
 Group
 {
+	info: qsTr("Shows the parameter names that are currently available for manual equality and order constraints. The labels depend on the selected variables and the fitted model.")
 
 	ComponentsList {
 		name: "hiddenNames"
@@ -43,7 +44,7 @@ Group
 		}
 		QTCONTROLS.ToolTip.visible: mouseAreaA.containsMouse
 		//QTCONTROLS.ToolTip.delay: 300
-		QTCONTROLS.ToolTip.text: qsTr("The parameters that can be tested in the manual hypotheses will appear here once you have entered variables into the analysis")	
+		QTCONTROLS.ToolTip.text: qsTr("The parameters that can be tested in the manual hypothesis test appear here after you assign variables to the analysis.")
 	}
 	
 

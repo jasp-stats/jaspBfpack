@@ -27,10 +27,12 @@ Form
 	VariablesForm
 	{
 		preferredHeight: 				jaspTheme.smallDefaultVariablesFormHeight
+		info: qsTr("Assign the continuous variables whose means will be tested jointly in the multivariate t-test.")
 		
 		AvailableVariablesList
 		{
 			name: 						"variablesList"
+			info: qsTr("Available variables from the data set that can be assigned to the analysis.")
 		}
 
 		AssignedVariablesList
@@ -39,26 +41,31 @@ Form
 			title: 						qsTr("Variables")
 			singleVariable: 			false
 			allowedColumns: 			["scale"]
+			info: qsTr("Continuous variables whose means are tested simultaneously.")
 		}
 	}
 
 
 	ColumnLayout 
 	{
+		id: standardHypothesesSection
 		Common.HypothesesWindowStandard{
+			id: standardHypotheses
 			parName: qsTr("μ")
 			multiTest: true
 			onlyUnequal: true
+			parameterDescription: qsTr("the means of the selected variables")
 		}
 		ComponentsList 
 		{
 			title: qsTr("Specify test value")
 			id: testValues
-			visible: multiTest
+			visible: standardHypotheses.multiTest
 			implicitHeight: 90 * preferencesModel.uiScale
 			// implicitWidth: 200 * preferencesModel.uiScale
 			source:  "variables"
 			name: "testValues"
+			info: qsTr("Set the reference mean for each selected variable in the standard hypothesis test.")
 			rowComponent: RowLayout {
 				Text { text: rowValue }
 				DoubleField {
@@ -67,6 +74,7 @@ Form
 					fieldWidth: 50
 					defaultValue: 0
 					negativeValues: true
+					info: qsTr("Test value for the mean of %1.").arg(rowValue)
 				}
 			}
 		}
