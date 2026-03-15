@@ -12,31 +12,31 @@ Description
 
 	GroupTitle
 	{
-		title: 		"T-Tests"
+		title: 		"t-Tests"
 		icon: 		"analysis-bain-ttest.svg"
 	}
 	Analysis
 	{
-		menu:			"Independent Samples T-Test"
-		title:		"BFpack Independent Samples T-Test"
+		menu:			"Independent Samples t-Test"
+		title:		"BFpack Independent Samples t-Test"
 		func:			"bfpackTTestIndependentSamples"
 	}
 	Analysis
 	{
-		menu: 		"Paired Samples T-Test"
-		title:		"BFpack Paired Samples T-Test"
+		menu: 		"Paired Samples t-Test"
+		title:		"BFpack Paired Samples t-Test"
 		func:			"bfpackTTestPairedSamples"
 	}
 	Analysis
 	{
-		menu:  		"One Sample T-Test"
-		title:		"BFpack One Sample T-Test"
+		menu:  		"One Sample t-Test"
+		title:		"BFpack One Sample t-Test"
 		func:			"bfpackTTestOneSample"
 	}
 	Analysis
 	{
-		menu:  		"Multivariate T-Test"
-		title:		"BFpack Multivariate T-Test"
+		menu:  		"Multivariate t-Test"
+		title:		"BFpack Multivariate t-Test"
 		func:			"bfpackTTestMultiSample"
 	}
 

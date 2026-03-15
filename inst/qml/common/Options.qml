@@ -119,6 +119,7 @@ Section
 		}
 		CheckBox
 		{
+			visible: !correlation
 			name: "standardize"
 			text: qsTr("Standardize continuous variables")
 		}

@@ -1041,8 +1041,15 @@
       dtFill <- data.frame(coefficient = rownames(bfs))
     }
 
+    # For log BFs, evidence ratios become differences on the log scale.
+    comparisonFun <- if (isTRUE(options[["logScale"]])) {
+      function(x) max(x) - x
+    } else {
+      function(x) max(x) / x
+    }
+
     # we do the best performing hypothesis vs. the others
-    bfs <- t(apply(bfs, 1, function(x) max(x)/x))
+    bfs <- t(apply(bfs, 1, comparisonFun))
     out <- as.data.frame(bfs)
     outDf <- sapply(out, function(x) {
     	x[x == 1] <- NA

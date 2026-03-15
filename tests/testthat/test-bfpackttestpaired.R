@@ -1,4 +1,4 @@
-context("BFpack Paired Samples T-Test")
+context("BFpack Paired Samples t-Test")
 
 options <-
     list(
