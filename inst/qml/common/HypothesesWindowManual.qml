@@ -26,7 +26,8 @@ Group
 {
 	id: manualGroup
 
-	property real hypothesisColumnWidth: 420 * jaspTheme.uiScale
+	property real rowLabelColumnWidth: 28 * jaspTheme.uiScale
+	property real hypothesisColumnWidth: 390 * jaspTheme.uiScale
 	property real complementColumnWidth: hypothesisColumnWidth + 4 * jaspTheme.uiScale
 	property real includeColumnSpacing: 10 * jaspTheme.uiScale
 
@@ -53,9 +54,21 @@ Group
 		name: "manualHypotheses"
 		title: ""
 		minimumItems: 1
-		headerLabels: [qsTr("Hypotheses"), qsTr("Prior weight"), qsTr("Include")]
+		headerLabels: [
+			{ hypothesisText: qsTr("Hypotheses") },
+			{ priorProbManual: qsTr("Prior weight") },
+			{ includeHypothesis: qsTr("Include") }
+		]
 		rowComponent: 
 			RowLayout {
+				Text
+				{
+					Layout.preferredWidth: manualGroup.rowLabelColumnWidth
+					Layout.alignment: Qt.AlignTop
+					text: qsTr("H%1:").arg(rowIndex + 1)
+					font: jaspTheme.font
+					color: enabled ? jaspTheme.textEnabled : jaspTheme.textDisabled
+				}
 				TextArea
 				{
 					id: hypothesisTextField
@@ -67,25 +80,26 @@ Group
 					info: qsTr("Enter a constrained hypothesis using the shown parameter names, for example a = 0, a > 0, or a > b > 0.")
 				}
 				FormulaField
-				{
-					fieldWidth: 40
-					name: "priorProbManual"
-					defaultValue: "1"
-					min: 0
-					info: qsTr("Prior weight for this manual hypothesis.")
+					{
+						fieldWidth: 40
+						name: "priorProbManual"
+						defaultValue: "1"
+						min: 0
+						info: qsTr("Prior weight for this manual hypothesis.")
+					}
+					Item { width: manualGroup.includeColumnSpacing } // Spacer between prior weight and checkbox
+					CheckBox
+					{
+						name: "includeHypothesis"
+						info: qsTr("Include this manual hypothesis in the analysis.")
+					}
 				}
-				Item { width: manualGroup.includeColumnSpacing } // Spacer between prior weight and checkbox
-				CheckBox
-				{
-					name: "includeHypothesis"
-					info: qsTr("Include this manual hypothesis in the analysis.")
-				}
-			}
-		addBorder: false
-	}
+			addBorder: false
+		}
 
 		RowLayout
 		{
+			Item { Layout.preferredWidth: manualGroup.rowLabelColumnWidth }
 			Item
 			{
 				Layout.preferredWidth: manualGroup.complementColumnWidth
@@ -93,39 +107,39 @@ Group
 
 				Rectangle
 				{
-					id: complementBox
-					color: jaspTheme.white
-					radius: jaspTheme.borderRadius
-					border.width: 1
-					border.color: jaspTheme.borderColor
-					width: parent.width
-					height: complementLabel.implicitHeight + 4
+				id: complementBox
+				color: jaspTheme.white
+				radius: jaspTheme.borderRadius
+				border.width: 1
+				border.color: jaspTheme.borderColor
+				width: parent.width
+				height: complementLabel.implicitHeight + 4
 
-					Label
-					{
-						id: complementLabel
-						anchors.verticalCenter: parent.verticalCenter
-						anchors.left: parent.left
-						anchors.leftMargin: 4
+				Label
+				{
+					id: complementLabel
+					anchors.verticalCenter: parent.verticalCenter
+					anchors.left: parent.left
+					anchors.leftMargin: 4
 						text: qsTr("Complement hypothesis")
 					}
 				}
 			}
 			FormulaField
-			{
-				fieldWidth: 40
-				name: "priorProbComplement"
-				defaultValue: "1"
-				min: 0
-				info: qsTr("Prior weight assigned to the complement hypothesis.")
-			}
-			Item { width: manualGroup.includeColumnSpacing }
-			CheckBox
-			{
-				id: complement
-				name: "complement"
-				checked: true
-				info: qsTr("Include the complement hypothesis in the hypothesis set.")
-			}
+		{
+			fieldWidth: 40
+			name: "priorProbComplement"
+			defaultValue: "1"
+			min: 0
+			info: qsTr("Prior weight assigned to the complement hypothesis.")
+		}
+		Item { width: manualGroup.includeColumnSpacing }
+		CheckBox
+		{
+			id: complement
+			name: "complement"
+			checked: true
+			info: qsTr("Include the complement hypothesis in the hypothesis set.")
 		}
 	}
+}
