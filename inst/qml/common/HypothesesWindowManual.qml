@@ -26,7 +26,7 @@ Group
 {
 	id: manualGroup
 
-	property real rowLabelColumnWidth: 28 * jaspTheme.uiScale
+	property real rowLabelColumnWidth: 12 * jaspTheme.uiScale
 	property real hypothesisColumnWidth: 390 * jaspTheme.uiScale
 	property real complementColumnWidth: hypothesisColumnWidth + 4 * jaspTheme.uiScale
 	property real includeColumnSpacing: 10 * jaspTheme.uiScale
@@ -53,22 +53,24 @@ Group
 		info: qsTr("List of manually specified hypotheses. Use parameter names from the Parameters box, assign prior weights, and tick Include for the hypotheses that should be tested.")
 		name: "manualHypotheses"
 		title: ""
+		addBorder: false
 		minimumItems: 1
-		headerLabels: [
-			{ hypothesisText: qsTr("Hypotheses") },
-			{ priorProbManual: qsTr("Prior weight") },
-			{ includeHypothesis: qsTr("Include") }
-		]
-		rowComponent: 
-			RowLayout {
-				Text
-				{
-					Layout.preferredWidth: manualGroup.rowLabelColumnWidth
-					Layout.alignment: Qt.AlignTop
-					text: qsTr("H%1:").arg(rowIndex + 1)
-					font: jaspTheme.font
-					color: enabled ? jaspTheme.textEnabled : jaspTheme.textDisabled
-				}
+			headerLabels: [
+				{ hypothesisText: qsTr("Hypotheses") },
+				{ priorProbManual: qsTr("Prior weight") },
+				{ includeHypothesis: qsTr("Include") }
+			]
+			rowComponent: 
+				RowLayout {
+					Text
+					{
+						Layout.preferredWidth: manualGroup.rowLabelColumnWidth
+						Layout.alignment: Qt.AlignTop
+						Layout.rightMargin: -4 * jaspTheme.uiScale
+						text: qsTr("H%1:").arg(rowIndex + 1)
+						font: jaspTheme.font
+						color: enabled ? jaspTheme.textEnabled : jaspTheme.textDisabled
+					}
 				TextArea
 				{
 					id: hypothesisTextField
@@ -94,13 +96,12 @@ Group
 						info: qsTr("Include this manual hypothesis in the analysis.")
 					}
 				}
-			addBorder: false
 		}
 
-		RowLayout
-		{
-			Item { Layout.preferredWidth: manualGroup.rowLabelColumnWidth }
-			Item
+			RowLayout
+				{
+					Item { Layout.preferredWidth: manualGroup.rowLabelColumnWidth }
+				Item
 			{
 				Layout.preferredWidth: manualGroup.complementColumnWidth
 				Layout.preferredHeight: complementBox.height
