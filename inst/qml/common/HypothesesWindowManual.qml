@@ -55,11 +55,7 @@ Group
 		title: ""
 		addBorder: false
 		minimumItems: 1
-			headerLabels: [
-				{ hypothesisText: qsTr("Hypotheses") },
-				{ priorProbManual: qsTr("Prior weight") },
-				{ includeHypothesis: qsTr("Include") }
-			]
+			headerLabels: [qsTr("Hypotheses"), qsTr("Prior weight"), qsTr("Include")]
 			rowComponent: 
 				RowLayout {
 					Text
