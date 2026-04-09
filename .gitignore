@@ -61,5 +61,4 @@ Thumbs.db
 .vscode/
 _processedLockFile.lock
 
-# dev mode files
-jasp_dev_work_dir/
+.claude/settings.local.json
