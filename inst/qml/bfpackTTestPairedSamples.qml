@@ -27,10 +27,12 @@ Form
 	VariablesForm
 	{
 		preferredHeight: 				jaspTheme.smallDefaultVariablesFormHeight
+		info: qsTr("Assign the two continuous variables that form the paired comparison.")
 		
 		AvailableVariablesList
 		{
 			name: 						"variablesList"
+			info: qsTr("Available variables from the data set that can be assigned to the analysis.")
 		}
 		AssignedPairsVariablesList
 		{
@@ -38,12 +40,14 @@ Form
 			title: 						qsTr("Pair")
 			allowedColumns: 			["scale"]
 			singleVariable: true
+			info: qsTr("Pair the two continuous variables whose mean difference will be tested.")
 		}
 	}
 
 	Common.HypothesesWindowStandard{
 		parName: qsTr("difference")
 		specificMu: true
+		parameterDescription: qsTr("the mean difference between the paired variables")
 	}
 	Common.ParametersWindow{}
 

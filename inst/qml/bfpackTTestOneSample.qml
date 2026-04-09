@@ -27,10 +27,12 @@ Form
 	VariablesForm
 	{
 		preferredHeight: 				jaspTheme.smallDefaultVariablesFormHeight
+		info: qsTr("Assign one continuous variable for the one-sample t-test.")
 		
 		AvailableVariablesList
 		{
 			name: 						"variablesList"
+			info: qsTr("Available variables from the data set that can be assigned to the analysis.")
 		}
 
 		AssignedVariablesList
@@ -39,12 +41,14 @@ Form
 			title: 						qsTr("Variable")
 			singleVariable: 			true
 			allowedColumns: 			["scale"]
+			info: qsTr("Continuous variable whose mean will be tested.")
 		}
 	}
 
 	Common.HypothesesWindowStandard{
 		parName: qsTr("mu")
 		specificMu: true
+		parameterDescription: qsTr("the population mean")
 
 	}
 	Common.ParametersWindow{}

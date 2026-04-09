@@ -24,6 +24,14 @@ import QtQuick.Controls as QTCONTROLS
 
 Group
 {
+	id: manualGroup
+
+	property real rowLabelColumnWidth: 12 * jaspTheme.uiScale
+	property real hypothesisColumnWidth: 390 * jaspTheme.uiScale
+	property real complementColumnWidth: hypothesisColumnWidth + 4 * jaspTheme.uiScale
+	property real includeColumnSpacing: 10 * jaspTheme.uiScale
+
+	info: qsTr("Specify confirmatory hypotheses with equality (=) and order (<, >) constraints on the available parameters. Separate multiple hypotheses into rows and optionally include a complement hypothesis.")
 
 	Layout.columnSpan: 2
 
@@ -42,70 +50,93 @@ Group
 	}
 	ComponentsList
 	{
-		
+		info: qsTr("List of manually specified hypotheses. Use parameter names from the Parameters box, assign prior weights, and tick Include for the hypotheses that should be tested.")
 		name: "manualHypotheses"
 		title: ""
+		addBorder: false
 		minimumItems: 1
-		headerLabels: [qsTr("Hypotheses"), qsTr("Prior weight"), qsTr("Include")]
-		rowComponent: 
-			RowLayout {
-				TextField
-				{ 
+			headerLabels: [qsTr("Hypotheses"), qsTr("Prior weight"), qsTr("Include")]
+			rowComponent: 
+				RowLayout {
+					Text
+					{
+						Layout.preferredWidth: manualGroup.rowLabelColumnWidth
+						Layout.alignment: Qt.AlignTop
+						Layout.rightMargin: -4 * jaspTheme.uiScale
+						text: qsTr("H%1:").arg(rowIndex + 1)
+						font: jaspTheme.font
+						color: enabled ? jaspTheme.textEnabled : jaspTheme.textDisabled
+					}
+				TextArea
+				{
 					id: hypothesisTextField
 					name: "hypothesisText"
 					placeholderText: "..."
-					fieldWidth: 400 * jaspTheme.uiScale
+					width: manualGroup.hypothesisColumnWidth
+					height: 60 * jaspTheme.uiScale
+					showLineNumber: false
+					info: qsTr("Enter a constrained hypothesis using the shown parameter names, for example a = 0, a > 0, or a > b > 0.")
 				}
 				FormulaField
-				{
-					fieldWidth: 60
-					name: "priorProbManual"
-					defaultValue: "1"
-					min: 0
+					{
+						fieldWidth: 40
+						name: "priorProbManual"
+						defaultValue: "1"
+						min: 0
+						info: qsTr("Prior weight for this manual hypothesis.")
+					}
+					Item { width: manualGroup.includeColumnSpacing } // Spacer between prior weight and checkbox
+					CheckBox
+					{
+						name: "includeHypothesis"
+						info: qsTr("Include this manual hypothesis in the analysis.")
+					}
 				}
-				Item {}
-				CheckBox
+		}
+
+			RowLayout
 				{
-					name: "includeHypothesis"
+					Item { Layout.preferredWidth: manualGroup.rowLabelColumnWidth }
+				Item
+			{
+				Layout.preferredWidth: manualGroup.complementColumnWidth
+				Layout.preferredHeight: complementBox.height
+
+				Rectangle
+				{
+				id: complementBox
+				color: jaspTheme.white
+				radius: jaspTheme.borderRadius
+				border.width: 1
+				border.color: jaspTheme.borderColor
+				width: parent.width
+				height: complementLabel.implicitHeight + 4
+
+				Label
+				{
+					id: complementLabel
+					anchors.verticalCenter: parent.verticalCenter
+					anchors.left: parent.left
+					anchors.leftMargin: 4
+						text: qsTr("Complement hypothesis")
+					}
 				}
 			}
-		addBorder: false
-	}
-
-	Item
-	{
-		width: 536 * jaspTheme.uiScale
-		height: complement.height
-		Rectangle {
-			x: 1.4 * jaspTheme.labelSpacing
-			y: -10
-			color: jaspTheme.white
-			radius: jaspTheme.borderRadius
-			border.width: 1
-			border.color: jaspTheme.borderColor
-			width: 397 * jaspTheme.uiScale
-			height: complementLabel.implicitHeight + 4
-			Label { id: complementLabel; anchors.verticalCenter: parent.verticalCenter; anchors.left: parent.left; anchors.leftMargin: 4; text: qsTr("Complement hypothesis:") }
-		}
-		FormulaField {
-			anchors.right: spacer.left
-			y: -10
-			fieldWidth: 60
+			FormulaField
+		{
+			fieldWidth: 40
 			name: "priorProbComplement"
 			defaultValue: "1"
 			min: 0
+			info: qsTr("Prior weight assigned to the complement hypothesis.")
 		}
-		Item {
-			id: spacer
-			width: 31 * jaspTheme.uiScale // Adjust the width as needed for the desired space
-			anchors.right: complement.left
-		}
-		CheckBox {
-			anchors.right: parent.right
-			y: -10
+		Item { width: manualGroup.includeColumnSpacing }
+		CheckBox
+		{
 			id: complement
 			name: "complement"
 			checked: true
+			info: qsTr("Include the complement hypothesis in the hypothesis set.")
 		}
 	}
 }

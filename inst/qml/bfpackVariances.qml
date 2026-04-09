@@ -28,10 +28,12 @@ Form
 	VariablesForm
 	{
 		implicitHeight: 200 * preferencesModel.uiScale
+		info: qsTr("Assign one outcome variable and one grouping variable for the variance comparison.")
 
 		AvailableVariablesList
 		{
 			name: 						"variablesList"
+			info: qsTr("Available variables from the data set that can be assigned to the analysis.")
 		}
 		
 		AssignedVariablesList
@@ -41,6 +43,7 @@ Form
 			singleVariable: 			true
 			allowedColumns: 			["scale", "ordinal"]
 			allowTypeChange: true
+			info: qsTr("Outcome variable whose group variances will be compared.")
 		}
 
 		AssignedVariablesList
@@ -49,11 +52,13 @@ Form
 			title: 						qsTr("Grouping Variable")
 			singleVariable: 			true
 			allowedColumns: 			["nominal"]
+			info: qsTr("Nominal variable defining the groups whose variances are compared.")
 		}
 	}
 
 	Common.HypothesesWindowStandard{
 		onlyUnequal: true
+		parameterDescription: qsTr("the group variances")
 	}
 	Common.ParametersWindow{}
 

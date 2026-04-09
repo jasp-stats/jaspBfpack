@@ -26,9 +26,11 @@ Form
 {
 	VariablesForm
 	{
+		info: qsTr("Assign dependent variables, fixed factors, and optional covariates for the (M)AN(C)OVA model.")
 		AvailableVariablesList
 		{
 			name: 						"variablesList"
+			info: qsTr("Available variables from the data set that can be assigned to the analysis.")
 		}
 
 		AssignedVariablesList
@@ -37,6 +39,7 @@ Form
 			title: 						qsTr("Dependent Variables")
 			allowedColumns: 			["scale"]
 			id: dependent
+			info: qsTr("One or more continuous outcome variables. One dependent variable yields an AN(C)OVA; multiple dependent variables yield a MAN(C)OVA.")
 		}
 
 		AssignedVariablesList
@@ -46,6 +49,7 @@ Form
 			allowedColumns: 			["ordinal", "nominal"]
 			id: fixedFactors
 			allowTypeChange: true
+			info: qsTr("Categorical grouping variables whose mean differences and interactions are tested in the model.")
 		} 
 
 		AssignedVariablesList
@@ -54,11 +58,13 @@ Form
 			title: 						qsTr("Covariates")
 			allowedColumns: 			["scale"]
 			id: covariates
+			info: qsTr("Continuous predictors to adjust for in the analysis. Adding covariates turns the model into an ANCOVA or MANCOVA.")
  		}
 	}
 
 	Common.HypothesesWindowStandard{
 		parName: qsTr("μ")
+		parameterDescription: qsTr("each adjusted mean or regression effect in the AN(C)OVA model")
 	}
 	
 	Common.ParametersWindow{}

@@ -29,10 +29,12 @@ Form
 	VariablesForm
 	{
 		preferredHeight: 250 * preferencesModel.uiScale
+		info: qsTr("Assign the variables whose correlations will be tested, plus optional grouping and covariate variables.")
 
 		AvailableVariablesList
 		{
 			name: 						"variablesList"
+			info: qsTr("Available variables from the data set that can be assigned to the analysis.")
 		}
 		
 		AssignedVariablesList
@@ -41,6 +43,7 @@ Form
 			name: 								"variables"
 			singleVariable: 			false
 			allowTypeChange: true
+			info: qsTr("Select at least two variables whose correlations will be estimated and tested. Supported associations include product-moment, polychoric, tetrachoric, polyserial, and biserial correlations.")
 		}
 
 		AssignedVariablesList
@@ -49,6 +52,7 @@ Form
 			title: 						qsTr("Grouping Variable")
 			singleVariable: 	true
 			allowedColumns: 	["nominal"]
+			info: qsTr("Optional nominal grouping variable for testing independent correlations across groups.")
 		}
 
 		AssignedVariablesList
@@ -58,12 +62,14 @@ Form
 			singleVariable: 			false
 			allowedColumns: 			["scale", "ordinal"]
 			allowTypeChange: true
+			info: qsTr("Optional covariates to control for when estimating the correlations.")
 		}
 
 	}
 
 	Common.HypothesesWindowStandard{
 		parName: qsTr("ρ")
+		parameterDescription: qsTr("each correlation coefficient")
 	}
 
 	Common.ParametersWindow{}

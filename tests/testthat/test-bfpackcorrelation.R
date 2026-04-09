@@ -129,12 +129,12 @@ test_that("Log BFs: Manual Hypotheses table results match", {
 test_that("Log Standard Hypotheses: View BFs table results match", {
   table <- results[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_stdBfTable"]][["data"]]
   jaspTools::expect_equal_tables(table,
-                                 list(-0.0152422410688517, -0.0138416449257139, "", "sales_with_adverts",
-                                      "", -0.713732101660131, 2.00470522770377, "airplay_with_adverts",
-                                      "", -1.17645249461639, 2.73623129725681, "attract_with_adverts",
-                                      -0.0165464191347455, -0.0149461889223048, "", "airplay_with_sales",
-                                      -0.0768176240163965, -0.0538336345865915, "", "attract_with_sales",
-                                      -0.848282977106952, -0.169541651077943, "", "attract_with_airplay"
+                                 list(46.1685584031542, 50.7700841544505, 0, "sales_with_adverts",
+                                      0, 2.86007878548516, 0.596978147871284, "airplay_with_adverts",
+                                      0, 2.72960763423386, 0.936224929695982, "attract_with_adverts",
+                                      42.584215871333, 47.0693293741044, 0, "airplay_with_sales",
+                                      9.71641249738419, 13.5688490952563, 0, "attract_with_sales",
+                                      1.49093201057489, 4.72029794667427, 0, "attract_with_airplay"
                                  ))
 })
 

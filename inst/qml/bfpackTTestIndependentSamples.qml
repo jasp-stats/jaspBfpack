@@ -27,10 +27,12 @@ Form
 	VariablesForm
 	{
 		preferredHeight: 				jaspTheme.smallDefaultVariablesFormHeight
+		info: qsTr("Assign one continuous outcome variable and one nominal grouping variable for the independent samples t-test.")
 		
 		AvailableVariablesList
 		{
 			name: 						"variablesList"
+			info: qsTr("Available variables from the data set that can be assigned to the analysis.")
 		}
 
 		AssignedVariablesList
@@ -39,6 +41,7 @@ Form
 			title: 						qsTr("Variables")
 			singleVariable: 			true
 			allowedColumns: 			["scale"]
+			info: qsTr("Continuous outcome variable to compare between the two groups.")
 		}
 
 		AssignedVariablesList
@@ -47,6 +50,7 @@ Form
 			title: 						qsTr("Grouping Variable")
 			singleVariable: 			true
 			allowedColumns: 			["nominal"]
+			info: qsTr("Nominal variable defining the two independent groups.")
 		}
 	}
 
@@ -54,6 +58,7 @@ Form
 	Common.HypothesesWindowStandard{
 		parName: qsTr("difference")
 		specificMu: true
+		parameterDescription: qsTr("the group mean difference")
 	}
 
 	Common.ParametersWindow{}

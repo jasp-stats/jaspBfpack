@@ -465,27 +465,42 @@
     return()
   }
 
+  # extract estimate names BEFORE saving state, so a failure here does not orphan estimatesState
+  estimateNames <- try(eval(parse(text = callString))(result))
+  if (isTryError(estimateNames)) {
+    bfpackContainer$setError(gettextf("Could not extract parameter names. Error message: %1$s", jaspBase::.extractErrorMessage(estimateNames)))
+    return()
+  }
+  # for manova, $estimate can be a matrix; for others a named vector
+  est <- estimateNames$estimate
+  if (is.matrix(est)) {
+    # matrix: rows = factor levels, cols = DVs. Column-major flattening matches bain convention
+    rn <- rownames(est)
+    cn <- colnames(est)
+    estimateNames <- as.list(as.vector(outer(rn, cn, paste, sep = "_on_")))
+  } else {
+    estimateNames <- as.list(names(est))
+  }
+
   # save in jaspResults, which is where bfpackContainer is stored.
   # this way we do not have to estimate the parameters twice
   estimatesState <- createJaspState(result)
   estimatesState$dependOn(deps) # are there any new dependencies not already covered in the container?
   bfpackContainer[["estimatesState"]] <- estimatesState
 
-  # the estimate names for the JASP GUI
-  estimateNames <- eval(parse(text = callString))(result)
-
-  estimateNames <- as.list(names(estimateNames$estimate))
-
   # new dependencies for the qml source since it is not part of bfpackContainer but jaspResults
   deps2 <- switch(type,
                  "tTestIndependentSamples" = c("variables", "groupingVariable"),
-                 "tTestPairedSamples" = "pair",
-                 "tTestOneSample" = "variables",
-                 "anova" = c("dependent", "fixedFactors", "covariates"),
-                 "regression" = c("dependent", "predictors"),
-                 "correlation" = c("variables", "groupingVariable"),
-                 "variances" = c("variables", "groupingVariable"),
-                 "regressionLogistic" = c("dependent", "predictors"))
+                 "tTestPairedSamples"      = "pair",
+                 "tTestOneSample"          = "variables",
+                 "anova"                   = c("dependent", "fixedFactors", "covariates",
+                                               "interactionTerms", "includeInteractionEffect", "excludeIntercept"),
+                 "regression"              = c("dependent", "predictors",
+                                               "interactionTerms", "includeInteractionEffect", "excludeIntercept"),
+                 "correlation"             = c("variables", "groupingVariable"),
+                 "variances"               = c("variables", "groupingVariable"),
+                 "regressionLogistic"      = c("dependent", "predictors",
+                                               "interactionTerms", "includeInteractionEffect", "excludeIntercept"))
 
   namesForQml <- createJaspQmlSource("estimateNamesForQml", estimateNames)
   namesForQml$dependOn(deps2)
@@ -1041,8 +1056,15 @@
       dtFill <- data.frame(coefficient = rownames(bfs))
     }
 
+    # For log BFs, evidence ratios become differences on the log scale.
+    comparisonFun <- if (isTRUE(options[["logScale"]])) {
+      function(x) max(x) - x
+    } else {
+      function(x) max(x) / x
+    }
+
     # we do the best performing hypothesis vs. the others
-    bfs <- t(apply(bfs, 1, function(x) max(x)/x))
+    bfs <- t(apply(bfs, 1, comparisonFun))
     out <- as.data.frame(bfs)
     outDf <- sapply(out, function(x) {
     	x[x == 1] <- NA

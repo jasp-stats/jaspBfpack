@@ -27,9 +27,11 @@ Form
 
 	VariablesForm
 	{
+		info: qsTr("Assign continuous dependent variables and predictor variables for the linear regression model.")
 		AvailableVariablesList
 		{
 			name: 						"variablesList"
+			info: qsTr("Available variables from the data set that can be assigned to the analysis.")
 		}
 		
 		AssignedVariablesList
@@ -39,6 +41,7 @@ Form
 			singleVariable: 			false
 			allowedColumns: 			["scale"]
 			height : 100*jaspTheme.uiScale
+			info: qsTr("One or more continuous outcome variables. Multiple dependent variables fit a multivariate multiple regression.")
 		}
 
 		AssignedVariablesList
@@ -47,11 +50,13 @@ Form
 			title: 						qsTr("Predictor Variables")
 			id: 							predictors
 			allowTypeChange: true
+			info: qsTr("Predictor variables for the regression model. Nominal and ordinal predictors are dummy coded automatically when needed.")
 		}
 	}
 
 	Common.HypothesesWindowStandard{
 		parName: qsTr("β")
+		parameterDescription: qsTr("each regression coefficient")
 	}
 	Common.ParametersWindow{}
 

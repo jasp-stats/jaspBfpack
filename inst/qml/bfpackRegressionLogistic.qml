@@ -27,9 +27,11 @@ Form
 
 	VariablesForm
 	{
+		info: qsTr("Assign an ordinal or nominal dependent variable and predictor variables for the logistic regression model.")
 		AvailableVariablesList
 		{
 			name: 						"variablesList"
+			info: qsTr("Available variables from the data set that can be assigned to the analysis.")
 		}
 		
 		AssignedVariablesList
@@ -39,6 +41,7 @@ Form
 			singleVariable: 			true
 			allowedColumns: 			["ordinal", "nominal"]
 			allowTypeChange: true
+			info: qsTr("Outcome variable for the logistic model. Ordinal outcomes fit an ordered logistic regression; binary nominal outcomes fit a binary logistic regression.")
 		}
 
 		AssignedVariablesList
@@ -47,12 +50,14 @@ Form
 			title: 						qsTr("Predictor Variables")
 			id: 							predictors
 			allowTypeChange: 	true
+			info: qsTr("Predictor variables for the logistic regression model.")
 		}
 	}
 
 
 	Common.HypothesesWindowStandard{
 		parName: qsTr("β")
+		parameterDescription: qsTr("each logistic regression coefficient")
 	}
 	Common.ParametersWindow{}
 
@@ -61,7 +66,7 @@ Form
 	Common.Options{
 		bfTy: false
 		interactions: true
-		interactionValues: covariates.columnsNames
+		interactionValues: predictors.columnsNames
 		intercept: true
 	}
 }
