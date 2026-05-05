@@ -62,3 +62,4 @@ Thumbs.db
 _processedLockFile.lock
 
 .claude/settings.local.json
+.positai
