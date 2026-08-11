@@ -1,0 +1,834 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: jaspBfpack 0.1\n"
+"Report-Msgid-Bugs-To: github.com/jasp-stats/jasp-issues/issues\n"
+"POT-Creation-Date: 2026-01-01 00:00+0000\n"
+"PO-Revision-Date: 2026-01-01 00:00+0000\n"
+"Last-Translator: JASP translators\n"
+"Language-Team: Chinese (Traditional)\n"
+"Language: zh_Hant\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Qt-Contexts: true\n"
+"X-Language: zh_Hant\n"
+
+msgctxt "Description|"
+msgid "BFpack"
+msgstr "BFpack"
+
+msgctxt "Description|"
+msgid ""
+"A module for computing Bayes factors for equality, inequality, and order"
+"constrained hypotheses."
+msgstr ""
+"一個用於計算相等、不等及有序約束假設的貝葉斯因子的模組。"
+
+msgctxt "bfpackAnova|"
+msgid "Available variables from the data set that can be assigned to the analysis."
+msgstr "資料集中可指定到分析中的可用變數。"
+
+msgctxt "bfpackAnova|"
+msgid "Dependent Variables"
+msgstr "因變數"
+
+msgctxt "bfpackAnova|"
+msgid "Fixed Factors"
+msgstr "固定因子"
+
+msgctxt "bfpackAnova|"
+msgid ""
+"Categorical grouping variables whose mean differences and interactions are"
+"tested in the model."
+msgstr "在模型中檢驗均值差異和互動作用的分型別分組變數。"
+
+msgctxt "bfpackAnova|"
+msgid "Covariates"
+msgstr "協變數"
+
+msgctxt "bfpackAnova|"
+msgid ""
+"Continuous predictors to adjust for in the analysis. Adding covariates turns"
+"the model into an ANCOVA or MANCOVA."
+msgstr "分析中進行調整的連續預測變數。新增協變數會使模型變為ANCOVA或MANCOVA。"
+
+msgctxt "bfpackAnova|"
+msgid "μ"
+msgstr "μ"
+
+msgctxt "bfpackCorrelation|"
+msgid ""
+"Assign the variables whose correlations will be tested, plus optional grouping"
+"and covariate variables."
+msgstr "指定要檢驗相關性的變數，以及可選的分組和協變數。"
+
+msgctxt "bfpackCorrelation|"
+msgid "Available variables from the data set that can be assigned to the analysis."
+msgstr "資料集中可指定到分析中的可用變數。"
+
+msgctxt "bfpackCorrelation|"
+msgid "Variables"
+msgstr "變數"
+
+msgctxt "bfpackCorrelation|"
+msgid ""
+"Select at least two variables whose correlations will be estimated and tested."
+"Supported associations include product-moment, polychoric, tetrachoric,"
+"polyserial, and biserial correlations."
+msgstr ""
+"選擇至少兩個要估計和檢驗相關性的變數。支援的關聯包括積矩相關、多分格相關、四格相關、"
+"多序列相關和雙序列相關。"
+
+msgctxt "bfpackCorrelation|"
+msgid "Grouping Variable"
+msgstr "分組變數"
+
+msgctxt "bfpackCorrelation|"
+msgid ""
+"Optional nominal grouping variable for testing independent correlations across"
+"groups."
+msgstr "用於跨組檢驗獨立相關性的可選名義分組變數。"
+
+msgctxt "bfpackCorrelation|"
+msgid "Covariates"
+msgstr "協變數"
+
+msgctxt "bfpackCorrelation|"
+msgid "Optional covariates to control for when estimating the correlations."
+msgstr "估計相關性時用於控制的可選協變數。"
+
+msgctxt "bfpackCorrelation|"
+msgid "ρ"
+msgstr "ρ"
+
+msgctxt "bfpackCorrelation|"
+msgid "each correlation coefficient"
+msgstr "每個相關係數"
+
+msgctxt "bfpackRegressionLinear|"
+msgid ""
+"Assign continuous dependent variables and predictor variables for the linear"
+"regression model."
+msgstr "為線性迴歸模型指定連續因變數和預測變數。"
+
+msgctxt "bfpackRegressionLinear|"
+msgid "Available variables from the data set that can be assigned to the analysis."
+msgstr "資料集中可指定到分析中的可用變數。"
+
+msgctxt "bfpackRegressionLinear|"
+msgid "Dependent Variables"
+msgstr "因變數"
+
+msgctxt "bfpackRegressionLinear|"
+msgid ""
+"One or more continuous outcome variables. Multiple dependent variables fit a"
+"multivariate multiple regression."
+msgstr "一個或多個連續結果變數。多個因變數擬合多元多元迴歸。"
+
+msgctxt "bfpackRegressionLinear|"
+msgid "Predictor Variables"
+msgstr "預測變數"
+
+msgctxt "bfpackRegressionLinear|"
+msgid ""
+"Predictor variables for the regression model. Nominal and ordinal predictors"
+"are dummy coded automatically when needed."
+msgstr "迴歸模型的預測變數。名義型和有序型預測變數在需要時會自動進行虛擬編碼。"
+
+msgctxt "bfpackRegressionLinear|"
+msgid "β"
+msgstr "β"
+
+msgctxt "bfpackRegressionLinear|"
+msgid "each regression coefficient"
+msgstr "每個迴歸係數"
+
+msgctxt "bfpackRegressionLogistic|"
+msgid ""
+"Assign an ordinal or nominal dependent variable and predictor variables for"
+"the logistic regression model."
+msgstr "為邏輯迴歸模型指定有序或名義因變數和預測變數。"
+
+msgctxt "bfpackRegressionLogistic|"
+msgid "Available variables from the data set that can be assigned to the analysis."
+msgstr "資料集中可指定到分析中的可用變數。"
+
+msgctxt "bfpackRegressionLogistic|"
+msgid "Dependent Variable"
+msgstr "因變數"
+
+msgctxt "bfpackRegressionLogistic|"
+msgid ""
+"Outcome variable for the logistic model. Ordinal outcomes fit an ordered"
+"logistic regression; binary nominal outcomes fit a binary logistic regression."
+msgstr ""
+"邏輯模型的結果變數。有序結果擬合有序邏輯迴歸；二分名義結果擬合二分邏輯迴歸。"
+
+msgctxt "bfpackRegressionLogistic|"
+msgid "Predictor Variables"
+msgstr "預測變數"
+
+msgctxt "bfpackRegressionLogistic|"
+msgid "Predictor variables for the logistic regression model."
+msgstr "邏輯迴歸模型的預測變數。"
+
+msgctxt "bfpackRegressionLogistic|"
+msgid "β"
+msgstr "β"
+
+msgctxt "bfpackRegressionLogistic|"
+msgid "each logistic regression coefficient"
+msgstr "每個邏輯迴歸係數"
+
+msgctxt "bfpackTTestIndependentSamples|"
+msgid ""
+"Assign one continuous outcome variable and one nominal grouping variable for"
+"the independent samples t-test."
+msgstr "為獨立樣本t檢驗指定一個連續結果變數和一個名義分組變數。"
+
+msgctxt "bfpackTTestIndependentSamples|"
+msgid "Available variables from the data set that can be assigned to the analysis."
+msgstr "資料集中可指定到分析中的可用變數。"
+
+msgctxt "bfpackTTestIndependentSamples|"
+msgid "Variables"
+msgstr "變數"
+
+msgctxt "bfpackTTestIndependentSamples|"
+msgid "Continuous outcome variable to compare between the two groups."
+msgstr "在兩組之間進行比較的連續結果變數。"
+
+msgctxt "bfpackTTestIndependentSamples|"
+msgid "Grouping Variable"
+msgstr "分組變數"
+
+msgctxt "bfpackTTestIndependentSamples|"
+msgid "Nominal variable defining the two independent groups."
+msgstr "定義兩個獨立組的名義變數。"
+
+msgctxt "bfpackTTestIndependentSamples|"
+msgid "difference"
+msgstr "差異"
+
+msgctxt "bfpackTTestIndependentSamples|"
+msgid "the group mean difference"
+msgstr "組均值差異"
+
+msgctxt "bfpackTTestMultiSample|"
+msgid ""
+"Assign the continuous variables whose means will be tested jointly in the"
+"multivariate t-test."
+msgstr "指定在多元t檢驗中共同檢驗均值的連續變數。"
+
+msgctxt "bfpackTTestMultiSample|"
+msgid "Available variables from the data set that can be assigned to the analysis."
+msgstr "資料集中可指定到分析中的可用變數。"
+
+msgctxt "bfpackTTestMultiSample|"
+msgid "Variables"
+msgstr "變數"
+
+msgctxt "bfpackTTestMultiSample|"
+msgid "Continuous variables whose means are tested simultaneously."
+msgstr "同時檢驗均值的連續變數。"
+
+msgctxt "bfpackTTestMultiSample|"
+msgid "μ"
+msgstr "μ"
+
+msgctxt "bfpackTTestMultiSample|"
+msgid "the means of the selected variables"
+msgstr "所選變數的均值"
+
+msgctxt "bfpackTTestMultiSample|"
+msgid "Specify test value"
+msgstr "指定檢驗值"
+
+msgctxt "bfpackTTestMultiSample|"
+msgid ""
+"Set the reference mean for each selected variable in the standard hypothesis"
+"test."
+msgstr "在標準假設檢驗中為每個所選變數設定參考均值。"
+
+#, qt-format
+msgctxt "bfpackTTestMultiSample|"
+msgid "Test value for the mean of %1."
+msgstr "%1的均值的檢驗值。"
+
+msgctxt "bfpackTTestOneSample|"
+msgid "Assign one continuous variable for the one-sample t-test."
+msgstr "為單樣本t檢驗指定一個連續變數。"
+
+msgctxt "bfpackTTestOneSample|"
+msgid "Available variables from the data set that can be assigned to the analysis."
+msgstr "資料集中可指定到分析中的可用變數。"
+
+msgctxt "bfpackTTestOneSample|"
+msgid "Variable"
+msgstr "變數"
+
+msgctxt "bfpackTTestOneSample|"
+msgid "Continuous variable whose mean will be tested."
+msgstr "用於檢驗其均值的連續變數。"
+
+msgctxt "bfpackTTestOneSample|"
+msgid "mu"
+msgstr "mu"
+
+msgctxt "bfpackTTestOneSample|"
+msgid "the population mean"
+msgstr "總體均值"
+
+msgctxt "bfpackTTestPairedSamples|"
+msgid "Assign the two continuous variables that form the paired comparison."
+msgstr "指定構成配對比較的兩個連續變數。"
+
+msgctxt "bfpackTTestPairedSamples|"
+msgid "Available variables from the data set that can be assigned to the analysis."
+msgstr "資料集中可指定到分析中的可用變數。"
+
+msgctxt "bfpackTTestPairedSamples|"
+msgid "Pair"
+msgstr "配對"
+
+msgctxt "bfpackTTestPairedSamples|"
+msgid "Pair the two continuous variables whose mean difference will be tested."
+msgstr "將兩個將檢驗均值差異的連續變數配對。"
+
+msgctxt "bfpackTTestPairedSamples|"
+msgid "difference"
+msgstr "差異"
+
+msgctxt "bfpackTTestPairedSamples|"
+msgid "the mean difference between the paired variables"
+msgstr "配對變數之間的均值差異"
+
+msgctxt "bfpackVariances|"
+msgid ""
+"Assign one outcome variable and one grouping variable for the variance"
+"comparison."
+msgstr "為方差比較指定一個結果變數和一個分組變數。"
+
+msgctxt "bfpackVariances|"
+msgid "Available variables from the data set that can be assigned to the analysis."
+msgstr "資料集中可指定到分析中的可用變數。"
+
+msgctxt "bfpackVariances|"
+msgid "Variable"
+msgstr "變數"
+
+msgctxt "bfpackVariances|"
+msgid "Outcome variable whose group variances will be compared."
+msgstr "用於比較組間方差的結果變數。"
+
+msgctxt "bfpackVariances|"
+msgid "Grouping Variable"
+msgstr "分組變數"
+
+msgctxt "bfpackVariances|"
+msgid "Nominal variable defining the groups whose variances are compared."
+msgstr "定義比較方差的各組的的名義變數。"
+
+msgctxt "bfpackVariances|"
+msgid "the group variances"
+msgstr "組方差"
+
+msgctxt "HypothesesWindowManual|"
+msgid "<b>Manual Hypothesis Test</b>"
+msgstr "<b>手動假設檢驗</b>"
+
+msgctxt "HypothesesWindowManual|"
+msgid "Click for more information"
+msgstr "點選瞭解更多資訊"
+
+msgctxt "HypothesesWindowManual|"
+msgid ""
+"List of manually specified hypotheses. Use parameter names from the Parameters"
+"box, assign prior weights, and tick Include for the hypotheses that should be"
+"tested."
+msgstr ""
+"手動指定假設的列表。使用“引數”框中的引數名稱，分配先驗權重，併為應檢驗的假設勾選Include。"
+
+msgctxt "HypothesesWindowManual|"
+msgid "Hypotheses"
+msgstr "假設"
+
+msgctxt "HypothesesWindowManual|"
+msgid "Prior weight"
+msgstr "先驗權重"
+
+msgctxt "HypothesesWindowManual|"
+msgid "Include"
+msgstr "Include"
+
+#, qt-format
+msgctxt "HypothesesWindowManual|"
+msgid "H%1:"
+msgstr "H%1:"
+
+msgctxt "HypothesesWindowManual|"
+msgid ""
+"Enter a constrained hypothesis using the shown parameter names, for example a"
+"= 0, a > 0, or a > b > 0."
+msgstr "使用顯示出的引數名稱輸入一個受限假設，例如 a = 0、a > 0 或 a > b > 0。"
+
+msgctxt "HypothesesWindowManual|"
+msgid "Prior weight for this manual hypothesis."
+msgstr "此手動假設的先驗權重。"
+
+msgctxt "HypothesesWindowManual|"
+msgid "Include this manual hypothesis in the analysis."
+msgstr "在分析中納入此手動假設。"
+
+msgctxt "HypothesesWindowManual|"
+msgid "Complement hypothesis"
+msgstr "互補假設"
+
+msgctxt "HypothesesWindowManual|"
+msgid "Prior weight assigned to the complement hypothesis."
+msgstr "分配給互補假設的先驗權重。"
+
+msgctxt "HypothesesWindowManual|"
+msgid "Include the complement hypothesis in the hypothesis set."
+msgstr "在假設集合中納入互補假設。"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "mu"
+msgstr "mu"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "the means of the selected variables relative to their test values"
+msgstr "所選變數相對於其檢驗值的均值"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "the group variances"
+msgstr "組方差"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "ρ"
+msgstr "ρ"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "the correlation coefficients"
+msgstr "相關係數"
+
+#, qt-format
+msgctxt "HypothesesWindowStandard|"
+msgid "the parameter %1"
+msgstr "引數 %1"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "<b>Standard Hypothesis Test</b>"
+msgstr "<b>標準假設檢驗</b>"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "Tests whether each selected mean equals its test value or differs from it."
+msgstr "檢驗每個所選均值是否等於其檢驗值或與之不同。"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "Tests whether the group variances are equal or unequal."
+msgstr "檢驗組方差是相等還是不相等。"
+
+#, qt-format
+msgctxt "HypothesesWindowStandard|"
+msgid ""
+"Tests whether %1 is equal to, smaller than, or larger than the specified test"
+"value."
+msgstr "檢驗%1是等於、小於還是大於指定的檢驗值。"
+
+#, qt-format
+msgctxt "HypothesesWindowStandard|"
+msgid "Tests whether %1 is equal to, smaller than, or larger than zero."
+msgstr "檢驗%1是等於、小於還是大於零。"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "H0: "
+msgstr "H0: "
+
+msgctxt "HypothesesWindowStandard|"
+msgid "H±: "
+msgstr "H±: "
+
+msgctxt "HypothesesWindowStandard|"
+msgid "H0: Equal variances"
+msgstr "H0: 等方差"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "H±: Unequal variances"
+msgstr "H±: 異方差"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "H-: "
+msgstr "H-: "
+
+msgctxt "HypothesesWindowStandard|"
+msgid "H+: "
+msgstr "H+: "
+
+msgctxt "HypothesesWindowStandard|"
+msgid "Hypotheses"
+msgstr "假設"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "Test value"
+msgstr "檢驗值"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "Prior weights"
+msgstr "先驗權重"
+
+#, qt-format
+msgctxt "HypothesesWindowStandard|"
+msgid "Reference value used in the standard hypothesis test for %1."
+msgstr "在%1的標準假設檢驗中使用的參考值。"
+
+msgctxt "HypothesesWindowStandard|"
+msgid ""
+"Prior weight for the first standard hypothesis. Larger values assign more"
+"prior probability to that hypothesis."
+msgstr ""
+"第一個標準假設的先驗權重。較大的值會給該假設分配更多的先驗機率。"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "Prior weight for the second standard hypothesis."
+msgstr "第二個標準假設的先驗權重。"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "Prior weight for the third standard hypothesis."
+msgstr "第三個標準假設的先驗權重。"
+
+msgctxt "Options|"
+msgid "Options"
+msgstr "選項"
+
+msgctxt "Options|"
+msgid ""
+"Configure Bayes factor reporting, tables, plots, uncertainty intervals,"
+"sampling settings, and model-specific options."
+msgstr "配置貝葉斯因子報告、表格、繪圖、不確定區間、取樣設定和特定於模型的選項。"
+
+msgctxt "Options|"
+msgid "Bayes Factor"
+msgstr "貝葉斯因子"
+
+msgctxt "Options|"
+msgid "Log scale"
+msgstr "對數尺度"
+
+msgctxt "Options|"
+msgid "Report Bayes factors on the natural logarithm scale."
+msgstr "以自然對數尺度報告貝葉斯因子。"
+
+msgctxt "Options|"
+msgid "Bayes factor type"
+msgstr "貝葉斯因子型別"
+
+msgctxt "Options|"
+msgid ""
+"Choose how the default fractional Bayes factor prior is centered for"
+"hypothesis testing."
+msgstr "選擇在假設檢驗中預設分數貝葉斯因子先驗的中心化方式。"
+
+msgctxt "Options|"
+msgid "Fractional Bayes factor"
+msgstr "分數貝葉斯因子"
+
+msgctxt "Options|"
+msgid ""
+"Uses the default fractional Bayes factor, with the fractional prior centered"
+"at the maximum likelihood estimate."
+msgstr "使用預設的分數貝葉斯因子，將分數先驗以最大似然估計為中心。"
+
+msgctxt "Options|"
+msgid "Adjusted fractional Bayes factor"
+msgstr "調整後的分數貝葉斯因子"
+
+msgctxt "Options|"
+msgid ""
+"Uses the adjusted fractional Bayes factor, with the fractional prior centered"
+"at a null value."
+msgstr "使用調整後的分數貝葉斯因子，將分數先驗以零值為中心。"
+
+msgctxt "Options|"
+msgid "Tables"
+msgstr "表格"
+
+msgctxt "Options|"
+msgid "Select which result tables should be included in the output."
+msgstr "選擇輸出中應包括哪些結果表格。"
+
+msgctxt "Options|"
+msgid "Standard hypotheses: View BFs"
+msgstr "標準假設：檢視BFs"
+
+msgctxt "Options|"
+msgid "Show the Bayes factor table for the standard hypothesis test."
+msgstr "顯示標準假設檢驗的貝葉斯因子表。"
+
+msgctxt "Options|"
+msgid "Manual hypotheses: Computation BFs"
+msgstr "手動假設：計算BFs"
+
+msgctxt "Options|"
+msgid ""
+"Show the table with fit, complexity, and Bayes factor components for the"
+"manual hypotheses."
+msgstr "顯示手動假設的擬合度、複雜度和貝葉斯因子分量表。"
+
+msgctxt "Options|"
+msgid "Estimates"
+msgstr "估計值"
+
+msgctxt "Options|"
+msgid "Show the parameter estimates table with uncertainty intervals."
+msgstr "顯示帶不確定區間的引數估計表。"
+
+msgctxt "Options|"
+msgid "Plots"
+msgstr "圖表"
+
+msgctxt "Options|"
+msgid "Select which plots should be included in the output."
+msgstr "選擇輸出中應包括哪些圖表。"
+
+msgctxt "Options|"
+msgid "Manual hypotheses plots"
+msgstr "手動假設圖"
+
+msgctxt "Options|"
+msgid "Plot the prior and posterior probabilities of the manual hypotheses."
+msgstr "繪製手動假設的先驗和後驗機率。"
+
+msgctxt "Options|"
+msgid "Prior and posterior plot"
+msgstr "先驗與後驗圖"
+
+msgctxt "Options|"
+msgid "Plot the prior and posterior distributions of the sampled correlations."
+msgstr "繪製取樣相關性的先驗和後驗分佈。"
+
+msgctxt "Options|"
+msgid "Estimation info"
+msgstr "估計資訊"
+
+msgctxt "Options|"
+msgid "Add estimation summaries to the prior and posterior correlation plot."
+msgstr "在先驗與後驗相關圖中新增估計摘要。"
+
+msgctxt "Options|"
+msgid "Testing info"
+msgstr "檢驗資訊"
+
+msgctxt "Options|"
+msgid "Add testing summaries for the constrained correlation hypotheses to the plot."
+msgstr "在圖中新增受限相關性假設的檢驗摘要。"
+
+msgctxt "Options|"
+msgid "Traceplot"
+msgstr "跡線圖"
+
+msgctxt "Options|"
+msgid "Plot the MCMC sampling traces for the correlations."
+msgstr "繪製相關性的MCMC取樣跡線。"
+
+msgctxt "Options|"
+msgid "Additional Options"
+msgstr "附加選項"
+
+msgctxt "Options|"
+msgid ""
+"Set interval levels, standardization, sampling details, and other model-"
+"specific analysis settings."
+msgstr "設定區間水平、標準化、取樣細節和其他特定於模型的分析設定。"
+
+msgctxt "Options|"
+msgid "Uncertainty interval level"
+msgstr "不確定區間水平"
+
+msgctxt "Options|"
+msgid "Coverage level of the reported uncertainty interval, for example 95%."
+msgstr "所報告不確定區間的覆蓋水平，例如95%。"
+
+msgctxt "Options|"
+msgid "Standardize continuous variables"
+msgstr "標準化連續變數"
+
+msgctxt "Options|"
+msgid "Standardize continuous variables before fitting the model."
+msgstr "在擬合模型之前對連續變數進行標準化。"
+
+msgctxt "Options|"
+msgid "Variances"
+msgstr "方差"
+
+msgctxt "Options|"
+msgid "Assume equal or unequal group variances in the independent samples t-test."
+msgstr "在獨立樣本t檢驗中假設組方差相等或不相等。"
+
+msgctxt "Options|"
+msgid "Equal"
+msgstr "相等"
+
+msgctxt "Options|"
+msgid "Assume the two groups have equal variances."
+msgstr "假設兩個組的方差相等。"
+
+msgctxt "Options|"
+msgid "Unequal"
+msgstr "不相等"
+
+msgctxt "Options|"
+msgid ""
+"Allow the two groups to have different variances. Bayes factors are then"
+"approximated by iterative sampling."
+msgstr "允許兩個組具有不同的方差。貝葉斯因子隨後通過迭代取樣來近似。"
+
+msgctxt "Options|"
+msgid "No. iterations for BF computation"
+msgstr "BF計算的迭代次數"
+
+msgctxt "Options|"
+msgid "Number of iterations used when Bayes factors are computed by sampling."
+msgstr "通過取樣計算貝葉斯因子時使用的迭代次數。"
+
+msgctxt "Options|"
+msgid "No. iterations for MCMC"
+msgstr "MCMC的迭代次數"
+
+msgctxt "Options|"
+msgid "Number of posterior draws used to estimate the correlation model."
+msgstr "用於估計相關性模型的後驗抽樣次數。"
+
+msgctxt "Options|"
+msgid "Sampling Method"
+msgstr "取樣方法"
+
+msgctxt "Options|"
+msgid "Sampling algorithm used for posterior estimation of the correlation matrix."
+msgstr "用於相關矩陣後驗估計的取樣演算法。"
+
+msgctxt "Options|"
+msgid "LKJ"
+msgstr "LKJ"
+
+msgctxt "Options|"
+msgid "Use the LKJ method to sample correlation matrices."
+msgstr "使用LKJ方法對相關矩陣進行取樣。"
+
+msgctxt "Options|"
+msgid "LD"
+msgstr "LD"
+
+msgctxt "Options|"
+msgid "Use the Liu-Daniels method to sample correlation matrices."
+msgstr "使用Liu-Daniels方法對相關矩陣進行取樣。"
+
+msgctxt "Options|"
+msgid "Nugget"
+msgstr "Nugget"
+
+msgctxt "Options|"
+msgid ""
+"Scaling factor used with the LD sampler to keep sampled correlations away from"
+"plus or minus one when needed."
+msgstr "與LD取樣本一起使用的縮放因子，用於在需要時使取樣的相關性遠離正負一。"
+
+msgctxt "Options|"
+msgid "Exclude intercept from the model"
+msgstr "從模型中去掉截距"
+
+msgctxt "Options|"
+msgid ""
+"Remove the intercept from the fitted model. This is often appropriate for"
+"ANOVA-style parameterizations."
+msgstr "從擬合模型中去掉截距。這通常適用於ANOVA式引數化。"
+
+msgctxt "Options|"
+msgid "Fix the random number seed to make the analysis exactly reproducible."
+msgstr "固定隨機數種子以使分析完全可復現。"
+
+msgctxt "Options|"
+msgid "Interaction terms"
+msgstr "互動項"
+
+msgctxt "Options|"
+msgid "Select which candidate two-way interaction terms should be added to the model."
+msgstr "選擇應將哪些候選雙向互動項新增到模型中。"
+
+msgctxt "Options|"
+msgid "Include"
+msgstr "Include"
+
+msgctxt "Options|"
+msgid ""
+"Available two-way interaction terms generated from the selected predictors,"
+"factors, or covariates."
+msgstr "由所選預測變數、因子或協變數生成的可用雙向互動項。"
+
+msgctxt "Options|"
+msgid "Include this interaction term in the model."
+msgstr "在模型中納入此互動項。"
+
+msgctxt "Options|"
+msgid "Effects"
+msgstr "效應"
+
+msgctxt "Options|"
+msgid ""
+"Prior weights for the omnibus hypotheses that main and interaction effects are"
+"absent or present in the ANOVA model."
+msgstr "主效應和互動效應在ANOVA模型中存在或不存在的整體假設的先驗權重。"
+
+msgctxt "Options|"
+msgid "Prior weight"
+msgstr "先驗權重"
+
+msgctxt "Options|"
+msgid "Main zero effect"
+msgstr "主效應為零"
+
+msgctxt "Options|"
+msgid "Prior weight for the hypothesis that a main effect is absent."
+msgstr "主效應不存在的假設的先驗權重。"
+
+msgctxt "Options|"
+msgid "Main non-zero effect"
+msgstr "主效應非零"
+
+msgctxt "Options|"
+msgid "Prior weight for the hypothesis that a main effect is present."
+msgstr "主效應存在的假設的先驗權重。"
+
+msgctxt "Options|"
+msgid "Interaction zero effect"
+msgstr "互動效應為零"
+
+msgctxt "Options|"
+msgid "Prior weight for the hypothesis that an interaction effect is absent."
+msgstr "互動效應不存在的假設的先驗權重。"
+
+msgctxt "Options|"
+msgid "Interaction non-zero effect"
+msgstr "互動效應非零"
+
+msgctxt "Options|"
+msgid "Prior weight for the hypothesis that an interaction effect is present."
+msgstr "互動效應存在的假設的先驗權重。"
+
+msgctxt "ParametersWindow|"
+msgid ""
+"Shows the parameter names that are currently available for manual equality and"
+"order constraints. The labels depend on the selected variables and the fitted"
+"model."
+msgstr ""
+"顯示當前可用於手動相等約束和有序約束的引數名稱。標籤取決於所選的變數和擬合的模型。"
+
+msgctxt "ParametersWindow|"
+msgid "<b>Parameters:</b>"
+msgstr "<b>引數：</b>"
+
+msgctxt "ParametersWindow|"
+msgid ""
+"The parameters that can be tested in the manual hypothesis test appear here"
+"after you assign variables to the analysis."
+msgstr "在您將變數指定到分析後，可在手動假設檢驗中檢驗的引數會顯示在此處。"

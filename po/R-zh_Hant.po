@@ -1,0 +1,289 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: jaspBfpack 0.1\n"
+"Report-Msgid-Bugs-To: github.com/jasp-stats/jasp-issues/issues\n"
+"POT-Creation-Date: 2026-01-01 00:00+0000\n"
+"PO-Revision-Date: 2026-01-01 00:00+0000\n"
+"Last-Translator: JASP translators\n"
+"Language-Team: Chinese (Traditional)\n"
+"Language: zh_Hant\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid ""
+"BFpack does not accept factor levels that contain spaces. Please remove the"
+"spaces from your factor levels to continue."
+msgstr ""
+"BFpack不接受包含空格的因子水平。請移除因子水平中的空格以繼續。"
+
+msgid "Only two variables can be specified for the paired samples t-test."
+msgstr "配對樣本t檢驗只能指定兩個變數。"
+
+#, qt-format
+msgid "The parameter estimation failed. Error message: %1$s"
+msgstr "引數估計失敗。錯誤訊息：%1$s"
+
+#, qt-format
+msgid "Could not extract parameter names. Error message: %1$s"
+msgstr "無法提取引數名稱。錯誤訊息：%1$s"
+
+msgid ""
+"BFpack does not accept factor levels that start with a number. Please remove"
+"the numbers from your factor levels to continue."
+msgstr ""
+"BFpack不接受以數字開頭的因子水平。請移除因子水平中的數字以繼續。"
+
+msgid ""
+"BFpack failed because of an issue with the specification of the manual"
+"hypotheses. Please check that you specified them correctly. You should then"
+"refresh the analysis."
+msgstr ""
+"BFpack因手動假設的設定問題而失敗。請檢查您是否正確設定了這些假設，然後重新整理分析。"
+
+#, qt-format
+msgid "BFpack failed with the following error message: %1$s"
+msgstr "BFpack失敗，錯誤訊息如下：%1$s"
+
+msgid "Posterior Probabilities of the Standard Hypotheses"
+msgstr "標準假設的後驗機率"
+
+msgid "Equal Variances"
+msgstr "等方差"
+
+msgid "Unequal Variances"
+msgstr "異方差"
+
+msgid "Pr(H0|Data)"
+msgstr "Pr(H0|資料)"
+
+msgid "Pr(H±|Data)"
+msgstr "Pr(H±|資料)"
+
+msgid "Pr(H-|Data)"
+msgstr "Pr(H-|資料)"
+
+msgid "Pr(H+|Data)"
+msgstr "Pr(H+|資料)"
+
+#, qt-format
+msgid "%1$sGroup %2$s corresponds to level %3$s in variable %4$s. "
+msgstr "%1$s組%2$s對應於變數%4$s中的水平%3$s。 "
+
+msgid "Prior probabilities of hypotheses H0 and H±:"
+msgstr "假設H0和H±的先驗機率："
+
+msgid "Prior probabilities of hypotheses H0, H- and H+: "
+msgstr "假設H0、H-和H+的先驗機率： "
+
+#, qt-format
+msgid ""
+"R-hat values for the posterior samples of the correlation coefficients are"
+"larger than 1.05.                                            This indicates"
+"that the chains have not converged well."
+"If you used the 'LD' sampling method try decreasing the nugget parameter or"
+"running the chains for more iterations."
+"The following variables have R-hat > 1.05: %1$s."
+msgstr ""
+"相關係數後驗樣本的R-hat值大於1.05。這表示鏈未能很好地收斂。"
+"如果您使用了“LD”取樣方法，請嘗試減小nugget引數或讓鏈執行更多迭代。"
+"以下變數的R-hat > 1.05：%1$s。"
+
+msgid ""
+"The multivariate R-hat value is larger than 1.05, indicating that the chains"
+"have not converged well.                               If you used the 'LD'"
+"sampling method try decreasing the nugget parameter or running the chains for"
+"more iterations."
+msgstr ""
+"多元R-hat值大於1.05，表示鏈未能很好地收斂。"
+"如果您使用了“LD”取樣方法，請嘗試減小nugget引數或讓鏈執行更多迭代。"
+
+msgid ""
+"The number of factor levels in the grouping is greater than 2."
+"Only the first two levels were used."
+msgstr ""
+"分組變數中的因子水平數大於2。僅使用了前兩個水平。"
+
+msgid "Posterior Probabilities for Main Effects"
+msgstr "主效應的後驗機率"
+
+msgid "Pr(No effect)"
+msgstr "Pr(無效應)"
+
+msgid "Pr(Full Model)"
+msgstr "Pr(全模型)"
+
+#, qt-format
+msgid "Prior probabilities of the main effects: %1$s."
+msgstr "主效應的先驗機率：%1$s。"
+
+msgid "Posterior Probabilities for Interaction Effects"
+msgstr "互動效應的後驗機率"
+
+msgid "Pr(Full model)"
+msgstr "Pr(全模型)"
+
+#, qt-format
+msgid "Prior probabilities of the interaction effects: %1$s."
+msgstr "互動效應的先驗機率：%1$s。"
+
+msgid "Manual Hypotheses Legend"
+msgstr "手動假設圖例"
+
+msgid "Hypothesis"
+msgstr "假設"
+
+msgid "Check the 'Include' box to test the hypothesis."
+msgstr "勾選“Include”框以檢驗該假設。"
+
+msgid "H%i"
+msgstr "H%i"
+
+msgid "Evidence Matrix (log BFs)"
+msgstr "證據矩陣（對數BFs）"
+
+msgid "Evidence Matrix (BFs)"
+msgstr "證據矩陣（BFs）"
+
+msgid "H1"
+msgstr "H1"
+
+msgid ""
+"The BFs are to be interpreted as the hypotheses in rows over the hypotheses in"
+"columns."
+msgstr "BF應被解釋為行中的假設相對於列中的假設。"
+
+msgid "Posterior Model Probability"
+msgstr "後驗模型機率"
+
+msgid "P(H|Data)"
+msgstr "P(H|資料)"
+
+msgid "Log BFs: Manual Hypotheses"
+msgstr "對數BFs：手動假設"
+
+msgid "BFs: Manual Hypotheses"
+msgstr "BFs：手動假設"
+
+msgid "Equal-Complex"
+msgstr "等複雜度"
+
+msgid "Order-Complex"
+msgstr "序複雜度"
+
+msgid "Equal-Fit"
+msgstr "等擬合"
+
+msgid "Order-Fit"
+msgstr "序擬合"
+
+msgid "Equal-BF"
+msgstr "等BF"
+
+msgid "Order-BF"
+msgstr "序BF"
+
+msgid "BF"
+msgstr "BF"
+
+msgid "Posterior Probability"
+msgstr "後驗機率"
+
+msgid "H"
+msgstr "H"
+
+msgid "Estimates Table"
+msgstr "估計表"
+
+msgid "%s%% CI"
+msgstr "%s%% CI"
+
+msgid "%s Lower Bound"
+msgstr "%s 下限"
+
+msgid "%s Upper Bound"
+msgstr "%s 上限"
+
+msgid "Mean"
+msgstr "均值"
+
+msgid "Median"
+msgstr "中位數"
+
+msgid "P(>0)"
+msgstr "P(>0)"
+
+msgid "The uncertainty interval is a central credible interval."
+msgstr "不確定區間為中心可信區間。"
+
+msgid "The uncertainty interval is a frequentist confidence interval."
+msgstr "不確定區間為頻率學派置信區間。"
+
+msgid ""
+"The uncertainty interval is a frequentist confidence interval as well as a"
+"credible interval with a noninformative Jeffrey's prior."
+msgstr ""
+"不確定區間既是頻率學派置信區間，也是採用無資訊Jeffrey先驗的可信區間。"
+
+msgid "Log Standard Hypotheses: View BFs"
+msgstr "對數標準假設：檢視BFs"
+
+msgid "Standard Hypotheses: View BFs"
+msgstr "標準假設：檢視BFs"
+
+msgid "H0 vs. H±)"
+msgstr "H0對H±)"
+
+msgid "H± vs. H0"
+msgstr "H±對H0"
+
+msgid "Best vs. H0"
+msgstr "最佳對H0"
+
+msgid "Best vs. H-"
+msgstr "最佳對H-"
+
+msgid "Best vs. H+"
+msgstr "最佳對H+"
+
+msgid "difference"
+msgstr "差異"
+
+msgid ""
+"If a cell is empty the hypothesis in that column is the best performing"
+"hypothesis."
+msgstr "如果某個單元格為空，則該列中的假設為表現最佳的假設。"
+
+msgid "Prior and Posterior Probabilities"
+msgstr "先驗與後驗機率"
+
+msgid "Prior Probabilities"
+msgstr "先驗機率"
+
+msgid "Posterior Probabilities"
+msgstr "後驗機率"
+
+msgid "Posterior Distribution"
+msgstr "後驗分佈"
+
+msgid "Prior"
+msgstr "先驗"
+
+msgid "Posterior"
+msgstr "後驗"
+
+msgid "%s%% CI "
+msgstr "%s%% CI "
+
+msgid "ρ"
+msgstr "ρ"
+
+msgid "Traceplot"
+msgstr "跡線圖"
+
+msgid "x"
+msgstr "x"
+
+msgid "Iterations"
+msgstr "迭代次數"
