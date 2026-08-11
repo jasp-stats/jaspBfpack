@@ -1,0 +1,272 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"BFpack does not accept factor levels that contain spaces. Please remove the"
+"spaces from your factor levels to continue."
+msgstr ""
+
+msgid "Only two variables can be specified for the paired samples t-test."
+msgstr ""
+
+#, qt-format
+msgid "The parameter estimation failed. Error message: %1$s"
+msgstr ""
+
+#, qt-format
+msgid "Could not extract parameter names. Error message: %1$s"
+msgstr ""
+
+msgid ""
+"BFpack does not accept factor levels that start with a number. Please remove"
+"the numbers from your factor levels to continue."
+msgstr ""
+
+msgid ""
+"BFpack failed because of an issue with the specification of the manual"
+"hypotheses. Please check that you specified them correctly. You should then"
+"refresh the analysis."
+msgstr ""
+
+#, qt-format
+msgid "BFpack failed with the following error message: %1$s"
+msgstr ""
+
+msgid "Posterior Probabilities of the Standard Hypotheses"
+msgstr ""
+
+msgid "Equal Variances"
+msgstr ""
+
+msgid "Unequal Variances"
+msgstr ""
+
+msgid "Pr(H0|Data)"
+msgstr ""
+
+msgid "Pr(H±|Data)"
+msgstr ""
+
+msgid "Pr(H-|Data)"
+msgstr ""
+
+msgid "Pr(H+|Data)"
+msgstr ""
+
+#, qt-format
+msgid "%1$sGroup %2$s corresponds to level %3$s in variable %4$s. "
+msgstr ""
+
+msgid "Prior probabilities of hypotheses H0 and H±:"
+msgstr ""
+
+msgid "Prior probabilities of hypotheses H0, H- and H+: "
+msgstr ""
+
+#, qt-format
+msgid ""
+"R-hat values for the posterior samples of the correlation coefficients are"
+"larger than 1.05.                                            This indicates"
+"that the chains have not converged well."
+"If you used the 'LD' sampling method try decreasing the nugget parameter or"
+"running the chains for more iterations."
+"The following variables have R-hat > 1.05: %1$s."
+msgstr ""
+
+msgid ""
+"The multivariate R-hat value is larger than 1.05, indicating that the chains"
+"have not converged well.                               If you used the 'LD'"
+"sampling method try decreasing the nugget parameter or running the chains for"
+"more iterations."
+msgstr ""
+
+msgid ""
+"The number of factor levels in the grouping is greater than 2."
+"Only the first two levels were used."
+msgstr ""
+
+msgid "Posterior Probabilities for Main Effects"
+msgstr ""
+
+msgid "Pr(No effect)"
+msgstr ""
+
+msgid "Pr(Full Model)"
+msgstr ""
+
+#, qt-format
+msgid "Prior probabilities of the main effects: %1$s."
+msgstr ""
+
+msgid "Posterior Probabilities for Interaction Effects"
+msgstr ""
+
+msgid "Pr(Full model)"
+msgstr ""
+
+#, qt-format
+msgid "Prior probabilities of the interaction effects: %1$s."
+msgstr ""
+
+msgid "Manual Hypotheses Legend"
+msgstr ""
+
+msgid "Hypothesis"
+msgstr ""
+
+msgid "Check the 'Include' box to test the hypothesis."
+msgstr ""
+
+msgid "H%i"
+msgstr ""
+
+msgid "Evidence Matrix (log BFs)"
+msgstr ""
+
+msgid "Evidence Matrix (BFs)"
+msgstr ""
+
+msgid "H1"
+msgstr ""
+
+msgid ""
+"The BFs are to be interpreted as the hypotheses in rows over the hypotheses in"
+"columns."
+msgstr ""
+
+msgid "Posterior Model Probability"
+msgstr ""
+
+msgid "P(H|Data)"
+msgstr ""
+
+msgid "Log BFs: Manual Hypotheses"
+msgstr ""
+
+msgid "BFs: Manual Hypotheses"
+msgstr ""
+
+msgid "Equal-Complex"
+msgstr ""
+
+msgid "Order-Complex"
+msgstr ""
+
+msgid "Equal-Fit"
+msgstr ""
+
+msgid "Order-Fit"
+msgstr ""
+
+msgid "Equal-BF"
+msgstr ""
+
+msgid "Order-BF"
+msgstr ""
+
+msgid "BF"
+msgstr ""
+
+msgid "Posterior Probability"
+msgstr ""
+
+msgid "H"
+msgstr ""
+
+msgid "Estimates Table"
+msgstr ""
+
+msgid "%s%% CI"
+msgstr ""
+
+msgid "%s Lower Bound"
+msgstr ""
+
+msgid "%s Upper Bound"
+msgstr ""
+
+msgid "Mean"
+msgstr ""
+
+msgid "Median"
+msgstr ""
+
+msgid "P(>0)"
+msgstr ""
+
+msgid "The uncertainty interval is a central credible interval."
+msgstr ""
+
+msgid "The uncertainty interval is a frequentist confidence interval."
+msgstr ""
+
+msgid ""
+"The uncertainty interval is a frequentist confidence interval as well as a"
+"credible interval with a noninformative Jeffrey's prior."
+msgstr ""
+
+msgid "Log Standard Hypotheses: View BFs"
+msgstr ""
+
+msgid "Standard Hypotheses: View BFs"
+msgstr ""
+
+msgid "H0 vs. H±)"
+msgstr ""
+
+msgid "H± vs. H0"
+msgstr ""
+
+msgid "Best vs. H0"
+msgstr ""
+
+msgid "Best vs. H-"
+msgstr ""
+
+msgid "Best vs. H+"
+msgstr ""
+
+msgid "difference"
+msgstr ""
+
+msgid ""
+"If a cell is empty the hypothesis in that column is the best performing"
+"hypothesis."
+msgstr ""
+
+msgid "Prior and Posterior Probabilities"
+msgstr ""
+
+msgid "Prior Probabilities"
+msgstr ""
+
+msgid "Posterior Probabilities"
+msgstr ""
+
+msgid "Posterior Distribution"
+msgstr ""
+
+msgid "Prior"
+msgstr ""
+
+msgid "Posterior"
+msgstr ""
+
+msgid "%s%% CI "
+msgstr ""
+
+msgid "ρ"
+msgstr ""
+
+msgid "Traceplot"
+msgstr ""
+
+msgid "x"
+msgstr ""
+
+msgid "Iterations"
+msgstr ""
+

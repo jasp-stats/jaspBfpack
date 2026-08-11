@@ -1,0 +1,303 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: R-jaspBfpack\n"
+"PO-Revision-Date: 2026-08-10 00:00+0000\n"
+"Last-Translator: automated <noreply>\n"
+"Language-Team: French\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+
+msgid ""
+"BFpack does not accept factor levels that contain spaces. Please remove the"
+"spaces from your factor levels to continue."
+msgstr ""
+"BFpack n'accepte pas les niveaux de facteur qui contiennent des espaces."
+"Veuillez retirer les espaces de vos niveaux de facteur pour continuer."
+
+msgid "Only two variables can be specified for the paired samples t-test."
+msgstr "Seules deux variables peuvent être spécifiées pour le test t pour échantillons appariés."
+
+#, qt-format
+msgid "The parameter estimation failed. Error message: %1$s"
+msgstr "L'estimation des paramètres a échoué. Message d'erreur : %1$s"
+
+#, qt-format
+msgid "Could not extract parameter names. Error message: %1$s"
+msgstr "Impossible d'extraire les noms de paramètres. Message d'erreur : %1$s"
+
+msgid ""
+"BFpack does not accept factor levels that start with a number. Please remove"
+"the numbers from your factor levels to continue."
+msgstr ""
+"BFpack n'accepte pas les niveaux de facteur qui commencent par un nombre."
+"Veuillez retirer les nombres de vos niveaux de facteur pour continuer."
+
+msgid ""
+"BFpack failed because of an issue with the specification of the manual"
+"hypotheses. Please check that you specified them correctly. You should then"
+"refresh the analysis."
+msgstr ""
+"BFpack a échoué en raison d'un problème dans la spécification des hypothèses"
+"manuelles. Veuillez vérifier que vous les avez spécifiées correctement. Vous"
+"devriez ensuite actualiser l'analyse."
+
+#, qt-format
+msgid "BFpack failed with the following error message: %1$s"
+msgstr "BFpack a échoué avec le message d'erreur suivant : %1$s"
+
+msgid "Posterior Probabilities of the Standard Hypotheses"
+msgstr "Probabilités a posteriori des hypothèses standard"
+
+msgid "Equal Variances"
+msgstr "Variances égales"
+
+msgid "Unequal Variances"
+msgstr "Variances inégales"
+
+msgid "Pr(H0|Data)"
+msgstr "Pr(H0|Données)"
+
+msgid "Pr(H±|Data)"
+msgstr "Pr(H±|Données)"
+
+msgid "Pr(H-|Data)"
+msgstr "Pr(H-|Données)"
+
+msgid "Pr(H+|Data)"
+msgstr "Pr(H+|Données)"
+
+#, qt-format
+msgid "%1$sGroup %2$s corresponds to level %3$s in variable %4$s. "
+msgstr "%1$sLe groupe %2$s correspond au niveau %3$s de la variable %4$s. "
+
+msgid "Prior probabilities of hypotheses H0 and H±:"
+msgstr "Probabilités a priori des hypothèses H0 et H± :"
+
+msgid "Prior probabilities of hypotheses H0, H- and H+: "
+msgstr "Probabilités a priori des hypothèses H0, H- et H+ : "
+
+#, qt-format
+msgid ""
+"R-hat values for the posterior samples of the correlation coefficients are"
+"larger than 1.05.                                            This indicates"
+"that the chains have not converged well."
+"If you used the 'LD' sampling method try decreasing the nugget parameter or"
+"running the chains for more iterations."
+"The following variables have R-hat > 1.05: %1$s."
+msgstr ""
+"Les valeurs R-hat des échantillons a posteriori des coefficients de corrélation"
+"sont supérieures à 1,05.                                            Cela"
+"indique que les chaînes n'ont pas bien convergé."
+"Si vous avez utilisé la méthode d'échantillonnage 'LD', essayez de diminuer le"
+"paramètre nugget ou de faire tourner les chaînes sur plus d'itérations."
+"Les variables suivantes ont un R-hat > 1,05 : %1$s."
+
+msgid ""
+"The multivariate R-hat value is larger than 1.05, indicating that the chains"
+"have not converged well.                               If you used the 'LD'"
+"sampling method try decreasing the nugget parameter or running the chains for"
+"more iterations."
+msgstr ""
+"La valeur R-hat multivariée est supérieure à 1,05, ce qui indique que les"
+"chaînes n'ont pas bien convergé.                               Si vous avez utilisé"
+"la méthode d'échantillonnage 'LD', essayez de diminuer le paramètre nugget ou de"
+"faire tourner les chaînes sur plus d'itérations."
+
+msgid ""
+"The number of factor levels in the grouping is greater than 2."
+"Only the first two levels were used."
+msgstr ""
+"Le nombre de niveaux de facteur dans le regroupement est supérieur à 2."
+"Seuls les deux premiers niveaux ont été utilisés."
+
+msgid "Posterior Probabilities for Main Effects"
+msgstr "Probabilités a posteriori pour les effets principaux"
+
+msgid "Pr(No effect)"
+msgstr "Pr(Aucun effet)"
+
+msgid "Pr(Full Model)"
+msgstr "Pr(Modèle complet)"
+
+#, qt-format
+msgid "Prior probabilities of the main effects: %1$s."
+msgstr "Probabilités a priori des effets principaux : %1$s."
+
+msgid "Posterior Probabilities for Interaction Effects"
+msgstr "Probabilités a posteriori pour les effets d'interaction"
+
+msgid "Pr(Full model)"
+msgstr "Pr(Modèle complet)"
+
+#, qt-format
+msgid "Prior probabilities of the interaction effects: %1$s."
+msgstr "Probabilités a priori des effets d'interaction : %1$s."
+
+msgid "Manual Hypotheses Legend"
+msgstr "Légende des hypothèses manuelles"
+
+msgid "Hypothesis"
+msgstr "Hypothèse"
+
+msgid "Check the 'Include' box to test the hypothesis."
+msgstr "Cochez la case « Inclure » pour tester l'hypothèse."
+
+msgid "H%i"
+msgstr "H%i"
+
+msgid "Evidence Matrix (log BFs)"
+msgstr "Matrice de preuves (FB logarithmiques)"
+
+msgid "Evidence Matrix (BFs)"
+msgstr "Matrice de preuves (FB)"
+
+msgid "H1"
+msgstr "H1"
+
+msgid ""
+"The BFs are to be interpreted as the hypotheses in rows over the hypotheses in"
+"columns."
+msgstr ""
+"Les FB doivent être interprétés comme les hypothèses en lignes par rapport aux"
+"hypothèses en colonnes."
+
+msgid "Posterior Model Probability"
+msgstr "Probabilité du modèle a posteriori"
+
+msgid "P(H|Data)"
+msgstr "P(H|Données)"
+
+msgid "Log BFs: Manual Hypotheses"
+msgstr "FB logarithmiques : Hypothèses manuelles"
+
+msgid "BFs: Manual Hypotheses"
+msgstr "FB : Hypothèses manuelles"
+
+msgid "Equal-Complex"
+msgstr "Égal-Complexité"
+
+msgid "Order-Complex"
+msgstr "Ordre-Complexité"
+
+msgid "Equal-Fit"
+msgstr "Égal-Ajustement"
+
+msgid "Order-Fit"
+msgstr "Ordre-Ajustement"
+
+msgid "Equal-BF"
+msgstr "Égal-FB"
+
+msgid "Order-BF"
+msgstr "Ordre-FB"
+
+msgid "BF"
+msgstr "FB"
+
+msgid "Posterior Probability"
+msgstr "Probabilité a posteriori"
+
+msgid "H"
+msgstr "H"
+
+msgid "Estimates Table"
+msgstr "Tableau des estimations"
+
+msgid "%s%% CI"
+msgstr "IC à %s%%"
+
+msgid "%s Lower Bound"
+msgstr "%s Limite inférieure"
+
+msgid "%s Upper Bound"
+msgstr "%s Limite supérieure"
+
+msgid "Mean"
+msgstr "Moyenne"
+
+msgid "Median"
+msgstr "Médiane"
+
+msgid "P(>0)"
+msgstr "P(>0)"
+
+msgid "The uncertainty interval is a central credible interval."
+msgstr "L'intervalle d'incertitude est un intervalle crédible central."
+
+msgid "The uncertainty interval is a frequentist confidence interval."
+msgstr "L'intervalle d'incertitude est un intervalle de confiance fréquentiste."
+
+msgid ""
+"The uncertainty interval is a frequentist confidence interval as well as a"
+"credible interval with a noninformative Jeffrey's prior."
+msgstr ""
+"L'intervalle d'incertitude est un intervalle de confiance fréquentiste ainsi"
+"qu'un intervalle crédible avec un a priori non informatif de Jeffrey."
+
+msgid "Log Standard Hypotheses: View BFs"
+msgstr "Hypothèses standard logarithmiques : Afficher les FB"
+
+msgid "Standard Hypotheses: View BFs"
+msgstr "Hypothèses standard : Afficher les FB"
+
+msgid "H0 vs. H±)"
+msgstr "H0 vs. H±)"
+
+msgid "H± vs. H0"
+msgstr "H± vs. H0"
+
+msgid "Best vs. H0"
+msgstr "Meilleur vs. H0"
+
+msgid "Best vs. H-"
+msgstr "Meilleur vs. H-"
+
+msgid "Best vs. H+"
+msgstr "Meilleur vs. H+"
+
+msgid "difference"
+msgstr "différence"
+
+msgid ""
+"If a cell is empty the hypothesis in that column is the best performing"
+"hypothesis."
+msgstr ""
+"Si une cellule est vide, l'hypothèse de cette colonne est l'hypothèse offrant"
+"les meilleures performances."
+
+msgid "Prior and Posterior Probabilities"
+msgstr "Probabilités a priori et a posteriori"
+
+msgid "Prior Probabilities"
+msgstr "Probabilités a priori"
+
+msgid "Posterior Probabilities"
+msgstr "Probabilités a posteriori"
+
+msgid "Posterior Distribution"
+msgstr "Distribution a posteriori"
+
+msgid "Prior"
+msgstr "A priori"
+
+msgid "Posterior"
+msgstr "A posteriori"
+
+msgid "%s%% CI "
+msgstr "IC à %s%% "
+
+msgid "ρ"
+msgstr "ρ"
+
+msgid "Traceplot"
+msgstr "Traceplot"
+
+msgid "x"
+msgstr "x"
+
+msgid "Iterations"
+msgstr "Itérations"
+

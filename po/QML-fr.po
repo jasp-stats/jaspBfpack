@@ -1,0 +1,891 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Language: fr\n"
+"X-Qt-Contexts: true\n"
+
+msgctxt "Description|"
+msgid "BFpack"
+msgstr "BFpack"
+
+msgctxt "Description|"
+msgid ""
+"A module for computing Bayes factors for equality, inequality, and order"
+"constrained hypotheses."
+msgstr ""
+"Un module pour calculer les facteurs de Bayes pour les hypothèses sous"
+"contraintes d'égalité, d'inégalité et d'ordre."
+
+msgctxt "bfpackAnova|"
+msgid "Available variables from the data set that can be assigned to the analysis."
+msgstr "Variables disponibles dans l'ensemble de données qui peuvent être assignées à l'analyse."
+
+msgctxt "bfpackAnova|"
+msgid "Dependent Variables"
+msgstr "Variables dépendantes"
+
+msgctxt "bfpackAnova|"
+msgid "Fixed Factors"
+msgstr "Facteurs fixes"
+
+msgctxt "bfpackAnova|"
+msgid ""
+"Categorical grouping variables whose mean differences and interactions are"
+"tested in the model."
+msgstr ""
+"Variables de regroupement catégorielles dont les différences de moyennes et les"
+"interactions sont testées dans le modèle."
+
+msgctxt "bfpackAnova|"
+msgid "Covariates"
+msgstr "Covariables"
+
+msgctxt "bfpackAnova|"
+msgid ""
+"Continuous predictors to adjust for in the analysis. Adding covariates turns"
+"the model into an ANCOVA or MANCOVA."
+msgstr ""
+"Prédicteurs continus à ajuster dans l'analyse. L'ajout de covariables transforme"
+"le modèle en ANCOVA ou MANCOVA."
+
+msgctxt "bfpackAnova|"
+msgid "μ"
+msgstr "μ"
+
+msgctxt "bfpackCorrelation|"
+msgid ""
+"Assign the variables whose correlations will be tested, plus optional grouping"
+"and covariate variables."
+msgstr ""
+"Assignez les variables dont les corrélations seront testées, ainsi que les"
+"variables de regroupement et les covariables facultatives."
+
+msgctxt "bfpackCorrelation|"
+msgid "Available variables from the data set that can be assigned to the analysis."
+msgstr "Variables disponibles dans l'ensemble de données qui peuvent être assignées à l'analyse."
+
+msgctxt "bfpackCorrelation|"
+msgid "Variables"
+msgstr "Variables"
+
+msgctxt "bfpackCorrelation|"
+msgid ""
+"Select at least two variables whose correlations will be estimated and tested."
+"Supported associations include product-moment, polychoric, tetrachoric,"
+"polyserial, and biserial correlations."
+msgstr ""
+"Sélectionnez au moins deux variables dont les corrélations seront estimées et"
+"testées. Les associations prises en charge comprennent les corrélations produit-"
+"moment, polychoriques, tétrachoriques, polysériales et bisériales."
+
+msgctxt "bfpackCorrelation|"
+msgid "Grouping Variable"
+msgstr "Variable de regroupement"
+
+msgctxt "bfpackCorrelation|"
+msgid ""
+"Optional nominal grouping variable for testing independent correlations across"
+"groups."
+msgstr ""
+"Variable de regroupement nominale facultative pour tester les corrélations"
+"indépendantes entre les groupes."
+
+msgctxt "bfpackCorrelation|"
+msgid "Covariates"
+msgstr "Covariables"
+
+msgctxt "bfpackCorrelation|"
+msgid "Optional covariates to control for when estimating the correlations."
+msgstr "Covariables facultatives à contrôler lors de l'estimation des corrélations."
+
+msgctxt "bfpackCorrelation|"
+msgid "ρ"
+msgstr "ρ"
+
+msgctxt "bfpackCorrelation|"
+msgid "each correlation coefficient"
+msgstr "chaque coefficient de corrélation"
+
+msgctxt "bfpackRegressionLinear|"
+msgid ""
+"Assign continuous dependent variables and predictor variables for the linear"
+"regression model."
+msgstr ""
+"Assignez des variables dépendantes continues et des variables prédictrices pour"
+"le modèle de régression linéaire."
+
+msgctxt "bfpackRegressionLinear|"
+msgid "Available variables from the data set that can be assigned to the analysis."
+msgstr "Variables disponibles dans l'ensemble de données qui peuvent être assignées à l'analyse."
+
+msgctxt "bfpackRegressionLinear|"
+msgid "Dependent Variables"
+msgstr "Variables dépendantes"
+
+msgctxt "bfpackRegressionLinear|"
+msgid ""
+"One or more continuous outcome variables. Multiple dependent variables fit a"
+"multivariate multiple regression."
+msgstr ""
+"Une ou plusieurs variables de résultat continues. Plusieurs variables dépendantes"
+"ajustent une régression multiple multivariée."
+
+msgctxt "bfpackRegressionLinear|"
+msgid "Predictor Variables"
+msgstr "Variables prédictrices"
+
+msgctxt "bfpackRegressionLinear|"
+msgid ""
+"Predictor variables for the regression model. Nominal and ordinal predictors"
+"are dummy coded automatically when needed."
+msgstr ""
+"Variables prédictrices pour le modèle de régression. Les prédicteurs nominaux et"
+"ordinaux sont codés en variables factices automatiquement si nécessaire."
+
+msgctxt "bfpackRegressionLinear|"
+msgid "β"
+msgstr "β"
+
+msgctxt "bfpackRegressionLinear|"
+msgid "each regression coefficient"
+msgstr "chaque coefficient de régression"
+
+msgctxt "bfpackRegressionLogistic|"
+msgid ""
+"Assign an ordinal or nominal dependent variable and predictor variables for"
+"the logistic regression model."
+msgstr ""
+"Assignez une variable dépendante ordinale ou nominale et des variables"
+"prédictrices pour le modèle de régression logistique."
+
+msgctxt "bfpackRegressionLogistic|"
+msgid "Available variables from the data set that can be assigned to the analysis."
+msgstr "Variables disponibles dans l'ensemble de données qui peuvent être assignées à l'analyse."
+
+msgctxt "bfpackRegressionLogistic|"
+msgid "Dependent Variable"
+msgstr "Variable dépendante"
+
+msgctxt "bfpackRegressionLogistic|"
+msgid ""
+"Outcome variable for the logistic model. Ordinal outcomes fit an ordered"
+"logistic regression; binary nominal outcomes fit a binary logistic regression."
+msgstr ""
+"Variable de résultat du modèle logistique. Les résultats ordinaux ajustent une"
+"régression logistique ordinale ; les résultats nominaux binaires ajustent une"
+"régression logistique binaire."
+
+msgctxt "bfpackRegressionLogistic|"
+msgid "Predictor Variables"
+msgstr "Variables prédictrices"
+
+msgctxt "bfpackRegressionLogistic|"
+msgid "Predictor variables for the logistic regression model."
+msgstr "Variables prédictrices pour le modèle de régression logistique."
+
+msgctxt "bfpackRegressionLogistic|"
+msgid "β"
+msgstr "β"
+
+msgctxt "bfpackRegressionLogistic|"
+msgid "each logistic regression coefficient"
+msgstr "chaque coefficient de régression logistique"
+
+msgctxt "bfpackTTestIndependentSamples|"
+msgid ""
+"Assign one continuous outcome variable and one nominal grouping variable for"
+"the independent samples t-test."
+msgstr ""
+"Assignez une variable de résultat continue et une variable de regroupement"
+"nominale pour le test t pour échantillons indépendants."
+
+msgctxt "bfpackTTestIndependentSamples|"
+msgid "Available variables from the data set that can be assigned to the analysis."
+msgstr "Variables disponibles dans l'ensemble de données qui peuvent être assignées à l'analyse."
+
+msgctxt "bfpackTTestIndependentSamples|"
+msgid "Variables"
+msgstr "Variables"
+
+msgctxt "bfpackTTestIndependentSamples|"
+msgid "Continuous outcome variable to compare between the two groups."
+msgstr "Variable de résultat continue à comparer entre les deux groupes."
+
+msgctxt "bfpackTTestIndependentSamples|"
+msgid "Grouping Variable"
+msgstr "Variable de regroupement"
+
+msgctxt "bfpackTTestIndependentSamples|"
+msgid "Nominal variable defining the two independent groups."
+msgstr "Variable nominale définissant les deux groupes indépendants."
+
+msgctxt "bfpackTTestIndependentSamples|"
+msgid "difference"
+msgstr "différence"
+
+msgctxt "bfpackTTestIndependentSamples|"
+msgid "the group mean difference"
+msgstr "la différence de moyennes entre les groupes"
+
+msgctxt "bfpackTTestMultiSample|"
+msgid ""
+"Assign the continuous variables whose means will be tested jointly in the"
+"multivariate t-test."
+msgstr ""
+"Assignez les variables continues dont les moyennes seront testées conjointement"
+"dans le test t multivarié."
+
+msgctxt "bfpackTTestMultiSample|"
+msgid "Available variables from the data set that can be assigned to the analysis."
+msgstr "Variables disponibles dans l'ensemble de données qui peuvent être assignées à l'analyse."
+
+msgctxt "bfpackTTestMultiSample|"
+msgid "Variables"
+msgstr "Variables"
+
+msgctxt "bfpackTTestMultiSample|"
+msgid "Continuous variables whose means are tested simultaneously."
+msgstr "Variables continues dont les moyennes sont testées simultanément."
+
+msgctxt "bfpackTTestMultiSample|"
+msgid "μ"
+msgstr "μ"
+
+msgctxt "bfpackTTestMultiSample|"
+msgid "the means of the selected variables"
+msgstr "les moyennes des variables sélectionnées"
+
+msgctxt "bfpackTTestMultiSample|"
+msgid "Specify test value"
+msgstr "Spécifier la valeur de test"
+
+msgctxt "bfpackTTestMultiSample|"
+msgid ""
+"Set the reference mean for each selected variable in the standard hypothesis"
+"test."
+msgstr ""
+"Définir la moyenne de référence pour chaque variable sélectionnée dans le test"
+"d'hypothèse standard."
+
+#, qt-format
+msgctxt "bfpackTTestMultiSample|"
+msgid "Test value for the mean of %1."
+msgstr "Valeur de test pour la moyenne de %1."
+
+msgctxt "bfpackTTestOneSample|"
+msgid "Assign one continuous variable for the one-sample t-test."
+msgstr "Assignez une variable continue pour le test t pour un échantillon."
+
+msgctxt "bfpackTTestOneSample|"
+msgid "Available variables from the data set that can be assigned to the analysis."
+msgstr "Variables disponibles dans l'ensemble de données qui peuvent être assignées à l'analyse."
+
+msgctxt "bfpackTTestOneSample|"
+msgid "Variable"
+msgstr "Variable"
+
+msgctxt "bfpackTTestOneSample|"
+msgid "Continuous variable whose mean will be tested."
+msgstr "Variable continue dont la moyenne sera testée."
+
+msgctxt "bfpackTTestOneSample|"
+msgid "mu"
+msgstr "mu"
+
+msgctxt "bfpackTTestOneSample|"
+msgid "the population mean"
+msgstr "la moyenne de la population"
+
+msgctxt "bfpackTTestPairedSamples|"
+msgid "Assign the two continuous variables that form the paired comparison."
+msgstr "Assignez les deux variables continues qui forment la comparaison appariée."
+
+msgctxt "bfpackTTestPairedSamples|"
+msgid "Available variables from the data set that can be assigned to the analysis."
+msgstr "Variables disponibles dans l'ensemble de données qui peuvent être assignées à l'analyse."
+
+msgctxt "bfpackTTestPairedSamples|"
+msgid "Pair"
+msgstr "Paire"
+
+msgctxt "bfpackTTestPairedSamples|"
+msgid "Pair the two continuous variables whose mean difference will be tested."
+msgstr "Associez les deux variables continues dont la différence de moyennes sera testée."
+
+msgctxt "bfpackTTestPairedSamples|"
+msgid "difference"
+msgstr "différence"
+
+msgctxt "bfpackTTestPairedSamples|"
+msgid "the mean difference between the paired variables"
+msgstr "la différence de moyennes entre les variables appariées"
+
+msgctxt "bfpackVariances|"
+msgid ""
+"Assign one outcome variable and one grouping variable for the variance"
+"comparison."
+msgstr ""
+"Assignez une variable de résultat et une variable de regroupement pour la"
+"comparaison de variances."
+
+msgctxt "bfpackVariances|"
+msgid "Available variables from the data set that can be assigned to the analysis."
+msgstr "Variables disponibles dans l'ensemble de données qui peuvent être assignées à l'analyse."
+
+msgctxt "bfpackVariances|"
+msgid "Variable"
+msgstr "Variable"
+
+msgctxt "bfpackVariances|"
+msgid "Outcome variable whose group variances will be compared."
+msgstr "Variable de résultat dont les variances de groupe seront comparées."
+
+msgctxt "bfpackVariances|"
+msgid "Grouping Variable"
+msgstr "Variable de regroupement"
+
+msgctxt "bfpackVariances|"
+msgid "Nominal variable defining the groups whose variances are compared."
+msgstr "Variable nominale définissant les groupes dont les variances sont comparées."
+
+msgctxt "bfpackVariances|"
+msgid "the group variances"
+msgstr "les variances de groupe"
+
+msgctxt "HypothesesWindowManual|"
+msgid "<b>Manual Hypothesis Test</b>"
+msgstr "<b>Test d'hypothèse manuel</b>"
+
+msgctxt "HypothesesWindowManual|"
+msgid "Click for more information"
+msgstr "Cliquez pour plus d'informations"
+
+msgctxt "HypothesesWindowManual|"
+msgid ""
+"List of manually specified hypotheses. Use parameter names from the Parameters"
+"box, assign prior weights, and tick Include for the hypotheses that should be"
+"tested."
+msgstr ""
+"Liste des hypothèses spécifiées manuellement. Utilisez les noms de paramètres de"
+"la boîte Paramètres, assignez des poids a priori et cochez Inclure pour les"
+"hypothèses qui doivent être testées."
+
+msgctxt "HypothesesWindowManual|"
+msgid "Hypotheses"
+msgstr "Hypothèses"
+
+msgctxt "HypothesesWindowManual|"
+msgid "Prior weight"
+msgstr "Poids a priori"
+
+msgctxt "HypothesesWindowManual|"
+msgid "Include"
+msgstr "Inclure"
+
+#, qt-format
+msgctxt "HypothesesWindowManual|"
+msgid "H%1:"
+msgstr "H%1 :"
+
+msgctxt "HypothesesWindowManual|"
+msgid ""
+"Enter a constrained hypothesis using the shown parameter names, for example a"
+"= 0, a > 0, or a > b > 0."
+msgstr ""
+"Saisissez une hypothèse sous contrainte à l'aide des noms de paramètres affichés,"
+"par exemple a = 0, a > 0, ou a > b > 0."
+
+msgctxt "HypothesesWindowManual|"
+msgid "Prior weight for this manual hypothesis."
+msgstr "Poids a priori pour cette hypothèse manuelle."
+
+msgctxt "HypothesesWindowManual|"
+msgid "Include this manual hypothesis in the analysis."
+msgstr "Inclure cette hypothèse manuelle dans l'analyse."
+
+msgctxt "HypothesesWindowManual|"
+msgid "Complement hypothesis"
+msgstr "Hypothèse complémentaire"
+
+msgctxt "HypothesesWindowManual|"
+msgid "Prior weight assigned to the complement hypothesis."
+msgstr "Poids a priori assigné à l'hypothèse complémentaire."
+
+msgctxt "HypothesesWindowManual|"
+msgid "Include the complement hypothesis in the hypothesis set."
+msgstr "Inclure l'hypothèse complémentaire dans l'ensemble d'hypothèses."
+
+msgctxt "HypothesesWindowStandard|"
+msgid "mu"
+msgstr "mu"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "the means of the selected variables relative to their test values"
+msgstr "les moyennes des variables sélectionnées par rapport à leurs valeurs de test"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "the group variances"
+msgstr "les variances de groupe"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "ρ"
+msgstr "ρ"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "the correlation coefficients"
+msgstr "les coefficients de corrélation"
+
+#, qt-format
+msgctxt "HypothesesWindowStandard|"
+msgid "the parameter %1"
+msgstr "le paramètre %1"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "<b>Standard Hypothesis Test</b>"
+msgstr "<b>Test d'hypothèse standard</b>"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "Tests whether each selected mean equals its test value or differs from it."
+msgstr "Teste si chaque moyenne sélectionnée est égale à sa valeur de test ou en diffère."
+
+msgctxt "HypothesesWindowStandard|"
+msgid "Tests whether the group variances are equal or unequal."
+msgstr "Teste si les variances de groupe sont égales ou inégales."
+
+#, qt-format
+msgctxt "HypothesesWindowStandard|"
+msgid ""
+"Tests whether %1 is equal to, smaller than, or larger than the specified test"
+"value."
+msgstr ""
+"Teste si %1 est égal à, inférieur à ou supérieur à la valeur de test"
+"spécifiée."
+
+#, qt-format
+msgctxt "HypothesesWindowStandard|"
+msgid "Tests whether %1 is equal to, smaller than, or larger than zero."
+msgstr "Teste si %1 est égal à, inférieur à ou supérieur à zéro."
+
+msgctxt "HypothesesWindowStandard|"
+msgid "H0: "
+msgstr "H0 : "
+
+msgctxt "HypothesesWindowStandard|"
+msgid "H±: "
+msgstr "H± : "
+
+msgctxt "HypothesesWindowStandard|"
+msgid "H0: Equal variances"
+msgstr "H0 : Variances égales"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "H±: Unequal variances"
+msgstr "H± : Variances inégales"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "H-: "
+msgstr "H- : "
+
+msgctxt "HypothesesWindowStandard|"
+msgid "H+: "
+msgstr "H+ : "
+
+msgctxt "HypothesesWindowStandard|"
+msgid "Hypotheses"
+msgstr "Hypothèses"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "Test value"
+msgstr "Valeur de test"
+
+msgctxt "HypothesesWindowStandard|"
+msgid "Prior weights"
+msgstr "Poids a priori"
+
+#, qt-format
+msgctxt "HypothesesWindowStandard|"
+msgid "Reference value used in the standard hypothesis test for %1."
+msgstr "Valeur de référence utilisée dans le test d'hypothèse standard pour %1."
+
+msgctxt "HypothesesWindowStandard|"
+msgid ""
+"Prior weight for the first standard hypothesis. Larger values assign more"
+"prior probability to that hypothesis."
+msgstr ""
+"Poids a priori pour la première hypothèse standard. Des valeurs plus élevées"
+"assignent plus de probabilité a priori à cette hypothèse."
+
+msgctxt "HypothesesWindowStandard|"
+msgid "Prior weight for the second standard hypothesis."
+msgstr "Poids a priori pour la deuxième hypothèse standard."
+
+msgctxt "HypothesesWindowStandard|"
+msgid "Prior weight for the third standard hypothesis."
+msgstr "Poids a priori pour la troisième hypothèse standard."
+
+msgctxt "Options|"
+msgid "Options"
+msgstr "Options"
+
+msgctxt "Options|"
+msgid ""
+"Configure Bayes factor reporting, tables, plots, uncertainty intervals,"
+"sampling settings, and model-specific options."
+msgstr ""
+"Configurez le rapport des facteurs de Bayes, les tableaux, les graphiques, les"
+"intervalles d'incertitude, les paramètres d'échantillonnage et les options"
+"spécifiques au modèle."
+
+msgctxt "Options|"
+msgid "Bayes Factor"
+msgstr "Facteur de Bayes"
+
+msgctxt "Options|"
+msgid "Log scale"
+msgstr "Échelle logarithmique"
+
+msgctxt "Options|"
+msgid "Report Bayes factors on the natural logarithm scale."
+msgstr "Rapporter les facteurs de Bayes sur l'échelle du logarithme naturel."
+
+msgctxt "Options|"
+msgid "Bayes factor type"
+msgstr "Type de facteur de Bayes"
+
+msgctxt "Options|"
+msgid ""
+"Choose how the default fractional Bayes factor prior is centered for"
+"hypothesis testing."
+msgstr ""
+"Choisissez comment l'a priori par défaut du facteur de Bayes fractionnaire est"
+"centré pour le test d'hypothèses."
+
+msgctxt "Options|"
+msgid "Fractional Bayes factor"
+msgstr "Facteur de Bayes fractionnaire"
+
+msgctxt "Options|"
+msgid ""
+"Uses the default fractional Bayes factor, with the fractional prior centered"
+"at the maximum likelihood estimate."
+msgstr ""
+"Utilise le facteur de Bayes fractionnaire par défaut, l'a priori fractionnaire"
+"étant centré sur l'estimation du maximum de vraisemblance."
+
+msgctxt "Options|"
+msgid "Adjusted fractional Bayes factor"
+msgstr "Facteur de Bayes fractionnaire ajusté"
+
+msgctxt "Options|"
+msgid ""
+"Uses the adjusted fractional Bayes factor, with the fractional prior centered"
+"at a null value."
+msgstr ""
+"Utilise le facteur de Bayes fractionnaire ajusté, l'a priori fractionnaire"
+"étant centré sur une valeur nulle."
+
+msgctxt "Options|"
+msgid "Tables"
+msgstr "Tableaux"
+
+msgctxt "Options|"
+msgid "Select which result tables should be included in the output."
+msgstr "Sélectionnez les tableaux de résultats à inclure dans la sortie."
+
+msgctxt "Options|"
+msgid "Standard hypotheses: View BFs"
+msgstr "Hypothèses standard : Afficher les FB"
+
+msgctxt "Options|"
+msgid "Show the Bayes factor table for the standard hypothesis test."
+msgstr "Afficher le tableau des facteurs de Bayes pour le test d'hypothèse standard."
+
+msgctxt "Options|"
+msgid "Manual hypotheses: Computation BFs"
+msgstr "Hypothèses manuelles : Calcul des FB"
+
+msgctxt "Options|"
+msgid ""
+"Show the table with fit, complexity, and Bayes factor components for the"
+"manual hypotheses."
+msgstr ""
+"Afficher le tableau avec les composantes d'ajustement, de complexité et de"
+"facteur de Bayes pour les hypothèses manuelles."
+
+msgctxt "Options|"
+msgid "Estimates"
+msgstr "Estimations"
+
+msgctxt "Options|"
+msgid "Show the parameter estimates table with uncertainty intervals."
+msgstr "Afficher le tableau des estimations des paramètres avec les intervalles d'incertitude."
+
+msgctxt "Options|"
+msgid "Plots"
+msgstr "Graphiques"
+
+msgctxt "Options|"
+msgid "Select which plots should be included in the output."
+msgstr "Sélectionnez les graphiques à inclure dans la sortie."
+
+msgctxt "Options|"
+msgid "Manual hypotheses plots"
+msgstr "Graphiques des hypothèses manuelles"
+
+msgctxt "Options|"
+msgid "Plot the prior and posterior probabilities of the manual hypotheses."
+msgstr "Tracer les probabilités a priori et a posteriori des hypothèses manuelles."
+
+msgctxt "Options|"
+msgid "Prior and posterior plot"
+msgstr "Graphique a priori et a posteriori"
+
+msgctxt "Options|"
+msgid "Plot the prior and posterior distributions of the sampled correlations."
+msgstr "Tracer les distributions a priori et a posteriori des corrélations échantillonnées."
+
+msgctxt "Options|"
+msgid "Estimation info"
+msgstr "Informations d'estimation"
+
+msgctxt "Options|"
+msgid "Add estimation summaries to the prior and posterior correlation plot."
+msgstr "Ajouter des résumés d'estimation au graphique de corrélation a priori et a posteriori."
+
+msgctxt "Options|"
+msgid "Testing info"
+msgstr "Informations de test"
+
+msgctxt "Options|"
+msgid "Add testing summaries for the constrained correlation hypotheses to the plot."
+msgstr "Ajouter des résumés de test pour les hypothèses de corrélation sous contraintes au graphique."
+
+msgctxt "Options|"
+msgid "Traceplot"
+msgstr "Traceplot"
+
+msgctxt "Options|"
+msgid "Plot the MCMC sampling traces for the correlations."
+msgstr "Tracer les traces d'échantillonnage MCMC pour les corrélations."
+
+msgctxt "Options|"
+msgid "Additional Options"
+msgstr "Options supplémentaires"
+
+msgctxt "Options|"
+msgid ""
+"Set interval levels, standardization, sampling details, and other model-"
+"specific analysis settings."
+msgstr ""
+"Définissez les niveaux d'intervalle, la standardisation, les détails"
+"d'échantillonnage et d'autres paramètres d'analyse spécifiques au modèle."
+
+msgctxt "Options|"
+msgid "Uncertainty interval level"
+msgstr "Niveau de l'intervalle d'incertitude"
+
+msgctxt "Options|"
+msgid "Coverage level of the reported uncertainty interval, for example 95%."
+msgstr "Niveau de couverture de l'intervalle d'incertitude rapporté, par exemple 95 %."
+
+msgctxt "Options|"
+msgid "Standardize continuous variables"
+msgstr "Standardiser les variables continues"
+
+msgctxt "Options|"
+msgid "Standardize continuous variables before fitting the model."
+msgstr "Standardiser les variables continues avant d'ajuster le modèle."
+
+msgctxt "Options|"
+msgid "Variances"
+msgstr "Variances"
+
+msgctxt "Options|"
+msgid "Assume equal or unequal group variances in the independent samples t-test."
+msgstr "Supposer des variances de groupe égales ou inégales dans le test t pour échantillons indépendants."
+
+msgctxt "Options|"
+msgid "Equal"
+msgstr "Égal"
+
+msgctxt "Options|"
+msgid "Assume the two groups have equal variances."
+msgstr "Supposer que les deux groupes ont des variances égales."
+
+msgctxt "Options|"
+msgid "Unequal"
+msgstr "Inégal"
+
+msgctxt "Options|"
+msgid ""
+"Allow the two groups to have different variances. Bayes factors are then"
+"approximated by iterative sampling."
+msgstr ""
+"Permettre aux deux groupes d'avoir des variances différentes. Les facteurs de"
+"Bayes sont alors approximés par échantillonnage itératif."
+
+msgctxt "Options|"
+msgid "No. iterations for BF computation"
+msgstr "Nom. d'itérations pour le calcul des FB"
+
+msgctxt "Options|"
+msgid "Number of iterations used when Bayes factors are computed by sampling."
+msgstr "Nombre d'itérations utilisées lorsque les facteurs de Bayes sont calculés par échantillonnage."
+
+msgctxt "Options|"
+msgid "No. iterations for MCMC"
+msgstr "Nom. d'itérations pour MCMC"
+
+msgctxt "Options|"
+msgid "Number of posterior draws used to estimate the correlation model."
+msgstr "Nombre de tirages a posteriori utilisés pour estimer le modèle de corrélation."
+
+msgctxt "Options|"
+msgid "Sampling Method"
+msgstr "Méthode d'échantillonnage"
+
+msgctxt "Options|"
+msgid "Sampling algorithm used for posterior estimation of the correlation matrix."
+msgstr "Algorithme d'échantillonnage utilisé pour l'estimation a posteriori de la matrice de corrélation."
+
+msgctxt "Options|"
+msgid "LKJ"
+msgstr "LKJ"
+
+msgctxt "Options|"
+msgid "Use the LKJ method to sample correlation matrices."
+msgstr "Utiliser la méthode LKJ pour échantillonner les matrices de corrélation."
+
+msgctxt "Options|"
+msgid "LD"
+msgstr "LD"
+
+msgctxt "Options|"
+msgid "Use the Liu-Daniels method to sample correlation matrices."
+msgstr "Utiliser la méthode Liu-Daniels pour échantillonner les matrices de corrélation."
+
+msgctxt "Options|"
+msgid "Nugget"
+msgstr "Nugget"
+
+msgctxt "Options|"
+msgid ""
+"Scaling factor used with the LD sampler to keep sampled correlations away from"
+"plus or minus one when needed."
+msgstr ""
+"Facteur d'échelle utilisé avec l'échantillonneur LD pour maintenir les"
+"corrélations échantillonnées loin de plus ou moins un lorsque nécessaire."
+
+msgctxt "Options|"
+msgid "Exclude intercept from the model"
+msgstr "Exclure l'interception du modèle"
+
+msgctxt "Options|"
+msgid ""
+"Remove the intercept from the fitted model. This is often appropriate for"
+"ANOVA-style parameterizations."
+msgstr ""
+"Retirer l'interception du modèle ajusté. Cela convient souvent aux"
+"paramétrisations de type ANOVA."
+
+msgctxt "Options|"
+msgid "Fix the random number seed to make the analysis exactly reproducible."
+msgstr "Fixe la graine aléatoire pour rendre l'analyse exactement reproductible."
+
+msgctxt "Options|"
+msgid "Interaction terms"
+msgstr "Termes d'interaction"
+
+msgctxt "Options|"
+msgid "Select which candidate two-way interaction terms should be added to the model."
+msgstr "Sélectionnez les termes d'interaction à deux facteurs candidats à ajouter au modèle."
+
+msgctxt "Options|"
+msgid "Include"
+msgstr "Inclure"
+
+msgctxt "Options|"
+msgid ""
+"Available two-way interaction terms generated from the selected predictors,"
+"factors, or covariates."
+msgstr ""
+"Termes d'interaction à deux facteurs disponibles générés à partir des"
+"prédicteurs, facteurs ou covariables sélectionnés."
+
+msgctxt "Options|"
+msgid "Include this interaction term in the model."
+msgstr "Inclure ce terme d'interaction dans le modèle."
+
+msgctxt "Options|"
+msgid "Effects"
+msgstr "Effets"
+
+msgctxt "Options|"
+msgid ""
+"Prior weights for the omnibus hypotheses that main and interaction effects are"
+"absent or present in the ANOVA model."
+msgstr ""
+"Poids a priori pour les hypothèses globales selon que les effets principaux et"
+"d'interaction sont absents ou présents dans le modèle ANOVA."
+
+msgctxt "Options|"
+msgid "Prior weight"
+msgstr "Poids a priori"
+
+msgctxt "Options|"
+msgid "Main zero effect"
+msgstr "Effet principal nul"
+
+msgctxt "Options|"
+msgid "Prior weight for the hypothesis that a main effect is absent."
+msgstr "Poids a priori pour l'hypothèse selon laquelle un effet principal est absent."
+
+msgctxt "Options|"
+msgid "Main non-zero effect"
+msgstr "Effet principal non nul"
+
+msgctxt "Options|"
+msgid "Prior weight for the hypothesis that a main effect is present."
+msgstr "Poids a priori pour l'hypothèse selon laquelle un effet principal est présent."
+
+msgctxt "Options|"
+msgid "Interaction zero effect"
+msgstr "Effet d'interaction nul"
+
+msgctxt "Options|"
+msgid "Prior weight for the hypothesis that an interaction effect is absent."
+msgstr "Poids a priori pour l'hypothèse selon laquelle un effet d'interaction est absent."
+
+msgctxt "Options|"
+msgid "Interaction non-zero effect"
+msgstr "Effet d'interaction non nul"
+
+msgctxt "Options|"
+msgid "Prior weight for the hypothesis that an interaction effect is present."
+msgstr "Poids a priori pour l'hypothèse selon laquelle un effet d'interaction est présent."
+
+msgctxt "ParametersWindow|"
+msgid ""
+"Shows the parameter names that are currently available for manual equality and"
+"order constraints. The labels depend on the selected variables and the fitted"
+"model."
+msgstr ""
+"Affiche les noms de paramètres actuellement disponibles pour les contraintes"
+"manuelles d'égalité et d'ordre. Les étiquettes dépendent des variables"
+"sélectionnées et du modèle ajusté."
+
+msgctxt "ParametersWindow|"
+msgid "<b>Parameters:</b>"
+msgstr "<b>Paramètres :</b>"
+
+msgctxt "ParametersWindow|"
+msgid ""
+"The parameters that can be tested in the manual hypothesis test appear here"
+"after you assign variables to the analysis."
+msgstr ""
+"Les paramètres qui peuvent être testés dans le test d'hypothèse manuel"
+"apparaissent ici après avoir assigné des variables à l'analyse."
+
