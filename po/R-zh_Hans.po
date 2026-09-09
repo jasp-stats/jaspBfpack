@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jaspBfpack 0.1\n"
 "Report-Msgid-Bugs-To: github.com/jasp-stats/jasp-issues/issues\n"
-"POT-Creation-Date: 2026-01-01 00:00+0000\n"
+"POT-Creation-Date: 2026-09-09 14:25\n"
 "PO-Revision-Date: 2026-01-01 00:00+0000\n"
 "Last-Translator: JASP translators\n"
 "Language-Team: Chinese (Simplified)\n"
@@ -12,37 +12,36 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+#, fuzzy
 msgid ""
-"BFpack does not accept factor levels that contain spaces. Please remove the"
+"BFpack does not accept factor levels that contain spaces. Please remove the "
 "spaces from your factor levels to continue."
-msgstr ""
-"BFpack不接受包含空格的因子水平。请移除因子水平中的空格以继续。"
+msgstr "BFpack不接受包含空格的因子水平。请移除因子水平中的空格以继续。"
 
 msgid "Only two variables can be specified for the paired samples t-test."
 msgstr "配对样本t检验只能指定两个变量。"
 
-#, qt-format
 msgid "The parameter estimation failed. Error message: %1$s"
 msgstr "参数估计失败。错误消息：%1$s"
 
-#, qt-format
 msgid "Could not extract parameter names. Error message: %1$s"
 msgstr "无法提取参数名称。错误消息：%1$s"
 
+#, fuzzy
 msgid ""
-"BFpack does not accept factor levels that start with a number. Please remove"
+"BFpack does not accept factor levels that start with a number. Please remove "
 "the numbers from your factor levels to continue."
-msgstr ""
-"BFpack不接受以数字开头的因子水平。请移除因子水平中的数字以继续。"
+msgstr "BFpack不接受以数字开头的因子水平。请移除因子水平中的数字以继续。"
 
+#, fuzzy
 msgid ""
-"BFpack failed because of an issue with the specification of the manual"
-"hypotheses. Please check that you specified them correctly. You should then"
+"BFpack failed because of an issue with the specification of the manual "
+"hypotheses. Please check that you specified them correctly. You should then "
 "refresh the analysis."
 msgstr ""
-"BFpack因手动假设的设定问题而失败。请检查您是否正确设定了这些假设，然后刷新分析。"
+"BFpack因手动假设的设定问题而失败。请检查您是否正确设定了这些假设，然后刷新分"
+"析。"
 
-#, qt-format
 msgid "BFpack failed with the following error message: %1$s"
 msgstr "BFpack失败，错误消息如下：%1$s"
 
@@ -67,43 +66,48 @@ msgstr "Pr(H-|数据)"
 msgid "Pr(H+|Data)"
 msgstr "Pr(H+|数据)"
 
-#, qt-format
-msgid "%1$sGroup %2$s corresponds to level %3$s in variable %4$s. "
+#, fuzzy
+msgid "%1$sGroup %2$s corresponds to level %3$s in variable %4$s."
 msgstr "%1$s组%2$s对应于变量%4$s中的水平%3$s。 "
 
 msgid "Prior probabilities of hypotheses H0 and H±:"
 msgstr "假设H0和H±的先验概率："
 
-msgid "Prior probabilities of hypotheses H0, H- and H+: "
+#, fuzzy
+msgid "Prior probabilities of hypotheses H0, H- and H+:"
 msgstr "假设H0、H-和H+的先验概率： "
 
-#, qt-format
+#, fuzzy
 msgid ""
-"R-hat values for the posterior samples of the correlation coefficients are"
-"larger than 1.05.                                            This indicates"
-"that the chains have not converged well."
-"If you used the 'LD' sampling method try decreasing the nugget parameter or"
-"running the chains for more iterations."
-"The following variables have R-hat > 1.05: %1$s."
+"R-hat values for the posterior samples of the correlation coefficients are "
+"larger than 1.05.\n"
+"                                           This indicates that the chains "
+"have not converged well.\n"
+"                                           If you used the 'LD' sampling "
+"method try decreasing the nugget parameter or running the chains for more "
+"iterations.\n"
+"                                           The following variables have R-"
+"hat > 1.05: %1$s."
 msgstr ""
-"相关系数后验样本的R-hat值大于1.05。这表示链未能很好地收敛。"
-"如果您使用了“LD”采样方法，请尝试减小nugget参数或让链运行更多迭代。"
-"以下变量的R-hat > 1.05：%1$s。"
+"相关系数后验样本的R-hat值大于1.05。这表示链未能很好地收敛。如果您使用了“LD”采"
+"样方法，请尝试减小nugget参数或让链运行更多迭代。以下变量的R-hat > 1.05："
+"%1$s。"
 
+#, fuzzy
 msgid ""
-"The multivariate R-hat value is larger than 1.05, indicating that the chains"
-"have not converged well.                               If you used the 'LD'"
-"sampling method try decreasing the nugget parameter or running the chains for"
-"more iterations."
+"The multivariate R-hat value is larger than 1.05, indicating that the chains "
+"have not converged well.\n"
+"                              If you used the 'LD' sampling method try "
+"decreasing the nugget parameter or running the chains for more iterations."
 msgstr ""
-"多元R-hat值大于1.05，表示链未能很好地收敛。"
-"如果您使用了“LD”采样方法，请尝试减小nugget参数或让链运行更多迭代。"
+"多元R-hat值大于1.05，表示链未能很好地收敛。如果您使用了“LD”采样方法，请尝试减"
+"小nugget参数或让链运行更多迭代。"
 
+#, fuzzy
 msgid ""
-"The number of factor levels in the grouping is greater than 2."
-"Only the first two levels were used."
-msgstr ""
-"分组变量中的因子水平数大于2。仅使用了前两个水平。"
+"The number of factor levels in the grouping is greater than 2.\n"
+"                                         Only the first two levels were used."
+msgstr "分组变量中的因子水平数大于2。仅使用了前两个水平。"
 
 msgid "Posterior Probabilities for Main Effects"
 msgstr "主效应的后验概率"
@@ -114,7 +118,6 @@ msgstr "Pr(无效应)"
 msgid "Pr(Full Model)"
 msgstr "Pr(全模型)"
 
-#, qt-format
 msgid "Prior probabilities of the main effects: %1$s."
 msgstr "主效应的先验概率：%1$s。"
 
@@ -124,7 +127,6 @@ msgstr "交互效应的后验概率"
 msgid "Pr(Full model)"
 msgstr "Pr(全模型)"
 
-#, qt-format
 msgid "Prior probabilities of the interaction effects: %1$s."
 msgstr "交互效应的先验概率：%1$s。"
 
@@ -149,9 +151,10 @@ msgstr "证据矩阵（BFs）"
 msgid "H1"
 msgstr "H1"
 
+#, fuzzy
 msgid ""
-"The BFs are to be interpreted as the hypotheses in rows over the hypotheses in"
-"columns."
+"The BFs are to be interpreted as the hypotheses in rows over the hypotheses "
+"in columns."
 msgstr "BF应被解释为行中的假设相对于列中的假设。"
 
 msgid "Posterior Model Probability"
@@ -211,20 +214,17 @@ msgstr "均值"
 msgid "Median"
 msgstr "中位数"
 
-msgid "P(>0)"
-msgstr "P(>0)"
-
 msgid "The uncertainty interval is a central credible interval."
 msgstr "不确定区间为中心可信区间。"
 
 msgid "The uncertainty interval is a frequentist confidence interval."
 msgstr "不确定区间为频率学派置信区间。"
 
+#, fuzzy
 msgid ""
-"The uncertainty interval is a frequentist confidence interval as well as a"
+"The uncertainty interval is a frequentist confidence interval as well as a "
 "credible interval with a noninformative Jeffrey's prior."
-msgstr ""
-"不确定区间既是频率学派置信区间，也是采用无信息Jeffrey先验的可信区间。"
+msgstr "不确定区间既是频率学派置信区间，也是采用无信息Jeffrey先验的可信区间。"
 
 msgid "Log Standard Hypotheses: View BFs"
 msgstr "对数标准假设：查看BFs"
@@ -250,8 +250,9 @@ msgstr "最佳对H+"
 msgid "difference"
 msgstr "差异"
 
+#, fuzzy
 msgid ""
-"If a cell is empty the hypothesis in that column is the best performing"
+"If a cell is empty the hypothesis in that column is the best performing "
 "hypothesis."
 msgstr "如果某个单元格为空，则该列中的假设为表现最佳的假设。"
 
@@ -273,9 +274,6 @@ msgstr "先验"
 msgid "Posterior"
 msgstr "后验"
 
-msgid "%s%% CI "
-msgstr "%s%% CI "
-
 msgid "ρ"
 msgstr "ρ"
 
@@ -287,3 +285,9 @@ msgstr "x"
 
 msgid "Iterations"
 msgstr "迭代次数"
+
+#~ msgid "P(>0)"
+#~ msgstr "P(>0)"
+
+#~ msgid "%s%% CI "
+#~ msgstr "%s%% CI "

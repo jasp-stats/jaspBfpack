@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jaspBfpack 0.1\n"
 "Report-Msgid-Bugs-To: github.com/jasp-stats/jasp-issues/issues\n"
-"POT-Creation-Date: 2026-01-01 00:00+0000\n"
+"POT-Creation-Date: 2026-09-09 14:25\n"
 "PO-Revision-Date: 2026-01-01 00:00+0000\n"
 "Last-Translator: JASP translators\n"
 "Language-Team: Dutch\n"
@@ -12,41 +12,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#, fuzzy
 msgid ""
-"BFpack does not accept factor levels that contain spaces. Please remove the"
+"BFpack does not accept factor levels that contain spaces. Please remove the "
 "spaces from your factor levels to continue."
 msgstr ""
-"BFpack accepteert geen factorlevels die spaties bevatten. Verwijder de spaties "
-"uit uw factorlevels om verder te gaan."
+"BFpack accepteert geen factorlevels die spaties bevatten. Verwijder de "
+"spaties uit uw factorlevels om verder te gaan."
 
 msgid "Only two variables can be specified for the paired samples t-test."
-msgstr "Voor de t-toets voor gepaarde steekproeven kunnen slechts twee variabelen worden opgegeven."
+msgstr ""
+"Voor de t-toets voor gepaarde steekproeven kunnen slechts twee variabelen "
+"worden opgegeven."
 
-#, qt-format
 msgid "The parameter estimation failed. Error message: %1$s"
 msgstr "De parameterschatting is mislukt. Foutmelding: %1$s"
 
-#, qt-format
 msgid "Could not extract parameter names. Error message: %1$s"
 msgstr "Kon de parameternamen niet extraheren. Foutmelding: %1$s"
 
+#, fuzzy
 msgid ""
-"BFpack does not accept factor levels that start with a number. Please remove"
+"BFpack does not accept factor levels that start with a number. Please remove "
 "the numbers from your factor levels to continue."
 msgstr ""
 "BFpack accepteert geen factorlevels die beginnen met een getal. Verwijder de "
 "getallen uit uw factorlevels om verder te gaan."
 
+#, fuzzy
 msgid ""
-"BFpack failed because of an issue with the specification of the manual"
-"hypotheses. Please check that you specified them correctly. You should then"
+"BFpack failed because of an issue with the specification of the manual "
+"hypotheses. Please check that you specified them correctly. You should then "
 "refresh the analysis."
 msgstr ""
 "BFpack is mislukt vanwege een probleem met de specificatie van de handmatige "
 "hypothesen. Controleer of u deze correct hebt opgegeven. Vernieuw vervolgens "
 "de analyse."
 
-#, qt-format
 msgid "BFpack failed with the following error message: %1$s"
 msgstr "BFpack is mislukt met de volgende foutmelding: %1$s"
 
@@ -71,24 +73,28 @@ msgstr "Pr(H-|Data)"
 msgid "Pr(H+|Data)"
 msgstr "Pr(H+|Data)"
 
-#, qt-format
-msgid "%1$sGroup %2$s corresponds to level %3$s in variable %4$s. "
+#, fuzzy
+msgid "%1$sGroup %2$s corresponds to level %3$s in variable %4$s."
 msgstr "%1$sGroep %2$s komt overeen met niveau %3$s in variabele %4$s. "
 
 msgid "Prior probabilities of hypotheses H0 and H±:"
 msgstr "Prior-kansen van hypothesen H0 en H±:"
 
-msgid "Prior probabilities of hypotheses H0, H- and H+: "
+#, fuzzy
+msgid "Prior probabilities of hypotheses H0, H- and H+:"
 msgstr "Prior-kansen van hypothesen H0, H- en H+: "
 
-#, qt-format
+#, fuzzy
 msgid ""
-"R-hat values for the posterior samples of the correlation coefficients are"
-"larger than 1.05.                                            This indicates"
-"that the chains have not converged well."
-"If you used the 'LD' sampling method try decreasing the nugget parameter or"
-"running the chains for more iterations."
-"The following variables have R-hat > 1.05: %1$s."
+"R-hat values for the posterior samples of the correlation coefficients are "
+"larger than 1.05.\n"
+"                                           This indicates that the chains "
+"have not converged well.\n"
+"                                           If you used the 'LD' sampling "
+"method try decreasing the nugget parameter or running the chains for more "
+"iterations.\n"
+"                                           The following variables have R-"
+"hat > 1.05: %1$s."
 msgstr ""
 "R-hat-waarden voor de posterieure steekproeven van de "
 "correlatiecoëfficiënten zijn groter dan 1,05. Dit geeft aan dat de ketens "
@@ -96,20 +102,22 @@ msgstr ""
 "probeer dan de nugget-parameter te verlagen of de ketens meer iteraties te "
 "laten draaien. De volgende variabelen hebben R-hat > 1,05: %1$s."
 
+#, fuzzy
 msgid ""
-"The multivariate R-hat value is larger than 1.05, indicating that the chains"
-"have not converged well.                               If you used the 'LD'"
-"sampling method try decreasing the nugget parameter or running the chains for"
-"more iterations."
+"The multivariate R-hat value is larger than 1.05, indicating that the chains "
+"have not converged well.\n"
+"                              If you used the 'LD' sampling method try "
+"decreasing the nugget parameter or running the chains for more iterations."
 msgstr ""
 "De multivariate R-hat-waarde is groter dan 1,05, wat aangeeft dat de ketens "
 "niet goed zijn geconvergeerd. Als u de 'LD'-steekproefmethode hebt gebruikt, "
 "probeer dan de nugget-parameter te verlagen of de ketens meer iteraties te "
 "laten draaien."
 
+#, fuzzy
 msgid ""
-"The number of factor levels in the grouping is greater than 2."
-"Only the first two levels were used."
+"The number of factor levels in the grouping is greater than 2.\n"
+"                                         Only the first two levels were used."
 msgstr ""
 "Het aantal factorlevels in de groepering is groter dan 2. Alleen de eerste "
 "twee levels zijn gebruikt."
@@ -123,7 +131,6 @@ msgstr "Pr(Geen effect)"
 msgid "Pr(Full Model)"
 msgstr "Pr(Volledige model)"
 
-#, qt-format
 msgid "Prior probabilities of the main effects: %1$s."
 msgstr "Prior-kansen van de hoofdeffecten: %1$s."
 
@@ -133,7 +140,6 @@ msgstr "Posterieure kansen voor interactie-effecten"
 msgid "Pr(Full model)"
 msgstr "Pr(Volledige model)"
 
-#, qt-format
 msgid "Prior probabilities of the interaction effects: %1$s."
 msgstr "Prior-kansen van de interactie-effecten: %1$s."
 
@@ -158,9 +164,10 @@ msgstr "Bewijsmatrix (BFs)"
 msgid "H1"
 msgstr "H1"
 
+#, fuzzy
 msgid ""
-"The BFs are to be interpreted as the hypotheses in rows over the hypotheses in"
-"columns."
+"The BFs are to be interpreted as the hypotheses in rows over the hypotheses "
+"in columns."
 msgstr ""
 "De BFs moeten worden geïnterpreteerd als de hypothesen in rijen ten opzichte "
 "van de hypothesen in kolommen."
@@ -222,21 +229,21 @@ msgstr "Gemiddelde"
 msgid "Median"
 msgstr "Mediaan"
 
-msgid "P(>0)"
-msgstr "P(>0)"
-
 msgid "The uncertainty interval is a central credible interval."
 msgstr "Het onzekerheidsinterval is een centraal geloofwaardigheidsinterval."
 
 msgid "The uncertainty interval is a frequentist confidence interval."
-msgstr "Het onzekerheidsinterval is een frequentistisch betrouwbaarheidsinterval."
+msgstr ""
+"Het onzekerheidsinterval is een frequentistisch betrouwbaarheidsinterval."
 
+#, fuzzy
 msgid ""
-"The uncertainty interval is a frequentist confidence interval as well as a"
+"The uncertainty interval is a frequentist confidence interval as well as a "
 "credible interval with a noninformative Jeffrey's prior."
 msgstr ""
-"Het onzekerheidsinterval is zowel een frequentistisch betrouwbaarheidsinterval "
-"als een geloofwaardigheidsinterval met een niet-informatieve Jeffrey-prior."
+"Het onzekerheidsinterval is zowel een frequentistisch "
+"betrouwbaarheidsinterval als een geloofwaardigheidsinterval met een niet-"
+"informatieve Jeffrey-prior."
 
 msgid "Log Standard Hypotheses: View BFs"
 msgstr "Log standaardhypothesen: bekijk BFs"
@@ -262,8 +269,9 @@ msgstr "Beste vs. H+"
 msgid "difference"
 msgstr "verschil"
 
+#, fuzzy
 msgid ""
-"If a cell is empty the hypothesis in that column is the best performing"
+"If a cell is empty the hypothesis in that column is the best performing "
 "hypothesis."
 msgstr ""
 "Als een cel leeg is, is de hypothese in die kolom de best presterende "
@@ -287,9 +295,6 @@ msgstr "Prior"
 msgid "Posterior"
 msgstr "Posterieur"
 
-msgid "%s%% CI "
-msgstr "%s%% BI "
-
 msgid "ρ"
 msgstr "ρ"
 
@@ -301,3 +306,9 @@ msgstr "x"
 
 msgid "Iterations"
 msgstr "Iteraties"
+
+#~ msgid "P(>0)"
+#~ msgstr "P(>0)"
+
+#~ msgid "%s%% CI "
+#~ msgstr "%s%% BI "

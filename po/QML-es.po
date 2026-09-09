@@ -9,6 +9,18 @@ msgctxt "Description|"
 msgid "BFpack"
 msgstr ""
 
+msgctxt "Description|"
+msgid ""
+"A module for computing Bayes factors for equality, inequality, and order "
+"constrained hypotheses."
+msgstr ""
+
+msgctxt "bfpackAnova|"
+msgid ""
+"Assign dependent variables, fixed factors, and optional covariates for the "
+"(M)AN(C)OVA model."
+msgstr ""
+
 msgctxt "bfpackAnova|"
 msgid ""
 "Available variables from the data set that can be assigned to the analysis."
@@ -19,7 +31,19 @@ msgid "Dependent Variables"
 msgstr ""
 
 msgctxt "bfpackAnova|"
+msgid ""
+"One or more continuous outcome variables. One dependent variable yields an "
+"AN(C)OVA; multiple dependent variables yield a MAN(C)OVA."
+msgstr ""
+
+msgctxt "bfpackAnova|"
 msgid "Fixed Factors"
+msgstr ""
+
+msgctxt "bfpackAnova|"
+msgid ""
+"Categorical grouping variables whose mean differences and interactions are "
+"tested in the model."
 msgstr ""
 
 msgctxt "bfpackAnova|"
@@ -27,7 +51,23 @@ msgid "Covariates"
 msgstr ""
 
 msgctxt "bfpackAnova|"
+msgid ""
+"Continuous predictors to adjust for in the analysis. Adding covariates turns "
+"the model into an ANCOVA or MANCOVA."
+msgstr ""
+
+msgctxt "bfpackAnova|"
 msgid "μ"
+msgstr ""
+
+msgctxt "bfpackAnova|"
+msgid "each adjusted mean or regression effect in the AN(C)OVA model"
+msgstr ""
+
+msgctxt "bfpackCorrelation|"
+msgid ""
+"Assign the variables whose correlations will be tested, plus optional "
+"grouping and covariate variables."
 msgstr ""
 
 msgctxt "bfpackCorrelation|"
@@ -40,7 +80,20 @@ msgid "Variables"
 msgstr ""
 
 msgctxt "bfpackCorrelation|"
+msgid ""
+"Select at least two variables whose correlations will be estimated and "
+"tested. Supported associations include product-moment, polychoric, "
+"tetrachoric, polyserial, and biserial correlations."
+msgstr ""
+
+msgctxt "bfpackCorrelation|"
 msgid "Grouping Variable"
+msgstr ""
+
+msgctxt "bfpackCorrelation|"
+msgid ""
+"Optional nominal grouping variable for testing independent correlations "
+"across groups."
 msgstr ""
 
 msgctxt "bfpackCorrelation|"
@@ -61,6 +114,12 @@ msgstr ""
 
 msgctxt "bfpackRegressionLinear|"
 msgid ""
+"Assign continuous dependent variables and predictor variables for the linear "
+"regression model."
+msgstr ""
+
+msgctxt "bfpackRegressionLinear|"
+msgid ""
 "Available variables from the data set that can be assigned to the analysis."
 msgstr ""
 
@@ -69,7 +128,19 @@ msgid "Dependent Variables"
 msgstr ""
 
 msgctxt "bfpackRegressionLinear|"
+msgid ""
+"One or more continuous outcome variables. Multiple dependent variables fit a "
+"multivariate multiple regression."
+msgstr ""
+
+msgctxt "bfpackRegressionLinear|"
 msgid "Predictor Variables"
+msgstr ""
+
+msgctxt "bfpackRegressionLinear|"
+msgid ""
+"Predictor variables for the regression model. Nominal and ordinal predictors "
+"are dummy coded automatically when needed."
 msgstr ""
 
 msgctxt "bfpackRegressionLinear|"
@@ -82,11 +153,24 @@ msgstr ""
 
 msgctxt "bfpackRegressionLogistic|"
 msgid ""
+"Assign an ordinal or nominal dependent variable and predictor variables for "
+"the logistic regression model."
+msgstr ""
+
+msgctxt "bfpackRegressionLogistic|"
+msgid ""
 "Available variables from the data set that can be assigned to the analysis."
 msgstr ""
 
 msgctxt "bfpackRegressionLogistic|"
 msgid "Dependent Variable"
+msgstr ""
+
+msgctxt "bfpackRegressionLogistic|"
+msgid ""
+"Outcome variable for the logistic model. Ordinal outcomes fit an ordered "
+"logistic regression; binary nominal outcomes fit a binary logistic "
+"regression."
 msgstr ""
 
 msgctxt "bfpackRegressionLogistic|"
@@ -103,6 +187,12 @@ msgstr ""
 
 msgctxt "bfpackRegressionLogistic|"
 msgid "each logistic regression coefficient"
+msgstr ""
+
+msgctxt "bfpackTTestIndependentSamples|"
+msgid ""
+"Assign one continuous outcome variable and one nominal grouping variable for "
+"the independent samples t-test."
 msgstr ""
 
 msgctxt "bfpackTTestIndependentSamples|"
@@ -136,6 +226,12 @@ msgstr ""
 
 msgctxt "bfpackTTestMultiSample|"
 msgid ""
+"Assign the continuous variables whose means will be tested jointly in the "
+"multivariate t-test."
+msgstr ""
+
+msgctxt "bfpackTTestMultiSample|"
+msgid ""
 "Available variables from the data set that can be assigned to the analysis."
 msgstr ""
 
@@ -157,6 +253,12 @@ msgstr ""
 
 msgctxt "bfpackTTestMultiSample|"
 msgid "Specify test value"
+msgstr ""
+
+msgctxt "bfpackTTestMultiSample|"
+msgid ""
+"Set the reference mean for each selected variable in the standard hypothesis "
+"test."
 msgstr ""
 
 #, qt-format
@@ -216,6 +318,12 @@ msgstr ""
 
 msgctxt "bfpackVariances|"
 msgid ""
+"Assign one outcome variable and one grouping variable for the variance "
+"comparison."
+msgstr ""
+
+msgctxt "bfpackVariances|"
+msgid ""
 "Available variables from the data set that can be assigned to the analysis."
 msgstr ""
 
@@ -240,11 +348,25 @@ msgid "the group variances"
 msgstr ""
 
 msgctxt "HypothesesWindowManual|"
+msgid ""
+"Specify confirmatory hypotheses with equality (=) and order (<, >) "
+"constraints on the available parameters. Separate multiple hypotheses into "
+"rows and optionally include a complement hypothesis."
+msgstr ""
+
+msgctxt "HypothesesWindowManual|"
 msgid "<b>Manual Hypothesis Test</b>"
 msgstr ""
 
 msgctxt "HypothesesWindowManual|"
 msgid "Click for more information"
+msgstr ""
+
+msgctxt "HypothesesWindowManual|"
+msgid ""
+"List of manually specified hypotheses. Use parameter names from the "
+"Parameters box, assign prior weights, and tick Include for the hypotheses "
+"that should be tested."
 msgstr ""
 
 msgctxt "HypothesesWindowManual|"
@@ -262,6 +384,12 @@ msgstr ""
 #, qt-format
 msgctxt "HypothesesWindowManual|"
 msgid "H%1:"
+msgstr ""
+
+msgctxt "HypothesesWindowManual|"
+msgid ""
+"Enter a constrained hypothesis using the shown parameter names, for example "
+"a = 0, a > 0, or a > b > 0."
 msgstr ""
 
 msgctxt "HypothesesWindowManual|"
@@ -324,6 +452,13 @@ msgstr ""
 
 #, qt-format
 msgctxt "HypothesesWindowStandard|"
+msgid ""
+"Tests whether %1 is equal to, smaller than, or larger than the specified "
+"test value."
+msgstr ""
+
+#, qt-format
+msgctxt "HypothesesWindowStandard|"
 msgid "Tests whether %1 is equal to, smaller than, or larger than zero."
 msgstr ""
 
@@ -369,6 +504,12 @@ msgid "Reference value used in the standard hypothesis test for %1."
 msgstr ""
 
 msgctxt "HypothesesWindowStandard|"
+msgid ""
+"Prior weight for the first standard hypothesis. Larger values assign more "
+"prior probability to that hypothesis."
+msgstr ""
+
+msgctxt "HypothesesWindowStandard|"
 msgid "Prior weight for the second standard hypothesis."
 msgstr ""
 
@@ -378,6 +519,12 @@ msgstr ""
 
 msgctxt "Options|"
 msgid "Options"
+msgstr ""
+
+msgctxt "Options|"
+msgid ""
+"Configure Bayes factor reporting, tables, plots, uncertainty intervals, "
+"sampling settings, and model-specific options."
 msgstr ""
 
 msgctxt "Options|"
@@ -397,11 +544,29 @@ msgid "Bayes factor type"
 msgstr ""
 
 msgctxt "Options|"
+msgid ""
+"Choose how the default fractional Bayes factor prior is centered for "
+"hypothesis testing."
+msgstr ""
+
+msgctxt "Options|"
 msgid "Fractional Bayes factor"
 msgstr ""
 
 msgctxt "Options|"
+msgid ""
+"Uses the default fractional Bayes factor, with the fractional prior centered "
+"at the maximum likelihood estimate."
+msgstr ""
+
+msgctxt "Options|"
 msgid "Adjusted fractional Bayes factor"
+msgstr ""
+
+msgctxt "Options|"
+msgid ""
+"Uses the adjusted fractional Bayes factor, with the fractional prior "
+"centered at a null value."
 msgstr ""
 
 msgctxt "Options|"
@@ -422,6 +587,12 @@ msgstr ""
 
 msgctxt "Options|"
 msgid "Manual hypotheses: Computation BFs"
+msgstr ""
+
+msgctxt "Options|"
+msgid ""
+"Show the table with fit, complexity, and Bayes factor components for the "
+"manual hypotheses."
 msgstr ""
 
 msgctxt "Options|"
@@ -529,6 +700,12 @@ msgid "Unequal"
 msgstr ""
 
 msgctxt "Options|"
+msgid ""
+"Allow the two groups to have different variances. Bayes factors are then "
+"approximated by iterative sampling."
+msgstr ""
+
+msgctxt "Options|"
 msgid "No. iterations for BF computation"
 msgstr ""
 
@@ -574,7 +751,19 @@ msgid "Nugget"
 msgstr ""
 
 msgctxt "Options|"
+msgid ""
+"Scaling factor used with the LD sampler to keep sampled correlations away "
+"from plus or minus one when needed."
+msgstr ""
+
+msgctxt "Options|"
 msgid "Exclude intercept from the model"
+msgstr ""
+
+msgctxt "Options|"
+msgid ""
+"Remove the intercept from the fitted model. This is often appropriate for "
+"ANOVA-style parameterizations."
 msgstr ""
 
 msgctxt "Options|"
@@ -596,11 +785,23 @@ msgid "Include"
 msgstr ""
 
 msgctxt "Options|"
+msgid ""
+"Available two-way interaction terms generated from the selected predictors, "
+"factors, or covariates."
+msgstr ""
+
+msgctxt "Options|"
 msgid "Include this interaction term in the model."
 msgstr ""
 
 msgctxt "Options|"
 msgid "Effects"
+msgstr ""
+
+msgctxt "Options|"
+msgid ""
+"Prior weights for the omnibus hypotheses that main and interaction effects "
+"are absent or present in the ANOVA model."
 msgstr ""
 
 msgctxt "Options|"
@@ -640,215 +841,14 @@ msgid "Prior weight for the hypothesis that an interaction effect is present."
 msgstr ""
 
 msgctxt "ParametersWindow|"
-msgid "<b>Parameters:</b>"
-msgstr ""
-
-msgctxt "Description|"
-msgid ""
-"A module for computing Bayes factors for equality, inequality, and order "
-"constrained hypotheses."
-msgstr ""
-
-msgctxt "bfpackAnova|"
-msgid ""
-"Assign dependent variables, fixed factors, and optional covariates for the "
-"(M)AN(C)OVA model."
-msgstr ""
-
-msgctxt "bfpackAnova|"
-msgid ""
-"One or more continuous outcome variables. One dependent variable yields an "
-"AN(C)OVA; multiple dependent variables yield a MAN(C)OVA."
-msgstr ""
-
-msgctxt "bfpackAnova|"
-msgid ""
-"Categorical grouping variables whose mean differences and interactions are "
-"tested in the model."
-msgstr ""
-
-msgctxt "bfpackAnova|"
-msgid ""
-"Continuous predictors to adjust for in the analysis. Adding covariates turns "
-"the model into an ANCOVA or MANCOVA."
-msgstr ""
-
-msgctxt "bfpackAnova|"
-msgid "each adjusted mean or regression effect in the AN(C)OVA model"
-msgstr ""
-
-msgctxt "bfpackCorrelation|"
-msgid ""
-"Assign the variables whose correlations will be tested, plus optional "
-"grouping and covariate variables."
-msgstr ""
-
-msgctxt "bfpackCorrelation|"
-msgid ""
-"Select at least two variables whose correlations will be estimated and "
-"tested. Supported associations include product-moment, polychoric, "
-"tetrachoric, polyserial, and biserial correlations."
-msgstr ""
-
-msgctxt "bfpackCorrelation|"
-msgid ""
-"Optional nominal grouping variable for testing independent correlations "
-"across groups."
-msgstr ""
-
-msgctxt "bfpackRegressionLinear|"
-msgid ""
-"Assign continuous dependent variables and predictor variables for the linear "
-"regression model."
-msgstr ""
-
-msgctxt "bfpackRegressionLinear|"
-msgid ""
-"One or more continuous outcome variables. Multiple dependent variables fit a "
-"multivariate multiple regression."
-msgstr ""
-
-msgctxt "bfpackRegressionLinear|"
-msgid ""
-"Predictor variables for the regression model. Nominal and ordinal predictors "
-"are dummy coded automatically when needed."
-msgstr ""
-
-msgctxt "bfpackRegressionLogistic|"
-msgid ""
-"Assign an ordinal or nominal dependent variable and predictor variables for "
-"the logistic regression model."
-msgstr ""
-
-msgctxt "bfpackRegressionLogistic|"
-msgid ""
-"Outcome variable for the logistic model. Ordinal outcomes fit an ordered "
-"logistic regression; binary nominal outcomes fit a binary logistic "
-"regression."
-msgstr ""
-
-msgctxt "bfpackTTestIndependentSamples|"
-msgid ""
-"Assign one continuous outcome variable and one nominal grouping variable for "
-"the independent samples t-test."
-msgstr ""
-
-msgctxt "bfpackTTestMultiSample|"
-msgid ""
-"Assign the continuous variables whose means will be tested jointly in the "
-"multivariate t-test."
-msgstr ""
-
-msgctxt "bfpackTTestMultiSample|"
-msgid ""
-"Set the reference mean for each selected variable in the standard hypothesis "
-"test."
-msgstr ""
-
-msgctxt "bfpackVariances|"
-msgid ""
-"Assign one outcome variable and one grouping variable for the variance "
-"comparison."
-msgstr ""
-
-msgctxt "HypothesesWindowManual|"
-msgid ""
-"Specify confirmatory hypotheses with equality (=) and order (<, >) "
-"constraints on the available parameters. Separate multiple hypotheses into "
-"rows and optionally include a complement hypothesis."
-msgstr ""
-
-msgctxt "HypothesesWindowManual|"
-msgid ""
-"List of manually specified hypotheses. Use parameter names from the "
-"Parameters box, assign prior weights, and tick Include for the hypotheses "
-"that should be tested."
-msgstr ""
-
-msgctxt "HypothesesWindowManual|"
-msgid ""
-"Enter a constrained hypothesis using the shown parameter names, for example "
-"a = 0, a > 0, or a > b > 0."
-msgstr ""
-
-#, qt-format
-msgctxt "HypothesesWindowStandard|"
-msgid ""
-"Tests whether %1 is equal to, smaller than, or larger than the specified "
-"test value."
-msgstr ""
-
-msgctxt "HypothesesWindowStandard|"
-msgid ""
-"Prior weight for the first standard hypothesis. Larger values assign more "
-"prior probability to that hypothesis."
-msgstr ""
-
-msgctxt "Options|"
-msgid ""
-"Configure Bayes factor reporting, tables, plots, uncertainty intervals, "
-"sampling settings, and model-specific options."
-msgstr ""
-
-msgctxt "Options|"
-msgid ""
-"Choose how the default fractional Bayes factor prior is centered for "
-"hypothesis testing."
-msgstr ""
-
-msgctxt "Options|"
-msgid ""
-"Uses the default fractional Bayes factor, with the fractional prior centered "
-"at the maximum likelihood estimate."
-msgstr ""
-
-msgctxt "Options|"
-msgid ""
-"Uses the adjusted fractional Bayes factor, with the fractional prior "
-"centered at a null value."
-msgstr ""
-
-msgctxt "Options|"
-msgid ""
-"Show the table with fit, complexity, and Bayes factor components for the "
-"manual hypotheses."
-msgstr ""
-
-msgctxt "Options|"
-msgid ""
-"Allow the two groups to have different variances. Bayes factors are then "
-"approximated by iterative sampling."
-msgstr ""
-
-msgctxt "Options|"
-msgid ""
-"Scaling factor used with the LD sampler to keep sampled correlations away "
-"from plus or minus one when needed."
-msgstr ""
-
-msgctxt "Options|"
-msgid ""
-"Remove the intercept from the fitted model. This is often appropriate for "
-"ANOVA-style parameterizations."
-msgstr ""
-
-msgctxt "Options|"
-msgid ""
-"Available two-way interaction terms generated from the selected predictors, "
-"factors, or covariates."
-msgstr ""
-
-msgctxt "Options|"
-msgid ""
-"Prior weights for the omnibus hypotheses that main and interaction effects "
-"are absent or present in the ANOVA model."
-msgstr ""
-
-msgctxt "ParametersWindow|"
 msgid ""
 "Shows the parameter names that are currently available for manual equality "
 "and order constraints. The labels depend on the selected variables and the "
 "fitted model."
+msgstr ""
+
+msgctxt "ParametersWindow|"
+msgid "<b>Parameters:</b>"
 msgstr ""
 
 msgctxt "ParametersWindow|"
