@@ -853,7 +853,8 @@ msgstr "LKJ"
 
 msgctxt "Options|"
 msgid "Use the LKJ method to sample correlation matrices."
-msgstr "Usar el método LKJ para hacer el muestreo de matrices de correlaciones."
+msgstr ""
+"Usar el método LKJ para hacer el muestreo de matrices de correlaciones."
 
 msgctxt "Options|"
 msgid "LD"
