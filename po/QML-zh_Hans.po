@@ -512,8 +512,8 @@ msgstr "选项"
 
 msgctxt "Options|"
 msgid ""
-"Configure Bayes factor reporting, tables, plots, uncertainty intervals,"
-"sampling settings, and model-specific options."
+"Configure Bayes factor reporting, tables, plots, uncertainty "
+"intervals,sampling settings, and model-specific options."
 msgstr ""
 "配置贝叶斯因子报告、表格、绘图、不确定区间、采样设置和特定于模型的选项。"
 
@@ -776,8 +776,8 @@ msgstr "Include"
 
 msgctxt "Options|"
 msgid ""
-"Available two-way interaction terms generated from the selected predictors,"
-"factors, or covariates."
+"Available two-way interaction terms generated from the selected "
+"predictors,factors, or covariates."
 msgstr "由所选预测变量、因子或协变量生成的可用双向交互项。"
 
 msgctxt "Options|"
