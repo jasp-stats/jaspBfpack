@@ -589,7 +589,7 @@
       }
     }
 
-    if (type %in% c("tTestIndependentSamples", "anova", "tTestMultiSample"))
+    if (type %in% c("tTestIndependentSamples", "anova", "tTestMultiSamples"))
       iterations <- options[["iterationsBayesFactor"]]
     else
       iterations <- NULL

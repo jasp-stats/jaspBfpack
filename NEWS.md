@@ -27,6 +27,7 @@
 * Interaction terms in the manual hypotheses legend show `:` instead of `___X___`.
 
 ## Fixed
+* Multivariate one-sample t-test: the Iterations Bayes factor setting was never passed on to BFpack because of a typo in the analysis type (`tTestMultiSample`). It is passed now; BFpack (1.6.0 and current master 1.6.3) ignores `iter` for this test, so the results do not change.
 * Correlation: with more than one covariate, the covariate columns were moved to the end by comparing the column names with the covariates element-wise (`==` recycling) instead of with `%in%`. Depending on the entry order this could permute the covariate columns among themselves. The variables never moved. Covariate order only changes results within Monte Carlo error.
 * The grouping variable (correlation, independent samples t-test, variances) was validated with the type of the first variable. A grouping variable with more than two levels was rejected with "Number of factor levels is ≠ 2" when the first variable was nominal.
 
