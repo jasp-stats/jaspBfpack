@@ -605,6 +605,29 @@
                              cov.prob = options[["ciLevel"]],
                              iter = iterations))
 
+    # BFpack's pooled-variance t-test method ignores the null value (muValue) of the t_test object, so the exploratory
+    # test of "difference = muValue" is recomputed with the first group mean shifted by muValue. The manual hypotheses
+    # and the estimates keep referring to the unshifted difference, as for the Welch test.
+    if (type == "tTestIndependentSamples" && options[["variances"]] == "equal" && options[["muValue"]] != 0 &&
+        !isTryError(results)) {
+      shiftedEstimates <- estimates
+      shiftedEstimates$estimate[1] <- shiftedEstimates$estimate[1] - options[["muValue"]]
+      .setSeedJASP(options)
+      resultsMu <- try(BFpack::BF(shiftedEstimates,
+                                  complement = options[["complement"]],
+                                  prior.hyp.explo = standPrior,
+                                  log = options[["logScale"]],
+                                  BF.type = bftype,
+                                  cov.prob = options[["ciLevel"]],
+                                  iter = iterations))
+      if (!isTryError(resultsMu)) {
+        results[["BFtu_exploratory"]] <- resultsMu[["BFtu_exploratory"]]
+        results[["PHP_exploratory"]]  <- resultsMu[["PHP_exploratory"]]
+      } else {
+        results <- resultsMu
+      }
+    }
+
     if (isTryError(results)) {
 
       if (grepl("parse_hyp$hyp_mat", results, fixed = TRUE) || grepl("pattern", results, fixed = TRUE)) {

@@ -27,6 +27,7 @@
 * Interaction terms in the manual hypotheses legend show `:` instead of `___X___`.
 
 ## Fixed
+* Independent samples t-test with equal variances ignored the test value (`muValue`) in the exploratory posterior probabilities and Bayes factors (they always tested a difference of 0). They now test `difference = muValue`, as the unequal variances option already did.
 * Correlation: with more than one covariate, the covariate columns were moved to the end by comparing the column names with the covariates element-wise (`==` recycling) instead of with `%in%`. Depending on the entry order this could permute the covariate columns among themselves. The variables never moved. Covariate order only changes results within Monte Carlo error.
 * The grouping variable (correlation, independent samples t-test, variances) was validated with the type of the first variable. A grouping variable with more than two levels was rejected with "Number of factor levels is ≠ 2" when the first variable was nominal.
 
