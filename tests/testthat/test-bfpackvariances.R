@@ -62,3 +62,18 @@ test_that("Estimates Table results match", {
                                       1.33832309757562, "m", 0.900914395996814, 1.34605070858815,
                                       1.3088739556896, 2.00489782245158))
 })
+
+# "View BFs" table: H± vs. H0 is the reciprocal of H0 vs. H±, i.e. the negative on the log scale
+for (logScale in c(FALSE, TRUE)) {
+  test_that(paste0("Standard hypotheses View BFs table: second BF is the reciprocal (logScale = ", logScale, ")"), {
+    optionsViewBfs <- options
+    optionsViewBfs$tablesStandardHypothesesViewBfs <- TRUE
+    optionsViewBfs$logScale <- logScale
+    set.seed(1)
+    resultsViewBfs <- runAnalysis("bfpackVariances", "debug.csv", optionsViewBfs, makeTests = F)
+    table <- resultsViewBfs[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_stdBfTable"]][["data"]]
+    expect_length(table, 1)
+    expected <- if (logScale) -table[[1]][["bf1"]] else 1 / table[[1]][["bf1"]]
+    expect_equal(table[[1]][["bf2"]], expected)
+  })
+}

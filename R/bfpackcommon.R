@@ -1040,7 +1040,9 @@
     title2 <- gettext("H± vs. H0")
     stdBfTable$addColumnInfo(name = "bf1", title = title1, type = "number")
     stdBfTable$addColumnInfo(name = "bf2", title = title2, type = "number")
-    stdBfTable$setData(data.frame(bf1 = bfs[1], bf2 = 1/bfs[1]))
+    # BFpack already returns log BFs when logScale is on, so the reciprocal BF is the negative log BF
+    bf2 <- if (isTRUE(options[["logScale"]])) -bfs[1] else 1 / bfs[1]
+    stdBfTable$setData(data.frame(bf1 = bfs[1], bf2 = bf2))
 
   } else {
 

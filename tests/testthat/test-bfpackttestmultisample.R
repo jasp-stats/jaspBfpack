@@ -58,3 +58,18 @@ test_that("Posterior model probability table results match", {
   jaspTools::expect_equal_tables(table,
                                  list("H1", 9.23271288425205e-20, "H2", 1))
 })
+
+# "View BFs" table: H± vs. H0 is the reciprocal of H0 vs. H±, i.e. the negative on the log scale
+for (logScale in c(FALSE, TRUE)) {
+  test_that(paste0("Standard hypotheses View BFs table: second BF is the reciprocal (logScale = ", logScale, ")"), {
+    optionsViewBfs <- options
+    optionsViewBfs$tablesStandardHypothesesViewBfs <- TRUE
+    optionsViewBfs$logScale <- logScale
+    set.seed(1)
+    resultsViewBfs <- jaspTools::runAnalysis("bfpackTTestMultiSample", "debug.csv", optionsViewBfs)
+    table <- resultsViewBfs[["results"]][["bfpackContainer"]][["collection"]][["bfpackContainer_stdBfTable"]][["data"]]
+    expect_length(table, 1)
+    expected <- if (logScale) -table[[1]][["bf1"]] else 1 / table[[1]][["bf1"]]
+    expect_equal(table[[1]][["bf2"]], expected)
+  })
+}
