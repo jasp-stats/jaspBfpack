@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-bfpackAnova <- function(jaspResults, dataset, options, ...) {
+bfpackAnovaInternal <- function(jaspResults, dataset, options, ...) {
 
   # What type of BFpack analysis is being conducted?
   type <- "anova"
