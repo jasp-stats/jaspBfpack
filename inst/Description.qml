@@ -7,7 +7,7 @@ Description
 	description		: qsTr("A module for computing Bayes factors for equality, inequality, and order constrained hypotheses.")
 	icon			: "bain-module"
 	requiresData		: true
-	hasWrappers		: false
+	hasWrappers		: true
 	preloadData: 	true
 
 	GroupTitle

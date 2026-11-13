@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-bfpackTTestMultiSample <- function(jaspResults, dataset, options, ...) {
+bfpackTTestMultiSampleInternal <- function(jaspResults, dataset, options, ...) {
 
 
   # What type of BFpack analysis is being conducted?

@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-bfpackTTestOneSample <- function(jaspResults, dataset, options, ...) {
+bfpackTTestOneSampleInternal <- function(jaspResults, dataset, options, ...) {
 
   # What type of BFpack analysis is being conducted?
   type <- "tTestOneSample"
